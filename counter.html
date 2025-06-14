@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Love Story - Câu chuyện của Sơn và Tiên</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-attachment: fixed;
+        overflow-x: hidden;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 182, 193, 0.7);
+        font-size: 20px;
+        animation: float 6s infinite linear;
+        will-change: transform;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      /* Navigation Menu */
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        z-index: 1000;
+        transition: all 0.3s ease;
+      }
+
+      .nav-menu.scrolled {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      .nav-logo {
+        font-size: 1.3em;
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: color 0.3s ease;
+      }
+
+      .nav-menu.scrolled .nav-logo {
+        color: #333;
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-size: 0.9em;
+        font-weight: 500;
+        padding: 8px 12px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+
+      .nav-menu.scrolled .nav-links a {
+        color: #333;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .mobile-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 4px;
+      }
+
+      .mobile-toggle span {
+        width: 25px;
+        height: 3px;
+        background: white;
+        transition: 0.3s;
+      }
+
+      .nav-menu.scrolled .mobile-toggle span {
+        background: #333;
+      }
+
+      header {
+        text-align: center;
+        padding: 100px 20px 60px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 0 0 30px 30px;
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        font-size: clamp(2em, 8vw, 3.5em);
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        margin-bottom: 15px;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 182, 193, 0.5);
+        }
+        to {
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 182, 193, 0.8);
+        }
+      }
+
+      .subtitle {
+        font-size: clamp(1em, 4vw, 1.3em);
+        color: rgba(255, 255, 255, 0.9);
+        font-style: italic;
+      }
+
+      .section {
+        max-width: 1200px;
+        margin: 0 auto 60px;
+        padding: 0 20px;
+      }
+
+      /* Love Counter */
+      .love-counter {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 60px;
+      }
+
+      .counter-title {
+        font-size: clamp(1.5em, 5vw, 2.5em);
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .counter-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .counter-item {
+        text-align: center;
+        padding: 20px 10px;
+        background: linear-gradient(135deg, #ff6b6b, #feca57);
+        border-radius: 15px;
+        color: white;
+        transition: transform 0.3s ease;
+      }
+
+      .counter-item:hover {
+        transform: scale(1.05);
+      }
+
+      .counter-number {
+        font-size: clamp(1.5em, 6vw, 2.5em);
+        font-weight: bold;
+        display: block;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .counter-label {
+        font-size: clamp(0.9em, 3vw, 1.2em);
+        margin-top: 5px;
+      }
+
+      /* Timeline */
+      .love-timeline {
+        display: grid;
+        gap: 40px;
+      }
+
+      .timeline-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timeline-item:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+        background-size: 300% 100%;
+        animation: gradient 3s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .timeline-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .timeline-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .timeline-date {
+        font-size: clamp(0.9em, 3vw, 1.1em);
+        color: #ff6b6b;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .timeline-title {
+        font-size: clamp(1.3em, 5vw, 2em);
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .timeline-description {
+        font-size: clamp(0.9em, 3vw, 1.1em);
+        color: #666;
+        line-height: 1.6;
+      }
+
+      .timeline-image {
+        width: 200px;
+        height: 150px;
+        border-radius: 12px;
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
+        overflow: hidden;
+      }
+
+      .timeline-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      /* Gallery */
+      .love-gallery {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .gallery-title {
+        font-size: clamp(1.5em, 5vw, 2.5em);
+        color: #333;
+        margin-bottom: 30px;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 30px;
+      }
+
+      .photo-grid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        cursor: pointer;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .photo-grid img:hover {
+        transform: scale(1.05);
+        filter: brightness(1.1);
+      }
+
+      /* Message Section */
+      .message-section {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px 20px;
+        border-radius: 20px;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .love-message {
+        font-size: clamp(1em, 4vw, 1.5em);
+        color: #333;
+        line-height: 1.8;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+
+      .signature {
+        font-size: clamp(1em, 3vw, 1.2em);
+        color: #ff6b6b;
+        font-weight: bold;
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .nav-links {
+          position: fixed;
+          top: 60px;
+          left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          padding: 20px;
+          transform: translateY(-100%);
+          transition: transform 0.3s ease;
+          gap: 10px;
+        }
+
+        .nav-links.active {
+          transform: translateY(0);
+        }
+
+        .nav-links a {
+          color: #333;
+          padding: 12px 20px;
+          border-radius: 25px;
+          background: rgba(102, 126, 234, 0.1);
+          width: 100%;
+          text-align: center;
+        }
+
+        .mobile-toggle {
+          display: flex;
+        }
+
+        .mobile-toggle.active span:nth-child(1) {
+          transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-toggle.active span:nth-child(2) {
+          opacity: 0;
+        }
+
+        .mobile-toggle.active span:nth-child(3) {
+          transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        header {
+          padding: 80px 20px 40px;
+        }
+
+        .timeline-item {
+          flex-direction: column;
+          text-align: center;
+          gap: 20px;
+        }
+
+        .timeline-item:nth-child(even) {
+          flex-direction: column;
+        }
+
+        .timeline-image {
+          width: 100%;
+          max-width: 250px;
+          height: 180px;
+        }
+
+        .counter-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+
+        .photo-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+        }
+
+        .photo-grid img {
+          height: 150px;
+        }
+
+        /* Reduce floating hearts on mobile */
+        .heart {
+          font-size: 16px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .section {
+          padding: 0 15px;
+        }
+
+        .nav-container {
+          padding: 10px 15px;
+        }
+
+        .counter-item {
+          padding: 15px 8px;
+        }
+
+        .timeline-item {
+          padding: 20px 15px;
+        }
+
+        .love-counter,
+        .love-gallery,
+        .message-section {
+          padding: 30px 15px;
+        }
+      }
+
+      /* Performance optimizations */
+      .timeline-item,
+      .counter-item,
+      .photo-grid img {
+        will-change: transform;
+      }
+
+      /* Lazy loading effect */
+      .timeline-item {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .timeline-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">💕 Love Story</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="home.html">Trang chủ</a></li>
+          <li><a href="counter.html">Thời gian</a></li>
+          <li><a href="timeline.html">Kỷ niệm</a></li>
+          <li><a href="gallery.html">Ảnh</a></li>
+          <li><a href="message.html">Lời nhắn</a></li>
+        </ul>
+        <div class="mobile-toggle" id="mobileToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <header>
+        <h1>💕 Love Story 💕</h1>
+        <p class="subtitle">Câu chuyện tình yêu của Sơn và Tiên</p>
+      </header>
+
+      <div class="section">
+        <div class="love-counter">
+          <h2 class="counter-title">Chúng ta đã yêu nhau được</h2>
+          <div class="counter-grid">
+            <div class="counter-item">
+              <span class="counter-number" id="years">0</span>
+              <div class="counter-label">Năm</div>
+            </div>
+            <div class="counter-item">
+              <span class="counter-number" id="days">0</span>
+              <div class="counter-label">Ngày</div>
+            </div>
+            <div class="counter-item">
+              <span class="counter-number" id="hours">0</span>
+              <div class="counter-label">Giờ</div>
+            </div>
+            <div class="counter-item">
+              <span class="counter-number" id="minutes">0</span>
+              <div class="counter-label">Phút</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="love-timeline">
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">04/09/2024</div>
+              <h3 class="timeline-title">Sét đánh nhưng không die</h3>
+              <p class="timeline-description">
+                Ngày định mệnh khi đôi mắt chúng ta gặp nhau. Thời gian như
+                ngừng lại, và trái tim bắt đầu đập nhanh hơn. Đó là khoảnh khắc
+                tuyệt vời nhất trong cuộc đời.
+              </p>
+            </div>
+            <div class="timeline-image">💕</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">15/03/2022</div>
+              <h3 class="timeline-title">Cuộc hẹn đầu tiên</h3>
+              <p class="timeline-description">
+                Buổi hẹn hò đầu tiên tại quán cà phê nhỏ. Chúng ta nói chuyện
+                hàng giờ như thể đã quen nhau từ lâu. Nụ cười của em làm anh
+                quên đi cả thế giới xung quanh.
+              </p>
+            </div>
+            <div class="timeline-image">☕</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">20/05/2022</div>
+              <h3 class="timeline-title">Lời tỏ tình</h3>
+              <p class="timeline-description">
+                Dưới ánh trăng tràn đầy, anh đã nói ra những lời yêu thương chân
+                thành nhất. "Kiếm chém vào người có THÀNH ĐÔI không" - câu hỏi
+                đơn giản nhưng thay đổi cuộc đời chúng ta.
+              </p>
+            </div>
+            <div class="timeline-image">🌙</div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-date">25/12/2023</div>
+              <h3 class="timeline-title">Giáng sinh đáng nhớ</h3>
+              <p class="timeline-description">
+                Mùa Giáng sinh đầu tiên bên nhau, chúng ta trao nhau những món
+                quà ý nghĩa và hứa hẹn sẽ luôn ở bên nhau qua mọi mùa Giáng sinh
+                sắp tới.
+              </p>
+            </div>
+            <div class="timeline-image">🎄</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="love-gallery">
+          <h2 class="gallery-title">Ảnh của HAI đứa nè</h2>
+          <div class="photo-grid">
+            <img
+              src="https://via.placeholder.com/300x200/ff6b6b/ffffff?text=Photo+1"
+              alt="Khoảnh khắc yêu thương"
+            />
+            <img
+              src="https://via.placeholder.com/300x200/48dbfb/ffffff?text=Photo+2"
+              alt="Khoảnh khắc yêu thương"
+            />
+            <img
+              src="https://via.placeholder.com/300x200/feca57/ffffff?text=Photo+3"
+              alt="Khoảnh khắc yêu thương"
+            />
+            <img
+              src="https://via.placeholder.com/300x200/ff9ff3/ffffff?text=Photo+4"
+              alt="Khoảnh khắc yêu thương"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="message-section">
+          <p class="love-message">
+            "Tình yêu không phải là nhìn vào mắt nhau, mà là cùng nhau nhìn về
+            một hướng. Em là người đồng hành tuyệt vời nhất trong cuộc hành
+            trình này. Anh yêu em không chỉ vì những gì em đang có, mà còn vì
+            những gì anh trở thành khi ở bên em."
+          </p>
+          <div class="signature">💕 Yêu Tiên Nhất Trên Đời 💕</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      const mobileToggle = document.getElementById("mobileToggle");
+      const navLinks = document.getElementById("navLinks");
+      const navMenu = document.getElementById("navMenu");
+
+      mobileToggle.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
+        mobileToggle.classList.toggle("active");
+      });
+
+      // Close menu when clicking on links
+      navLinks.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navLinks.classList.remove("active");
+          mobileToggle.classList.remove("active");
+        });
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 50) {
+          navMenu.classList.add("scrolled");
+        } else {
+          navMenu.classList.remove("scrolled");
+        }
+      });
+
+      // Optimized heart creation for mobile
+      let heartCount = 0;
+      const maxHearts = window.innerWidth < 768 ? 8 : 15;
+
+      function createHeart() {
+        if (heartCount >= maxHearts) return;
+
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = Math.random() > 0.5 ? "💖" : "🥰";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        heart.style.fontSize = Math.random() * 10 + 15 + "px";
+
+        document.getElementById("heartsContainer").appendChild(heart);
+        heartCount++;
+
+        setTimeout(() => {
+          heart.remove();
+          heartCount--;
+        }, 6000);
+      }
+
+      // Reduce heart creation frequency on mobile
+      const heartInterval = window.innerWidth < 768 ? 800 : 400;
+      setInterval(createHeart, heartInterval);
+
+      // Love counter
+      function updateLoveCounter() {
+        const startDate = new Date("2024-09-04");
+        const now = new Date();
+        const diff = now - startDate;
+
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor(diff / (1000 * 60));
+
+        document.getElementById("years").textContent = years;
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours.toLocaleString();
+        document.getElementById("minutes").textContent =
+          minutes.toLocaleString();
+      }
+
+      updateLoveCounter();
+      setInterval(updateLoveCounter, 60000);
+
+      // Optimized scroll animations
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        }
+      );
+
+      // Observe timeline items
+      document.querySelectorAll(".timeline-item").forEach((item) => {
+        observer.observe(item);
+      });
+
+      // Photo click effects
+      document.querySelectorAll(".photo-grid img").forEach((img) => {
+        img.addEventListener("click", function () {
+          this.style.transform = "scale(0.95)";
+          setTimeout(() => {
+            this.style.transform = "scale(1.05)";
+          }, 100);
+          setTimeout(() => {
+            this.style.transform = "scale(1)";
+          }, 200);
+        });
+      });
+
+      // Performance optimization: Throttle scroll events
+      let ticking = false;
+      function updateOnScroll() {
+        // Add any scroll-based updates here
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          requestAnimationFrame(updateOnScroll);
+          ticking = true;
+        }
+      });
+    </script>
+  </body>
+</html>

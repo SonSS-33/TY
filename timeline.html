@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kỷ Niệm Đáng Nhớ - Sơn & Tiên</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+        margin: 0;
+        padding: 0;
+        color: #333;
+        min-height: 100vh;
+      }
+
+      header {
+        text-align: center;
+        padding: 40px 15px 25px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+        border-radius: 0 0 30px 30px;
+      }
+
+      header h1 {
+        font-size: clamp(2em, 5vw, 3em);
+        color: #ff69b4;
+        margin: 30px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      header p {
+        font-style: italic;
+        color: #555;
+        font-size: clamp(0.9em, 3vw, 1.1em);
+        margin: 0px 0;
+      }
+
+      header .scroll-hint {
+        font-size: 0.85em;
+        color: #888;
+        margin-top: 10px;
+      }
+
+      .memory-timeline {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        padding: 20px 15px;
+        gap: 20px;
+        scrollbar-width: thin;
+        scrollbar-color: #ff69b4 transparent;
+      }
+
+      .memory-timeline::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      .memory-timeline::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+      }
+
+      .memory-timeline::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #ff69b4, #ff85c1);
+        border-radius: 10px;
+      }
+
+      .memory {
+        flex: 0 0 auto;
+        scroll-snap-align: center;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        width: 300px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .memory:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+      }
+
+      .memory img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .memory:hover img {
+        transform: scale(1.05);
+      }
+
+      .memory-content {
+        padding: 20px;
+      }
+
+      .memory-content h3 {
+        color: #ff6f91;
+        margin: 0 0 12px 0;
+        font-size: clamp(1.1em, 4vw, 1.3em);
+      }
+
+      .memory-content p {
+        font-size: clamp(0.9em, 3.5vw, 1em);
+        line-height: 1.6;
+        margin: 0;
+        color: #666;
+      }
+
+      .back-home {
+        text-align: center;
+        margin: 30px 0;
+        padding: 0 15px;
+      }
+
+      .back-home a {
+        display: inline-block;
+        padding: 12px 25px;
+        background: linear-gradient(45deg, #ff69b4, #ff85c1);
+        color: white;
+        text-decoration: none;
+        border-radius: 25px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+        transition: all 0.3s ease;
+        font-size: clamp(0.9em, 3.5vw, 1em);
+      }
+
+      .back-home a:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90vw;
+        max-height: 80vh;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+        animation: fadeIn 0.3s ease;
+      }
+
+      .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10000;
+      }
+
+      .close:hover {
+        background: rgba(255, 105, 180, 0.8);
+        transform: scale(1.1);
+      }
+
+      .modal-info {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        text-align: center;
+        max-width: 80%;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1);
+        }
+      }
+
+      /* Loading effect */
+      .memory img {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+
+      .memory img.loaded {
+        opacity: 1;
+      }
+
+      /* Touch improvements for mobile */
+      @media (hover: none) and (pointer: coarse) {
+        .memory:hover {
+          transform: none;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .memory:hover img {
+          transform: none;
+        }
+
+        .memory:active {
+          transform: scale(0.98);
+        }
+      }
+
+      /* Responsive adjustments */
+      @media screen and (max-width: 480px) {
+        header {
+          padding: 20px 10px 15px;
+        }
+
+        .memory-timeline {
+          padding: 15px 10px;
+          gap: 15px;
+        }
+
+        .memory {
+          width: 280px;
+        }
+
+        .memory img {
+          height: 200px;
+        }
+
+        .memory-content {
+          padding: 15px;
+        }
+
+        .close {
+          top: 15px;
+          right: 20px;
+          font-size: 25px;
+          width: 40px;
+          height: 40px;
+        }
+
+        .modal-info {
+          bottom: 15px;
+          font-size: 0.8em;
+          padding: 8px 15px;
+        }
+      }
+
+      @media screen and (max-width: 320px) {
+        .memory {
+          width: 250px;
+        }
+
+        .memory img {
+          height: 180px;
+        }
+
+        .memory-content {
+          padding: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu" id="navMenu">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo"> 💕 Love Story </a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Trang chủ</a></li>
+          <li><a href="counter1.html">Thời gian</a></li>
+          <li><a href="timeline.html">Kỷ niệm</a></li>
+          <li><a href="gallery1.html">Ảnh</a></li>
+          <li><a href="message.html">Lời nhắn</a></li>
+        </ul>
+        <div class="mobile-toggle" id="mobileToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <header>
+        <h1>💕 Kỷ Niệm Đáng Nhớ 💕</h1>
+        <p class="subtitle">Những khoảnh khắc mà chúng ta sẽ luôn giữ mãi trong tim 💕</p>
+      </header>
+
+
+    <section class="memory-timeline">
+      <div class="memory" data-title="Buổi hẹn đầu tiên" data-date="14/02/2022">
+        <img
+          src="img/anhsau.jpg"
+          alt="Buổi hẹn đầu tiên"
+        />
+        <div class="memory-content">
+          <h3>14/02/2022 – Buổi hẹn đầu tiên 💘</h3>
+          <p>
+            Một ngày đặc biệt mà anh mãi không quên. Em cười, em nói, và trái
+            tim anh rung động ngay từ khoảnh khắc ấy.
+          </p>
+        </div>
+      </div>
+
+      <div class="memory" data-title="Chuyến đi Đà Lạt" data-date="06/2022">
+        <img
+          src="img/anhnam.jpg"
+          alt="Chuyến đi Đà Lạt"
+        />
+        <div class="memory-content">
+          <h3>06/2022 – Chuyến đi Đà Lạt 🌲</h3>
+          <p>
+            Đêm lạnh, tay nắm tay. Đồi thông, sương mù và em là điều ấm áp nhất.
+            Chúng ta đã có những tấm hình thật đáng nhớ.
+          </p>
+        </div>
+      </div>
+
+      <div class="memory" data-title="Kỷ niệm 1 năm" data-date="14/02/2023">
+        <img
+          src="img/anhchin.jpg"
+          alt="Kỷ niệm 1 năm"
+        />
+        <div class="memory-content">
+          <h3>14/02/2023 – Tròn 1 năm yêu nhau 💑</h3>
+          <p>
+            Chúng ta cùng nhìn lại hành trình đã qua và hướng đến tương lai. Em
+            là món quà tuyệt vời nhất mà anh có được.
+          </p>
+        </div>
+      </div>
+
+      <div class="memory" data-title="Kỷ niệm mùa hè" data-date="07/2023">
+        <img
+          src="img/anhba.jpg"
+          alt="Kỷ niệm mùa hè"
+        />
+        <div class="memory-content">
+          <h3>07/2023 – Kỷ niệm mùa hè 🌊</h3>
+          <p>
+            Biển xanh, nắng vàng và nụ cười em tỏa sáng. Những khoảnh khắc hạnh
+            phúc bên nhau dưới ánh mặt trời.
+          </p>
+        </div>
+      </div>
+
+      <div class="memory" data-title="Lễ Giáng sinh" data-date="24/12/2023">
+        <img
+          src="img/anhhai.jpg"
+          alt="Lễ Giáng sinh"
+        />
+        <div class="memory-content">
+          <h3>24/12/2023 – Giáng sinh đầu tiên 🎄</h3>
+          <p>
+            Không khí Noel, đèn lung linh và em bên anh. Một mùa Giáng sinh đặc
+            biệt với những ước mơ chung.
+          </p>
+        </div>
+      </div>
+
+      <div class="memory" data-title="Năm mới" data-date="01/01/2024">
+        <img
+          src="img/anhmot.jpg"
+          alt="Năm mới"
+        />
+        <div class="memory-content">
+          <h3>01/01/2024 – Chào năm mới 🎆</h3>
+          <p>
+            Pháo hoa rực rỡ, lời hứa ngọt ngào. Cùng nhau bước vào năm mới với
+            tình yêu còn mãnh liệt hơn.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImg" />
+      <div class="modal-info" id="modalInfo"></div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Modal functionality
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      const modalInfo = document.getElementById("modalInfo");
+      const closeBtn = document.querySelector(".close");
+
+      // Add click event to all memory cards
+      document.querySelectorAll(".memory").forEach((memory) => {
+        const img = memory.querySelector("img");
+        const title = memory.dataset.title;
+        const date = memory.dataset.date;
+
+        memory.addEventListener("click", (e) => {
+          e.preventDefault();
+          modal.style.display = "block";
+          modalImg.src = img.src;
+          modalInfo.textContent = `${title} - ${date}`;
+
+          // Prevent body scroll when modal is open
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      // Close modal functionality
+      function closeModal() {
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      closeBtn.addEventListener("click", closeModal);
+
+      // Close modal when clicking outside
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Close modal on escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.style.display === "block") {
+          closeModal();
+        }
+      });
+
+      // Image loading effect
+      document.querySelectorAll(".memory img").forEach((img) => {
+        img.addEventListener("load", function () {
+          this.classList.add("loaded");
+        });
+
+        // If image is already cached
+        if (img.complete) {
+          img.classList.add("loaded");
+        }
+      });
+
+      // Smooth scroll to top when clicking back home
+      document.querySelector(".back-home a").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+
+        // Navigate after scroll
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 500);
+      });
+
+      // Intersection Observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe all memory cards
+      document.querySelectorAll(".memory").forEach((memory) => {
+        memory.style.opacity = "0";
+        memory.style.transform = "translateY(30px)";
+        memory.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(memory);
+      });
+
+      // Touch handling for better mobile experience
+      let touchStartY = 0;
+      let touchEndY = 0;
+
+      modal.addEventListener("touchstart", (e) => {
+        touchStartY = e.changedTouches[0].screenY;
+      });
+
+      modal.addEventListener("touchend", (e) => {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      });
+
+      function handleSwipe() {
+        const swipeDistance = touchEndY - touchStartY;
+        if (Math.abs(swipeDistance) > 100) {
+          closeModal();
+        }
+      }
+
+      // Add this to the IntersectionObserver
+      document.querySelectorAll("header").forEach((el) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(20px)";
+        el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(el);
+      });
+      // Mobile menu toggle
+const mobileToggle = document.getElementById("mobileToggle");
+const navLinks = document.getElementById("navLinks");
+
+mobileToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+
+    </script>
+  </body>
+</html>
