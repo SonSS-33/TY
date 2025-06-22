@@ -241,8 +241,8 @@
         overflow: hidden;
       }
 
-      .nav-menu.scrolled .nav-links a {
-        color: #333;
+      .nav-menu.scrolled .mobile-toggle span {
+        background-color: #333;
       }
 
       .nav-links a:hover {
@@ -362,15 +362,15 @@
         <a href="index.html" class="nav-logo"> 💕 Love Story </a>
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter1.html">Thời gian</a></li>
+          <li><a href="counter.html">Thời gian</a></li>
           <li><a href="timeline.html">Kỷ niệm</a></li>
           <li><a href="gallery1.html">Ảnh</a></li>
           <li><a href="message.html">Lời nhắn</a></li>
         </ul>
         <div class="mobile-toggle" id="mobileToggle">
-          <span>-</span>
-          <span>-</span>
-          <span>-</span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </div>
     </nav>
@@ -432,11 +432,10 @@
 
       // Initialize navigation scroll effect
       function initNavigation() {
-        const nav = document.getElementById("nav");
-        const mobileToggle = document.getElementById("mobile-toggle");
-        const navLinks = document.getElementById("nav-links");
+        const nav = document.getElementById("navMenu");
+        const mobileToggle = document.getElementById("mobileToggle");
+        const navLinks = document.getElementById("navLinks");
 
-        // Scroll effect
         window.addEventListener("scroll", () => {
           if (window.scrollY > 50) {
             nav.classList.add("scrolled");
@@ -445,7 +444,6 @@
           }
         });
 
-        // Mobile menu toggle
         mobileToggle.addEventListener("click", () => {
           navLinks.classList.toggle("show");
         });

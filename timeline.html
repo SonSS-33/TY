@@ -295,24 +295,27 @@
           padding: 12px;
         }
       }
+      
     </style>
   </head>
   <body>
+    <div class="hearts-container"></div>
+
     <!-- Navigation Menu -->
     <nav class="nav-menu" id="navMenu">
       <div class="nav-container">
         <a href="index.html" class="nav-logo"> 💕 Love Story </a>
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter1.html">Thời gian</a></li>
+          <li><a href="counter.html">Thời gian</a></li>
           <li><a href="timeline.html">Kỷ niệm</a></li>
           <li><a href="gallery1.html">Ảnh</a></li>
           <li><a href="message.html">Lời nhắn</a></li>
         </ul>
         <div class="mobile-toggle" id="mobileToggle">
-          <span></span>
-          <span></span>
-          <span></span>
+          <span>nhấn</span>
+          <span>vào</span>
+          <span>đây</span>
         </div>
       </div>
     </nav>
@@ -538,13 +541,39 @@
         el.style.transition = "opacity 0.6s ease, transform 0.6s ease";
         observer.observe(el);
       });
-      // Mobile menu toggle
-const mobileToggle = document.getElementById("mobileToggle");
-const navLinks = document.getElementById("navLinks");
+      // Initialize navigation scroll effect
+      function initNavigation() {
+        const nav = document.getElementById("navMenu");
+        const mobileToggle = document.getElementById("mobileToggle");
+        const navLinks = document.getElementById("navLinks");
 
-mobileToggle.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
-});
+        window.addEventListener("scroll", () => {
+          if (window.scrollY > 50) {
+            nav.classList.add("scrolled");
+          } else {
+            nav.classList.remove("scrolled");
+          }
+        });
+
+        mobileToggle.addEventListener("click", () => {
+          navLinks.classList.toggle("show");
+        });
+      }
+      function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+
+  const container = document.querySelector('.hearts-container');
+  if (container) {
+    container.appendChild(heart);
+
+    setTimeout(() => {
+      heart.remove();
+    }, 5000);
+  }
+}
 
     </script>
   </body>
