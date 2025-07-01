@@ -6,7 +6,50 @@
     <title>Love Story - Câu chuyện của Sơn và Tiên</title>
     <link rel="stylesheet" href="style.css" />
     <script src="auth.js"></script>
-    <script src="script.js"></script>
+    <style>
+      /* Modal và nền tối */
+      #imageDropdown {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        z-index: 1001;
+        padding: 20px;
+        border-radius: 16px;
+        max-width: 90%;
+        width: 600px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      #modalBackdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+      }
+
+      .modal-row {
+        display: flex;
+        gap: 20px;
+      }
+
+      .modal-row img {
+        width: 100%;
+        border-radius: 12px;
+      }
+
+      @media (max-width: 600px) {
+        .modal-row {
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="floating-hearts" id="heartsContainer"></div>
@@ -50,10 +93,29 @@
               <span class="counter-number" id="hours"></span>
               <div class="counter-label">Giờ</div>
             </div>
-            <div class="counter-item">
-              <span class="counter-number" id="minutes"></span>
+            <div
+              class="counter-item"
+              id="toggleDropdown"
+              style="cursor: pointer"
+            >
+              <span class="counter-number" id="minutes">45</span>
               <div class="counter-label">Phút</div>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal nền tối -->
+      <div id="modalBackdrop"></div>
+
+      <!-- Modal nội dung ảnh -->
+      <div id="imageDropdown">
+        <div class="modal-row">
+          <div class="col-6">
+            <img src="img/anhdep.jpg" alt="Ảnh 1" />
+          </div>
+          <div class="col-6">
+            <img src="img/anhdep2.jpg" alt="Ảnh 2" />
           </div>
         </div>
       </div>
@@ -177,5 +239,27 @@
         </div>
       </div>
     </div>
+    <script src="script.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.getElementById("toggleDropdown");
+        const modal = document.getElementById("imageDropdown");
+        const backdrop = document.getElementById("modalBackdrop");
+
+        toggleBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          modal.style.display = "block";
+          backdrop.style.display = "block";
+        });
+
+        // Click ngoài modal để ẩn
+        document.addEventListener("click", function (e) {
+          if (!modal.contains(e.target) && !toggleBtn.contains(e.target)) {
+            modal.style.display = "none";
+            backdrop.style.display = "none";
+          }
+        });
+      });
+    </script>
   </body>
 </html>
