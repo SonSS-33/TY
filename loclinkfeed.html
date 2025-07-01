@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lọc Link Có Đuôi feed</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 40px;
+        background: #f7f7f7;
+      }
+      textarea,
+      button {
+        width: 100%;
+        font-size: 16px;
+        padding: 10px;
+        margin-top: 10px;
+      }
+      #output {
+        margin-top: 20px;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid #ccc;
+        min-height: 100px;
+        white-space: pre-wrap;
+      }
+      h1 {
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Lọc link có đuôi <code>feed</code> hoặc <code>feed/</code></h1>
+
+    <label for="input">Dán danh sách link vào đây (mỗi link 1 dòng):</label>
+    <textarea
+      id="input"
+      rows="10"
+      placeholder="https://example.com/feed"
+    ></textarea>
+
+    <button onclick="filterLinks()">Lọc link có đuôi feed</button>
+
+    <h2>Kết quả:</h2>
+    <div id="output"></div>
+
+    <script>
+      function filterLinks() {
+        const input = document.getElementById("input").value;
+        const lines = input.split("\n");
+        const regex = /\/feed\/?$|^feed\/?$/i;
+
+        const filtered = lines
+          .map((line) => line.trim())
+          .filter((link) => regex.test(link));
+
+        document.getElementById("output").textContent =
+          filtered.join("\n") || "Không có link nào phù hợp.";
+      }
+    </script>
+  </body>
+</html>

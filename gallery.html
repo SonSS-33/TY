@@ -5,74 +5,360 @@
     <title>Bộ bài Yêu Thêm</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        padding: 30px;
-        background: linear-gradient(135deg, #ffe3ec, #ffeef7);
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        padding: 20px;
+        background: linear-gradient(
+          135deg,
+          #ff9a9e 0%,
+          #fecfef 50%,
+          #fecfef 100%
+        );
+        min-height: 100vh;
+        margin: 0;
         text-align: center;
+        position: relative;
+        overflow-x: hidden;
       }
+
+      /* Floating hearts animation */
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 51, 102, 0.3);
+        font-size: 20px;
+        animation: float 8s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-20px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        z-index: 2;
+      }
+
       h1 {
         color: #ff3366;
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
       }
+
       #question {
-        font-size: 1.2em;
+        font-size: 1.3em;
         font-style: italic;
+        margin: 30px 0;
+        padding: 20px;
+        background: linear-gradient(45deg, #fff5f5, #ffe8ee);
+        border-radius: 15px;
+        border-left: 5px solid #ff3366;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #333;
+      }
+
+      .controls {
+        margin: 30px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      button {
+        padding: 12px 25px;
+        font-size: 1em;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      #drawBtn {
+        background: linear-gradient(45deg, #ff3366, #ff6b9d);
+        color: white;
+        font-size: 1.1em;
+        padding: 15px 30px;
+      }
+
+      #drawBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
+      }
+
+      .input-box {
+        margin: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input {
+        flex: 1;
+        min-width: 300px;
+        padding: 12px 20px;
+        font-size: 1em;
+        border: 2px solid #ffb3c6;
+        border-radius: 25px;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      input:focus {
+        border-color: #ff3366;
+        box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
+      }
+
+      #saveBtn {
+        background: linear-gradient(45deg, #4caf50, #66bb6a);
+        color: white;
+      }
+
+      #saveBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+      }
+
+      .nav-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
         margin: 20px 0;
       }
-      .input-box {
-        margin: 10px 0;
+
+      .nav-btn {
+        background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+        color: white;
+        padding: 10px 20px;
+        font-size: 0.9em;
       }
-      input,
-      button {
-        padding: 10px;
-        font-size: 1em;
+
+      .nav-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
       }
+
+      #exportBtn,
+      #importBtn {
+        background: linear-gradient(45deg, #00b894, #00cec9);
+        color: white;
+      }
+
+      #exportBtn:hover,
+      #importBtn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
+      }
+
+      h2 {
+        color: #ff3366;
+        margin-top: 40px;
+        font-size: 1.8em;
+      }
+
       #answers {
         margin-top: 30px;
       }
+
       .answer-item {
-        background: #fff;
-        padding: 10px;
-        border-radius: 5px;
-        margin: 5px 0;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(45deg, #fff, #fafafa);
+        padding: 20px;
+        border-radius: 15px;
+        margin: 15px 0;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        border-left: 5px solid #ff3366;
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .answer-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .question-text {
+        font-weight: bold;
+        color: #ff3366;
+        margin-bottom: 10px;
+        font-size: 1.1em;
+      }
+
+      .answer-text {
+        color: #333;
+        line-height: 1.6;
+        font-size: 1em;
+      }
+
+      .delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #ff4757;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+      }
+
+      .delete-btn:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+
+      .stats {
+        margin: 20px 0;
+        padding: 15px;
+        background: linear-gradient(45deg, #e17055, #fab1a0);
+        color: white;
+        border-radius: 15px;
+        font-size: 1.1em;
+        font-weight: bold;
+      }
+
+      .file-input {
+        display: none;
+      }
+
+      .file-label {
+        background: linear-gradient(45deg, #fd79a8, #fdcb6e);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        font-weight: bold;
+      }
+
+      .file-label:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          margin: 10px;
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2em;
+        }
+
+        input {
+          min-width: 250px;
+        }
+
+        .controls,
+        .nav-buttons {
+          flex-direction: column;
+        }
+
+        button {
+          width: 100%;
+          max-width: 300px;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- <div class="floating-hearts" id="heartsContainer"></div>
-  
-    <nav class="nav-menu" id="navMenu">
-      <div class="nav-container">
-        <a href="index.html" class="nav-logo"> 💕 Love Story </a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter.html">Thời gian</a></li>
-          <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery.html">Ảnh</a></li>
-          <li><a href="message.html">Lời nhắn</a></li>
-        </ul>
-        <div class="mobile-toggle" id="mobileToggle">
-          <span>nhấn</span>
-          <span></span>
-          <span></span>
-        </div>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <div class="container">
+      <h1>💞 Chơi để HIỂU nhau hơn</h1>
+
+      <div class="stats" id="stats">📊 Bạn đã trả lời 0 câu hỏi</div>
+
+      <div id="question">Hãy nhấn "Rút câu hỏi" để bắt đầu!</div>
+
+      <div class="controls">
+        <button id="drawBtn">🎲 Rút câu hỏi</button>
       </div>
-    </nav> -->
-    <h1>💞 Chơi để HIỂU nhau hơn</h1>
-    <div id="question">Hãy nhấn "Rút câu hỏi" để bắt đầu!</div>
-    <button id="drawBtn">Rút câu hỏi</button>
-    <div class="input-box">
-      <input
-        type="text"
-        id="answerInput"
-        placeholder="Nhập câu trả lời của bạn..."
-      />
-      <button id="saveBtn">Lưu câu trả lời</button>
+
+      <div class="input-box">
+        <input
+          type="text"
+          id="answerInput"
+          placeholder="Nhập câu trả lời của bạn..."
+        />
+        <button id="saveBtn">💾 Lưu câu trả lời</button>
+      </div>
+
+      <div class="controls">
+        <button id="exportBtn">📤 Xuất file câu trả lời</button>
+        <label for="importFile" class="file-label"
+          >📥 Nhập file câu trả lời</label
+        >
+        <input
+          type="file"
+          id="importFile"
+          class="file-input"
+          accept=".json,.txt"
+        />
+        <button
+          id="clearBtn"
+          style="
+            background: linear-gradient(45deg, #ff4757, #ff6b7a);
+            color: white;
+          "
+        >
+          🗑️ Xóa tất cả
+        </button>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" id="backCounter">🔙 Quay về Counter</button>
+        <button class="nav-btn" id="backHome">🏠 Quay về Trang Chủ</button>
+      </div>
+
+      <h2>💗 Câu trả lời của bạn</h2>
+      <div id="answers"></div>
     </div>
-    <button id="backCounter">🔙 Quay về Counter</button>
-    <button id="backHome">🏠 Quay về Trang Chủ</button>
-    <h2>💗 Câu trả lời của bạn</h2>
-    <div id="answers"></div>
 
     <script>
       const questions = [
@@ -96,6 +382,11 @@
         "Ước mong lớn nhất của bạn trong mối quan hệ này là gì?",
         "Điều gì bạn muốn thay đổi cùng người đó trong tương lai?",
         "Điều gì bạn thích nhất khi trò chuyện cùng người đó?",
+        "Khoảnh khắc nào khiến bạn cảm thấy gần gũi nhất với người đó?",
+        "Điều gì bạn học được từ mối quan hệ này?",
+        "Nếu có thể quay lại quá khứ, bạn sẽ nói gì với chính mình?",
+        "Điều nhỏ nhất mà người đó làm nhưng khiến bạn hạnh phúc nhất?",
+        "Bạn muốn tạo ra kỷ niệm gì cùng người đó trong tương lai?",
       ];
 
       const questionEl = document.getElementById("question");
@@ -103,20 +394,61 @@
       const answersContainer = document.getElementById("answers");
       const drawBtn = document.getElementById("drawBtn");
       const saveBtn = document.getElementById("saveBtn");
+      const exportBtn = document.getElementById("exportBtn");
+      const importFile = document.getElementById("importFile");
+      const clearBtn = document.getElementById("clearBtn");
+      const statsEl = document.getElementById("stats");
 
       let currentQuestion = "";
+      let answers = [];
+      let usedQuestions = [];
 
-      // Lấy các câu trả lời trong localStorage khi tải trang
-      function loadAnswers() {
-        const saved = JSON.parse(localStorage.getItem("love_answers")) || [];
+      // Tạo floating hearts
+      function createFloatingHearts() {
+        const heartsContainer = document.getElementById("heartsContainer");
+        setInterval(() => {
+          const heart = document.createElement("div");
+          heart.classList.add("heart");
+          heart.innerHTML = Math.random() > 0.5 ? "💕" : "💖";
+          heart.style.left = Math.random() * 100 + "vw";
+          heart.style.animationDuration = Math.random() * 3 + 5 + "s";
+          heart.style.animationDelay = Math.random() * 2 + "s";
+          heartsContainer.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 8000);
+        }, 2000);
+      }
+
+      // Cập nhật thống kê
+      function updateStats() {
+        statsEl.textContent = `📊 Bạn đã trả lời ${answers.length} câu hỏi`;
+      }
+
+      // Hiển thị câu trả lời
+      function displayAnswers() {
         answersContainer.innerHTML = "";
-        saved.forEach((item) => {
+        answers.forEach((item, index) => {
           const div = document.createElement("div");
           div.classList.add("answer-item");
-          div.innerHTML = `<strong>Câu hỏi:</strong> ${item.question}<br><strong>Trả lời:</strong> ${item.answer}`;
+          div.innerHTML = `
+            <button class="delete-btn" onclick="deleteAnswer(${index})">×</button>
+            <div class="question-text">❓ ${item.question}</div>
+            <div class="answer-text">💭 ${item.answer}</div>
+          `;
           answersContainer.appendChild(div);
         });
+        updateStats();
       }
+
+      // Xóa câu trả lời
+      window.deleteAnswer = function (index) {
+        if (confirm("Bạn có chắc muốn xóa câu trả lời này?")) {
+          answers.splice(index, 1);
+          displayAnswers();
+        }
+      };
 
       // Lưu câu trả lời
       saveBtn.addEventListener("click", () => {
@@ -129,30 +461,156 @@
           alert("Hãy nhập câu trả lời của bạn!");
           return;
         }
-        const saved = JSON.parse(localStorage.getItem("love_answers")) || [];
-        saved.push({ question: currentQuestion, answer });
-        localStorage.setItem("love_answers", JSON.stringify(saved));
-        loadAnswers();
+
+        // Kiểm tra xem câu hỏi đã được trả lời chưa
+        const existingIndex = answers.findIndex(
+          (item) => item.question === currentQuestion
+        );
+        if (existingIndex !== -1) {
+          if (
+            confirm(
+              "Câu hỏi này đã được trả lời. Bạn có muốn cập nhật câu trả lời?"
+            )
+          ) {
+            answers[existingIndex].answer = answer;
+          }
+        } else {
+          answers.push({
+            question: currentQuestion,
+            answer: answer,
+            timestamp: new Date().toLocaleString("vi-VN"),
+          });
+        }
+
+        displayAnswers();
         answerInput.value = "";
       });
 
       // Rút câu hỏi
       drawBtn.addEventListener("click", () => {
-        const randomIndex = Math.floor(Math.random() * questions.length);
-        currentQuestion = questions[randomIndex];
+        let availableQuestions = questions.filter(
+          (q) => !usedQuestions.includes(q)
+        );
+
+        if (availableQuestions.length === 0) {
+          if (
+            confirm(
+              "Bạn đã rút hết tất cả câu hỏi! Bạn có muốn bắt đầu lại từ đầu?"
+            )
+          ) {
+            usedQuestions = [];
+            availableQuestions = questions;
+          } else {
+            return;
+          }
+        }
+
+        const randomIndex = Math.floor(
+          Math.random() * availableQuestions.length
+        );
+        currentQuestion = availableQuestions[randomIndex];
+        usedQuestions.push(currentQuestion);
+
         questionEl.textContent = currentQuestion;
         answerInput.value = "";
+        answerInput.focus();
       });
-      // Nút quay về counter.html
+
+      // Xuất file
+      exportBtn.addEventListener("click", () => {
+        if (answers.length === 0) {
+          alert("Chưa có câu trả lời nào để xuất!");
+          return;
+        }
+
+        const dataStr = JSON.stringify(
+          {
+            exportDate: new Date().toLocaleString("vi-VN"),
+            totalAnswers: answers.length,
+            answers: answers,
+          },
+          null,
+          2
+        );
+
+        const dataBlob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `love_answers_${new Date()
+          .toISOString()
+          .slice(0, 10)}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      });
+
+      // Nhập file
+      importFile.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            if (data.answers && Array.isArray(data.answers)) {
+              if (
+                confirm(
+                  `Tìm thấy ${data.answers.length} câu trả lời. Bạn có muốn thêm vào danh sách hiện tại?`
+                )
+              ) {
+                answers = [...answers, ...data.answers];
+                displayAnswers();
+                alert("Đã nhập thành công!");
+              }
+            } else {
+              alert("File không đúng định dạng!");
+            }
+          } catch (error) {
+            alert("Không thể đọc file. Vui lòng kiểm tra lại!");
+          }
+        };
+        reader.readAsText(file);
+        e.target.value = "";
+      });
+
+      // Xóa tất cả
+      clearBtn.addEventListener("click", () => {
+        if (
+          confirm(
+            "Bạn có chắc muốn xóa tất cả câu trả lời? Hành động này không thể hoàn tác!"
+          )
+        ) {
+          if (confirm("Thực sự chắc chắn? Tất cả dữ liệu sẽ bị mất!")) {
+            answers = [];
+            usedQuestions = [];
+            currentQuestion = "";
+            questionEl.textContent = "Hãy nhấn 'Rút câu hỏi' để bắt đầu!";
+            displayAnswers();
+            alert("Đã xóa tất cả!");
+          }
+        }
+      });
+
+      // Navigation buttons
       document.getElementById("backCounter").addEventListener("click", () => {
         window.location.href = "counter.html";
       });
-      // Nút quay về index.html
+
       document.getElementById("backHome").addEventListener("click", () => {
         window.location.href = "index.html";
       });
-      // Khi tải trang, load các câu trả lời
-      loadAnswers();
+
+      // Enter key support
+      answerInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          saveBtn.click();
+        }
+      });
+
+      // Khởi tạo
+      createFloatingHearts();
+      displayAnswers();
     </script>
   </body>
 </html>
