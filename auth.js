@@ -4,11 +4,8 @@
     const CONFIG = {
         loginPage: 'login.html',
         homePage: 'index.html',
-        validUsers: {
-            'SYT@example.com': 'TYS',
-            'ngoctien': 'tientien'
-        }
-    };
+        validUsers: window.AUTH_USERS || {}
+      };
 
     window.auth = {
         isLoggedIn: function () {
