@@ -253,8 +253,20 @@
 
     // Auto-run khi DOM load
     function init() {
-        auth.checkAuth();
+        auth.checkAuth();  // Gọi kiểm tra ban đầu
+    
+        // Chặn nhấn vào tất cả link nếu chưa đăng nhập
+        if (!auth.isLoggedIn()) {
+            document.querySelectorAll('a[href]').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    sessionStorage.setItem('returnUrl', this.getAttribute('href'));
+                    auth.showLoginRequired();
+                });
+            });
+        }
     }
+    
 
     // Chạy khi DOM sẵn sàng
     if (document.readyState === 'loading') {
