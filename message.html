@@ -3,185 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title>Ai là người bạn yêu nhất trên đời?</title>
+    <title>Thư Viện Ký Ức Yêu Thương 💖</title>
+    <script src="auth.js"></script>
     <style>
       * {
+        box-sizing: border-box;
         margin: 0;
         padding: 0;
-        box-sizing: border-box;
       }
 
       body {
-        font-family: "Georgia", serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        overflow-x: hidden;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
         color: #333;
       }
 
-      .floating-hearts {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .heart {
-        position: absolute;
-        color: rgba(255, 182, 193, 0.7);
-        font-size: 20px;
-        animation: float 6s infinite;
-      }
-
-      @keyframes float {
-        0% {
-          transform: translateY(100vh) rotate(0deg);
-          opacity: 0;
-        }
-        10% {
-          opacity: 1;
-        }
-        90% {
-          opacity: 1;
-        }
-        100% {
-          transform: translateY(-100px) rotate(360deg);
-          opacity: 0;
-        }
-      }
-
-      .container {
-        position: relative;
-        z-index: 2;
-      }
-
-      header {
-        text-align: center;
-        padding: 80px 20px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 0 0 50px 50px;
-        margin-bottom: 50px;
-      }
-
-      h1 {
-        font-size: 3.5em;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        margin-bottom: 20px;
-        animation: glow 2s ease-in-out infinite alternate;
-      }
-
-      @keyframes glow {
-        from {
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-            0 0 20px rgba(255, 182, 193, 0.5);
-        }
-        to {
-          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3),
-            0 0 30px rgba(255, 182, 193, 0.8);
-        }
-      }
-
-      .subtitle {
-        font-size: 1.3em;
-        color: rgba(255, 255, 255, 0.9);
-        font-style: italic;
-      }
-
-      .love-game {
-        position: relative;
-        z-index: 2;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 60px 40px;
-        border-radius: 25px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        max-width: 500px;
-        width: 90%;
-        text-align: center;
-        margin: 0 auto 50px;
-        animation: popIn 0.6s ease;
-        backdrop-filter: blur(10px);
-      }
-
-      @keyframes popIn {
-        0% {
-          transform: scale(0.7);
-          opacity: 0;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
-      .game-title {
-        font-size: 2.5em;
-        color: #ff6b6b;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      input[type="text"] {
-        padding: 15px 20px;
-        font-size: 1.1em;
-        border: 2px solid #ff6b6b;
-        border-radius: 15px;
-        width: 100%;
-        margin-bottom: 20px;
-        transition: all 0.3s ease;
-        background: rgba(255, 255, 255, 0.8);
-      }
-
-      input[type="text"]:focus {
-        outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
-        transform: translateY(-2px);
-      }
-
-      button {
-        padding: 15px 30px;
-        background: linear-gradient(135deg, #ff6b6b, #feca57);
-        border: none;
-        border-radius: 25px;
-        color: white;
-        font-size: 1.1em;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 10px 20px rgba(255, 107, 107, 0.3);
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-      }
-
-      button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 15px 30px rgba(255, 107, 107, 0.4);
-        background: linear-gradient(135deg, #ff5252, #ff9800);
-      }
-
-      #loveResult {
-        margin-top: 30px;
-        font-size: 1.3em;
-        color: #333;
-        min-height: 60px;
-        line-height: 1.6;
-        font-style: italic;
-      }
-
-      canvas#confetti-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw !important;
-        height: 100vh !important;
-        pointer-events: none;
-        z-index: 1000;
-      }
-
+      /* NAVIGATION MENU */
       .nav-menu {
         position: fixed;
         top: 0;
@@ -192,11 +29,6 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 1000;
         transition: all 0.3s ease;
-      }
-
-      .nav-menu.scrolled {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
       }
 
       .nav-container {
@@ -213,307 +45,310 @@
         font-weight: bold;
         color: white;
         text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: color 0.3s ease;
-      }
-
-      .nav-menu.scrolled .nav-logo {
-        color: #333;
       }
 
       .nav-links {
         display: flex;
         list-style: none;
         gap: 30px;
-        align-items: center;
       }
 
       .nav-links a {
         color: white;
         text-decoration: none;
         font-size: 1.1em;
-        font-weight: 500;
-        padding: 10px 15px;
-        border-radius: 25px;
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .nav-menu.scrolled .mobile-toggle span {
-        background-color: #333;
+        transition: 0.3s;
       }
 
       .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-menu.scrolled .nav-links a:hover {
-        background: rgba(102, 126, 234, 0.1);
-        color: #667eea;
-      }
-
-      .mobile-toggle {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-        z-index: 1100;
-      }
-
-      .mobile-toggle span {
-        height: 3px;
-        width: 25px;
-        background-color: white;
-        margin: 4px 0;
-        border-radius: 2px;
-        transition: all 0.3s ease;
-      }
-
-      .nav-menu.scrolled .mobile-toggle span {
-        background-color: #333;
+        color: #ff4081;
       }
 
       @media (max-width: 768px) {
-        h1 {
-          font-size: 2.5em;
-        }
-
-        .game-title {
-          font-size: 2em;
-        }
-
-        .love-game {
-          padding: 40px 30px;
-        }
-
         .nav-links {
           display: none;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: rgba(255, 255, 255, 0.95);
-          flex-direction: column;
-          padding: 20px;
-          text-align: center;
-          gap: 15px;
-          border-bottom-left-radius: 15px;
-          border-bottom-right-radius: 15px;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-links a {
-          color: #333 !important;
-          font-size: 1.2em;
-        }
-
-        .nav-links.show {
-          display: flex;
-        }
-
-        .mobile-toggle {
-          display: flex;
         }
       }
 
-      @media (max-width: 480px) {
-        header {
-          padding: 60px 15px;
-        }
+      h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin: 120px 20px 40px;
+        color: #ff4081;
+      }
 
-        h1 {
-          font-size: 2em;
-        }
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        max-width: 1000px;
+        margin: 0 auto 60px;
+        padding: 0 20px;
+      }
 
-        .game-title {
-          font-size: 1.5em;
-        }
+      .gallery-item {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        background: #fff;
+        transition: transform 0.3s ease;
+      }
 
-        .love-game {
-          padding: 30px 20px;
-        }
+      .gallery-item:hover {
+        transform: translateY(-5px);
+      }
 
-        input[type="text"] {
-          font-size: 1em;
-          padding: 12px 15px;
-        }
+      .gallery-item img {
+        width: 100%;
+        display: block;
+        height: 200px;
+        object-fit: cover;
+      }
 
-        button {
-          font-size: 1em;
-          padding: 12px 25px;
-        }
+      .note {
+        padding: 10px 15px;
+        font-style: italic;
+        font-size: 0.95em;
+        background: #fff0f5;
+        color: #444;
+      }
 
-        #loveResult {
-          font-size: 1.1em;
+      .popup-message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(255, 255, 255, 0.95);
+        padding: 20px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+        display: none;
+        font-size: 1.1em;
+        text-align: center;
+        color: #ff4081;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(-50%, -60%);
         }
+        to {
+          opacity: 1;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      canvas#confetti-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
       }
     </style>
   </head>
   <body>
-    <!-- Floating Hearts Background -->
-    <div class="floating-hearts" id="floating-hearts"></div>
-
-    <!-- Navigation Menu -->
+    <!-- NAVIGATION MENU -->
     <nav class="nav-menu" id="navMenu">
       <div class="nav-container">
-        <a href="index.html" class="nav-logo"> 💕 Love Story </a>
-        <ul class="nav-links" id="navLinks">
+        <a href="index.html" class="nav-logo">💕 Love Story</a>
+        <ul class="nav-links">
           <li><a href="index.html">Trang chủ</a></li>
           <li><a href="counter.html">Thời gian</a></li>
           <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery1.html">Ảnh</a></li>
+          <li><a href="gallery.html">Ảnh</a></li>
           <li><a href="message.html">Lời nhắn</a></li>
         </ul>
-        <div class="mobile-toggle" id="mobileToggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
       </div>
     </nav>
 
-    <!-- Canvas for Confetti -->
+    <h1>📸 Thư Viện Ký Ức Yêu Thương</h1>
+
     <canvas id="confetti-canvas"></canvas>
 
-    <!-- Main Container -->
-    <div class="container">
-      <!-- Header -->
-      <header id="home">
-        <h1>Trò Chơi Tình Yêu</h1>
-        <p class="subtitle">Khám phá tình yêu của bạn một cách lãng mạn</p>
-      </header>
+    <!-- GALLERY -->
+    <div class="gallery">
+      <!-- Ảnh 1 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🌸 Bắn dô mồm bây giờ!')"
+      >
+        <img src="img/anhglr1.jpg" alt="ảnh 1" />
+        <div class="note">AAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
+        <div class="popup-message"></div>
+      </div>
 
-      <!-- Love Game Section -->
-      <section id="game">
-        <div class="love-game">
-          <h2 class="game-title">Ai là người bạn yêu nhất trên đời?</h2>
-          <input
-            type="text"
-            id="loveInput"
-            placeholder="Nhập tên người bạn yêu nhất..."
-          />
-          <button onclick="checkLove()">💖 Xác nhận</button>
-          <div id="loveResult"></div>
-        </div>
-      </section>
-    </div>
+      <!-- Ảnh 2 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '💓 Ảnh của Sơn nè!')"
+      >
+        <img src="img/anhglr2.jpg" alt="ảnh 2" />
+        <div class="note">Suy Suy Đồ</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 3 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '💑 Nhìn Cũng Cũng ĐĨ!')"
+      >
+        <img src="img/anhglr3.jpg" alt="ảnh 3" />
+        <div class="note">Bảnh VC</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 4 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🌈 bùm bùm bùm!')"
+      >
+        <img src="img/anhgrl4.jpg" alt="ảnh 4" />
+        <div class="note">Mới Ngủ Dậy</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 5 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🎶 Bỉn Bỉn!')"
+      >
+        <img src="img/anhglr5.jpg" alt="ảnh 5" />
+        <div class="note">Ok Đi Bỉn</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 6 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '📷 Tóc úp tô!')"
+      >
+        <img
+          src="img/anhglr6.jpg"
+          alt="ảnh 6"
+        />
+        <div class="note">Chuẩn bị lên màu</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 7 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '☕ Đời Buồn JQK')"
+      >
+        <img src="img/anhglr7.jpg" alt="ảnh 7" />
+        <div class="note">Đời nó bạc XỈU</div>
+        <div class="popup-message"></div>
+      </div>
+
+      <!-- Ảnh 8 -->
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🌅 Chiều hoàng hôn hôm ấy – ánh mắt em là tất cả!')"
+      >
+        <img
+          src="img/anhglr8.jpg"
+          alt="ảnh 8"
+        />
+        <div class="note">Chiều hoàng hôn ấy</div>
+        <div class="popup-message"></div>
+      </div>
+
+     
+      <!-- <div
+        class="gallery-item"
+        onclick="showWish(this, '🎂 Mừng sinh nhật em – ngày anh thấy mình may mắn nhất!')"
+      >
+        <img
+          src="img/anhglr9.jpg"
+          alt="ảnh 9"
+        />
+        <div class="note">Sinh nhật đáng nhớ</div>
+        <div class="popup-message"></div>
+      </div>
+
+      
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🎈 Những lần dỗi hờn – để anh hiểu em hơn!')"
+      >
+        <img
+          src="img/anhglr10.jpg"
+          alt="ảnh 10"
+        />
+        <div class="note">Những lần dỗi</div>
+        <div class="popup-message"></div>
+      </div>
+
+    
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '💍 Lời hứa trọn đời – một ngày nào đó...')"
+      >
+        <img
+          src="https://source.unsplash.com/400x300/?ring,love"
+          alt="ảnh 11"
+        />
+        <div class="note">Lời hứa tương lai</div>
+        <div class="popup-message"></div>
+      </div>
+
+  
+      <div
+        class="gallery-item"
+        onclick="showWish(this, '🌠 Nếu có ước – anh ước yêu em mãi mãi!')"
+      >
+        <img
+          src="https://source.unsplash.com/400x300/?stars,love"
+          alt="ảnh 12"
+        />
+        <div class="note">Ước mơ đôi mình</div>
+        <div class="popup-message"></div>
+      </div>
+    </div> -->
 
     <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
     <script>
-      // Initialize floating hearts
-      function createFloatingHearts() {
-        const heartsContainer = document.getElementById("floating-hearts");
-
-        function createHeart() {
-          const heart = document.createElement("div");
-          heart.className = "heart";
-          heart.innerHTML = "💕";
-          heart.style.left = Math.random() * 100 + "%";
-          heart.style.animationDelay = Math.random() * 6 + "s";
-          heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-          heartsContainer.appendChild(heart);
-
-          // Remove heart after animation
-          setTimeout(() => {
-            if (heart.parentNode) {
-              heart.parentNode.removeChild(heart);
-            }
-          }, 8000);
+      const confettiInstance = confetti.create(
+        document.getElementById("confetti-canvas"),
+        {
+          resize: true,
+          useWorker: true,
         }
+      );
 
-        // Create hearts periodically
-        setInterval(createHeart, 1000);
-      }
-
-      // Initialize navigation scroll effect
-      function initNavigation() {
-        const nav = document.getElementById("navMenu");
-        const mobileToggle = document.getElementById("mobileToggle");
-        const navLinks = document.getElementById("navLinks");
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 50) {
-            nav.classList.add("scrolled");
-          } else {
-            nav.classList.remove("scrolled");
-          }
-        });
-
-        mobileToggle.addEventListener("click", () => {
-          navLinks.classList.toggle("show");
-        });
-      }
-
-      // Confetti setup
-      const canvas = document.getElementById("confetti-canvas");
-      const confettiInstance = confetti.create(canvas, {
-        resize: true,
-        useWorker: true,
-      });
-
-      function fireConfettiFullScreen() {
-        const duration = 3000;
-        const animationEnd = Date.now() + duration;
-        const defaults = { origin: { y: 0.7 } };
-
-        function randomInRange(min, max) {
-          return Math.random() * (max - min) + min;
-        }
+      function fireConfetti() {
+        const duration = 2000;
+        const end = Date.now() + duration;
 
         const interval = setInterval(() => {
-          const timeLeft = animationEnd - Date.now();
-
-          if (timeLeft <= 0) {
-            return clearInterval(interval);
-          }
-
+          if (Date.now() > end) return clearInterval(interval);
           confettiInstance({
-            ...defaults,
-            particleCount: randomInRange(20, 40),
-            startVelocity: 30,
-            spread: 360,
-            ticks: 60,
-            origin: {
-              x: Math.random(),
-              y: Math.random() * 0.7,
-            },
+            particleCount: 70,
+            spread: 90,
+            origin: { y: 0.6 },
           });
         }, 200);
       }
 
-      function checkLove() {
-        const input = document
-          .getElementById("loveInput")
-          .value.trim()
-          .toLowerCase();
-        const resultDiv = document.getElementById("loveResult");
+      function showWish(elem, message) {
+        const msgBox = elem.querySelector(".popup-message");
+        msgBox.textContent = message;
+        msgBox.style.display = "block";
+        fireConfetti();
 
-        if (input === "sơn" || input === "tiên") {
-          resultDiv.innerHTML = `
-            <p>🎉 Chính xác! Bạn yêu ${
-              input === "sơn" ? "anh Sơn" : "em Tiên"
-            } nhất trên đời ❤️</p>
-            <p>Chúc tình yêu của bạn mãi mãi bền lâu 💖</p>
-          `;
-          fireConfettiFullScreen();
-        } else if (input === "") {
-          resultDiv.innerHTML = "❗ Vui lòng nhập tên!";
-        } else {
-          resultDiv.innerHTML = "😅 Sai rồi, thử nhập tên nhé!";
-        }
+        setTimeout(() => {
+          msgBox.style.display = "none";
+        }, 2500);
       }
-
-      // Initialize everything when page loads
-      document.addEventListener("DOMContentLoaded", () => {
-        createFloatingHearts();
-        initNavigation();
-      });
     </script>
   </body>
 </html>

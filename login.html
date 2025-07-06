@@ -13,63 +13,237 @@
 
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+        background: linear-gradient(
+          135deg,
+          #ff6b6b 0%,
+          #ff8e8e 25%,
+          #ffa8a8 50%,
+          #ff6b6b 75%,
+          #ff4757 100%
+        );
+        background-size: 400% 400%;
+        animation: gradientShift 8s ease infinite;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         padding: 20px;
+        padding-left: 60px;
       }
 
+      /* Nền ảnh với overlay */
+      .background-image {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("https://scontent.fsgn5-15.fna.fbcdn.net/v/t39.30808-6/474696703_1329699081373808_1540632770665805797_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=833d8c&_nc_ohc=YxbwgXux7lEQ7kNvwFkP_v4&_nc_oc=AdkULt3Pt01yHB27yDouYmEBfU8UAnknr79glfBmOhlkqS-8C6LxuMWyp8Xq4WGezbE&_nc_zt=23&_nc_ht=scontent.fsgn5-15.fna&_nc_gid=lKJIB7DwVK_JgyO0J0zW7g&oh=00_AfSstk2vlvD3KeyuesXEBjvEFVvGE5R9rUNJDxcRgCMviQ&oe=68704F08");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        z-index: -2;
+      }
+
+      @keyframes gradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      /* Hiệu ứng tim bay */
+      .hearts-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 20px;
+        animation: float 6s infinite ease-in-out;
+        opacity: 0;
+      }
+
+      .heart:nth-child(odd) {
+        animation-delay: -2s;
+        color: rgba(255, 182, 193, 0.9);
+      }
+
+      .heart:nth-child(even) {
+        animation-delay: -4s;
+        color: rgba(255, 105, 180, 0.8);
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Nút toggle đăng nhập */
+      .login-toggle {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 25px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        z-index: 100;
+        transition: all 0.3s ease;
+        animation: pulse 3s infinite;
+      }
+
+      .login-toggle:hover {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6);
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+        }
+        50% {
+          box-shadow: 0 15px 40px rgba(255, 107, 107, 0.7);
+        }
+      }
+
+      /* Container chính */
       .login-container {
         background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        border-radius: 25px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
         padding: 40px;
         width: 100%;
         max-width: 400px;
-        animation: slideIn 0.6s ease-out;
+        position: fixed;
+        top: 50%;
+        left: 60px;
+        transform: translateY(-50%) translateX(-100%);
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
       }
 
-      @keyframes slideIn {
-        from {
-          opacity: 0;
-          transform: translateY(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+      .login-container.active {
+        transform: translateY(-50%) translateX(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .login-container.closing {
+        transform: translateY(-50%) translateX(-100%);
+        opacity: 0;
+      }
+
+      /* Nút đóng */
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #666;
+        transition: all 0.3s ease;
+        z-index: 10;
+      }
+
+      .close-btn:hover {
+        color: #ff4757;
+        transform: scale(1.2);
       }
 
       .login-header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
+        position: relative;
+      }
+
+      .login-header::before {
+        content: "💖";
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30px;
+        animation: heartPulse 2s infinite;
+      }
+
+      @keyframes heartPulse {
+        0%,
+        100% {
+          transform: translateX(-50%) scale(1);
+        }
+        50% {
+          transform: translateX(-50%) scale(1.2);
+        }
       }
 
       .login-header h2 {
         color: #333;
-        font-size: 28px;
-        font-weight: 600;
-        margin-bottom: 10px;
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        margin-top: 20px;
+        background: linear-gradient(135deg, #ff6b6b, #ff4757);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .login-header p {
         color: #666;
-        font-size: 14px;
+        font-size: 15px;
+        line-height: 1.5;
+        font-weight: 500;
       }
 
       .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
       }
 
       .form-group label {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         color: #555;
-        font-weight: 500;
-        font-size: 14px;
+        font-weight: 600;
+        font-size: 15px;
       }
 
       .input-wrapper {
@@ -78,56 +252,91 @@
 
       .form-group input {
         width: 100%;
-        padding: 12px 16px;
+        padding: 16px 20px;
+        padding-right: 55px;
         border: 2px solid #e1e5e9;
-        border-radius: 10px;
+        border-radius: 15px;
         font-size: 16px;
         transition: all 0.3s ease;
-        background: #fff;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
       }
 
       .form-group input:focus {
         outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        border-color: #ff6b6b;
+        box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+        transform: translateY(-2px);
       }
 
       .form-group input:hover {
-        border-color: #c1c9d4;
+        border-color: #ff8e8e;
+        transform: translateY(-1px);
+      }
+
+      .icon {
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 20px;
+        opacity: 0.7;
       }
 
       .login-btn {
         width: 100%;
-        padding: 14px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 18px;
+        background: linear-gradient(135deg, #ff6b6b 0%, #ff4757 100%);
         color: white;
         border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
+        border-radius: 15px;
+        font-size: 18px;
+        font-weight: 700;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 10px;
+        margin-top: 15px;
+        box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .login-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      .login-btn:hover::before {
+        left: 100%;
       }
 
       .login-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
       }
 
       .login-btn:active {
-        transform: translateY(0);
+        transform: translateY(-1px);
       }
 
       .login-btn:disabled {
-        opacity: 0.6;
+        opacity: 0.7;
         cursor: not-allowed;
         transform: none;
       }
 
       .loading {
         position: relative;
-        overflow: hidden;
       }
 
       .loading::after {
@@ -140,7 +349,7 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(255, 255, 255, 0.3),
+          rgba(255, 255, 255, 0.4),
           transparent
         );
         animation: loading 1.5s infinite;
@@ -158,33 +367,113 @@
       .error-message {
         color: #e74c3c;
         font-size: 14px;
-        margin-top: 5px;
+        margin-top: 8px;
         display: none;
+        font-weight: 500;
       }
 
       .success-message {
         color: #27ae60;
         font-size: 14px;
-        margin-top: 5px;
+        margin-top: 8px;
         display: none;
+        font-weight: 500;
       }
 
       .footer {
         text-align: center;
-        margin-top: 30px;
-        padding-top: 20px;
-        border-top: 1px solid #e1e5e9;
+        margin-top: 35px;
+        padding-top: 25px;
+        border-top: 1px solid rgba(255, 107, 107, 0.2);
       }
 
       .footer p {
         color: #666;
-        font-size: 12px;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      /* Overlay để đóng form */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 40;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* Responsive cho mobile */
+      @media (max-width: 768px) {
+        .login-toggle {
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+        }
+
+        .login-container {
+          left: 50%;
+          transform: translateY(-50%) translateX(-50%) translateY(100%);
+          width: 90%;
+          max-width: 350px;
+        }
+
+        .login-container.active {
+          transform: translateY(-50%) translateX(-50%) translateY(0);
+        }
+
+        .login-container.closing {
+          transform: translateY(-50%) translateX(-50%) translateY(100%);
+        }
       }
 
       @media (max-width: 480px) {
+        .login-toggle {
+          padding: 15px 25px;
+          font-size: 16px;
+        }
+
         .login-container {
-          padding: 30px 20px;
-          margin: 10px;
+          padding: 30px 25px;
+          border-radius: 20px;
+          width: 95%;
+        }
+
+        .login-header h2 {
+          font-size: 28px;
+        }
+
+        .form-group input {
+          padding: 14px 18px;
+          padding-right: 50px;
+          font-size: 16px;
+        }
+
+        .login-btn {
+          padding: 16px;
+          font-size: 16px;
+        }
+
+        .heart {
+          font-size: 16px;
+        }
+
+        .background-image {
+          background-attachment: scroll;
+        }
+      }
+
+      @media (max-width: 360px) {
+        .login-container {
+          padding: 25px 20px;
         }
 
         .login-header h2 {
@@ -192,30 +481,79 @@
         }
       }
 
-      /* Icons */
-      .icon {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #999;
-        font-size: 18px;
+      /* Hiệu ứng cho alert */
+      .custom-alert {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 25px;
+        border-radius: 15px;
+        color: white;
+        font-weight: 600;
+        z-index: 1000;
+        animation: slideInRight 0.5s ease-out;
+        max-width: 300px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
 
-      .input-wrapper {
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Hiệu ứng hover cho input */
+      .form-group {
         position: relative;
       }
 
-      .form-group input {
-        padding-right: 45px;
+      .form-group::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 107, 107, 0.1),
+          rgba(255, 71, 87, 0.1)
+        );
+        border-radius: 15px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .form-group:hover::before {
+        opacity: 1;
       }
     </style>
   </head>
   <body>
-    <div class="login-container">
+    <div class="background-image"></div>
+    <div class="background-overlay"></div>
+
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Nút toggle để mở form -->
+    <button class="login-toggle" id="loginToggle">💖 Đăng Nhập</button>
+
+    <!-- Overlay để đóng form -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Container form đăng nhập -->
+    <div class="login-container" id="loginContainer">
+      <button class="close-btn" id="closeBtn">×</button>
+
       <div class="login-header">
         <h2>Đăng Nhập</h2>
-        <p>Chào mừng bạn quay trở lại!</p>
+        <p>Nếu như chưa có tài khoản hãy liên hệ Ngọc Tiên nhé 💕</p>
       </div>
 
       <form id="loginForm">
@@ -225,7 +563,7 @@
             <input
               type="email"
               id="loginEmail"
-              placeholder="Nhập email của bạn"
+              placeholder="Có Email thì vào"
               required
             />
             <span class="icon">📧</span>
@@ -239,7 +577,7 @@
             <input
               type="password"
               id="loginPassword"
-              placeholder="Nhập mật khẩu"
+              placeholder="Nhập cho đúng mật khẩu nha"
               required
             />
             <span class="icon">🔒</span>
@@ -247,7 +585,9 @@
           <div class="error-message" id="passwordError"></div>
         </div>
 
-        <button type="submit" class="login-btn" id="loginBtn">Đăng Nhập</button>
+        <button type="submit" class="login-btn" id="loginBtn">
+          Vào Được Không Nè hẹ hẹ 💖
+        </button>
       </form>
 
       <div class="footer">
@@ -256,6 +596,64 @@
     </div>
 
     <script>
+      // Tạo tim bay bay
+      function createHeart() {
+        const heartsContainer = document.getElementById("heartsContainer");
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = Math.random() > 0.5 ? "💖" : "💕";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = Math.random() * 3 + 4 + "s";
+        heart.style.animationDelay = Math.random() * 2 + "s";
+        heartsContainer.appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 8000);
+      }
+
+      setInterval(createHeart, 800);
+
+      for (let i = 0; i < 5; i++) {
+        setTimeout(createHeart, i * 200);
+      }
+
+      // Xử lý mở/đóng form
+      const loginToggle = document.getElementById("loginToggle");
+      const loginContainer = document.getElementById("loginContainer");
+      const closeBtn = document.getElementById("closeBtn");
+      const overlay = document.getElementById("overlay");
+
+      function openLoginForm() {
+        loginContainer.classList.remove("closing");
+        loginContainer.classList.add("active");
+        overlay.classList.add("active");
+        loginToggle.style.opacity = "0";
+        loginToggle.style.visibility = "hidden";
+      }
+
+      function closeLoginForm() {
+        loginContainer.classList.add("closing");
+        loginContainer.classList.remove("active");
+        overlay.classList.remove("active");
+        setTimeout(() => {
+          loginToggle.style.opacity = "1";
+          loginToggle.style.visibility = "visible";
+        }, 300);
+      }
+
+      loginToggle.addEventListener("click", openLoginForm);
+      closeBtn.addEventListener("click", closeLoginForm);
+      overlay.addEventListener("click", closeLoginForm);
+
+      // Đóng form bằng ESC
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && loginContainer.classList.contains("active")) {
+          closeLoginForm();
+        }
+      });
+
+      // JavaScript logic form
       const loginForm = document.getElementById("loginForm");
       const loginBtn = document.getElementById("loginBtn");
       const emailInput = document.getElementById("loginEmail");
@@ -263,13 +661,11 @@
       const emailError = document.getElementById("emailError");
       const passwordError = document.getElementById("passwordError");
 
-      // Validate email format
       function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
       }
 
-      // Show error message
       function showError(element, message) {
         element.textContent = message;
         element.style.display = "block";
@@ -278,7 +674,6 @@
         ).style.borderColor = "#e74c3c";
       }
 
-      // Hide error message
       function hideError(element) {
         element.style.display = "none";
         element.previousElementSibling.querySelector(
@@ -286,41 +681,26 @@
         ).style.borderColor = "#e1e5e9";
       }
 
-      // Clear all errors
       function clearErrors() {
         hideError(emailError);
         hideError(passwordError);
       }
 
-      // Show loading state
       function showLoading() {
         loginBtn.disabled = true;
         loginBtn.classList.add("loading");
-        loginBtn.textContent = "Đang đăng nhập...";
+        loginBtn.textContent = "Đang đăng nhập... 💫";
       }
 
-      // Hide loading state
       function hideLoading() {
         loginBtn.disabled = false;
         loginBtn.classList.remove("loading");
-        loginBtn.textContent = "Đăng Nhập";
+        loginBtn.textContent = "Vào Được Không Nè hẹ hẹ 💖";
       }
 
-      // Show custom alert
       function showAlert(message, type = "info") {
         const alertDiv = document.createElement("div");
-        alertDiv.style.cssText = `
-                position: fixed;
-                top: 20px;
-                right: 20px;
-                padding: 15px 20px;
-                border-radius: 10px;
-                color: white;
-                font-weight: 600;
-                z-index: 1000;
-                animation: slideInRight 0.3s ease-out;
-                max-width: 300px;
-            `;
+        alertDiv.className = "custom-alert";
 
         if (type === "success") {
           alertDiv.style.background =
@@ -330,31 +710,14 @@
             "linear-gradient(135deg, #e74c3c, #c0392b)";
         } else {
           alertDiv.style.background =
-            "linear-gradient(135deg, #667eea, #764ba2)";
+            "linear-gradient(135deg, #ff6b6b, #ff4757)";
         }
 
         alertDiv.textContent = message;
         document.body.appendChild(alertDiv);
 
-        // Add slide animation
-        const style = document.createElement("style");
-        style.textContent = `
-                @keyframes slideInRight {
-                    from {
-                        opacity: 0;
-                        transform: translateX(100%);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateX(0);
-                    }
-                }
-            `;
-        document.head.appendChild(style);
-
         setTimeout(() => {
           alertDiv.remove();
-          style.remove();
         }, 4000);
       }
 
@@ -366,7 +729,6 @@
 
         clearErrors();
 
-        // Validation
         let hasError = false;
 
         if (!email) {
@@ -405,6 +767,8 @@
               "success"
             );
             setTimeout(() => {
+              localStorage.setItem("isLoggedIn", "true");
+              localStorage.setItem("userName", result.data.name);
               window.location.href = "index.html";
             }, 2000);
           } else {
@@ -418,7 +782,6 @@
         }
       });
 
-      // Real-time validation
       emailInput.addEventListener("input", function () {
         if (emailError.style.display === "block") {
           if (this.value.trim() && validateEmail(this.value.trim())) {
@@ -433,6 +796,17 @@
             hideError(passwordError);
           }
         }
+      });
+
+      // Thêm hiệu ứng khi click vào input
+      document.querySelectorAll("input").forEach((input) => {
+        input.addEventListener("focus", function () {
+          this.parentElement.parentElement.style.transform = "scale(1.02)";
+        });
+
+        input.addEventListener("blur", function () {
+          this.parentElement.parentElement.style.transform = "scale(1)";
+        });
       });
     </script>
   </body>
