@@ -30,22 +30,22 @@
         position: relative;
       }
 
-      /* Navigation Menu Styles */
+      /* NAVIGATION MENU */
       .nav-menu {
         position: fixed;
         top: 0;
         left: 0;
-        width: 100%;
+        right: 0;
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         z-index: 1000;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .nav-menu.scrolled {
-        background: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
       }
 
       .nav-container {
@@ -54,86 +54,148 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px;
-        height: 70px;
+        padding: 20px 25px;
       }
 
       .nav-logo {
-        font-size: 1.5rem;
+        font-size: 1.6em;
         font-weight: 700;
-        color: #ff69b4;
+        color: white;
         text-decoration: none;
-        font-family: "Dancing Script", cursive;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        transition: all 0.3s ease;
+      }
+
+      .nav-logo:hover {
+        transform: scale(1.05);
       }
 
       .nav-links {
         display: flex;
         list-style: none;
-        gap: 30px;
+        gap: 35px;
       }
 
       .nav-links a {
-        color: white;
+        color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
+        font-size: 1.1em;
         font-weight: 500;
-        padding: 8px 16px;
-        border-radius: 20px;
-        transition: all 0.3s ease;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        padding: 8px 0;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(45deg, #ff6b6b, #feca57);
+        transition: width 0.3s ease;
       }
 
       .nav-links a:hover {
-        background: rgba(255, 105, 180, 0.3);
+        color: white;
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
       }
 
-      .mobile-toggle {
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a.active {
+        color: #feca57;
+        font-weight: 600;
+      }
+
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      /* MOBILE MENU */
+      .mobile-menu-toggle {
         display: none;
-        flex-direction: column;
+        color: white;
+        font-size: 1.8em;
         cursor: pointer;
-        padding: 5px;
+        transition: all 0.3s ease;
+        padding: 8px;
+        border-radius: 8px;
       }
 
-      .mobile-toggle span {
-        width: 25px;
-        height: 3px;
-        background: white;
-        margin: 3px 0;
-        transition: 0.3s;
-        border-radius: 2px;
+      .mobile-menu-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(1.1);
       }
 
       @media (max-width: 768px) {
-        .nav-links {
-          position: fixed;
-          top: 70px;
-          left: -100%;
-          width: 100%;
-          height: calc(100vh - 70px);
-          background: rgba(0, 0, 0, 0.9);
-          backdrop-filter: blur(20px);
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: center;
-          padding-top: 50px;
-          transition: left 0.3s ease;
+        .mobile-menu-toggle {
+          display: block;
         }
 
-        .nav-links.show {
+        .nav-links {
+          position: absolute;
+          top: 100%;
           left: 0;
+          right: 0;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          flex-direction: column;
+          gap: 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 0 0 20px 20px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links.active {
+          max-height: 350px;
+        }
+
+        .nav-links li {
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links li:last-child {
+          border-bottom: none;
         }
 
         .nav-links a {
-          font-size: 1.2rem;
-          margin: 10px 0;
-          padding: 15px 30px;
+          display: block;
+          padding: 18px 25px;
+          color: #333;
+          font-weight: 500;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
         }
 
-        .mobile-toggle {
-          display: flex;
+        .nav-links a:hover {
+          background: linear-gradient(
+            135deg,
+            rgba(255, 107, 107, 0.1),
+            rgba(254, 202, 87, 0.1)
+          );
+          transform: translateX(10px);
+        }
+
+        .nav-links a.active {
+          background: linear-gradient(
+            135deg,
+            rgba(255, 107, 107, 0.2),
+            rgba(254, 202, 87, 0.2)
+          );
+          color: #ff6b6b;
+        }
+
+        .nav-links a::after {
+          display: none;
         }
       }
 
@@ -492,21 +554,23 @@
     </style>
   </head>
   <body>
-    <!-- Navigation Menu -->
+    <!-- NAVIGATION MENU -->
     <nav class="nav-menu" id="navMenu">
       <div class="nav-container">
-        <a href="index.html" class="nav-logo"> 💕 Love Story </a>
+        <a href="index.html" class="nav-logo">💕 Love Story</a>
         <ul class="nav-links" id="navLinks">
           <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter1.html">Thời gian</a></li>
+          <li><a href="counter.html">Thời gian</a></li>
           <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery1.html">Ảnh</a></li>
+          <li><a href="gallery.html" class="active">Ảnh</a></li>
           <li><a href="message.html">Lời nhắn</a></li>
         </ul>
-        <div class="mobile-toggle" id="mobileToggle">
-          <span></span>
-          <span></span>
-          <span></span>
+        <div
+          class="mobile-menu-toggle"
+          onclick="toggleMobileMenu()"
+          id="mobileToggle"
+        >
+          ☰
         </div>
       </div>
     </nav>
@@ -835,7 +899,21 @@
           img.style.animationDirection = isReversed ? "reverse" : "normal";
         });
       }
+      function toggleMobileMenu() {
+        const navLinks = document.getElementById("navLinks");
+        const toggle = document.getElementById("mobileToggle");
 
+        navLinks.classList.toggle("active");
+
+        // Animate toggle icon
+        if (navLinks.classList.contains("active")) {
+          toggle.style.transform = "rotate(90deg)";
+          toggle.textContent = "✕";
+        } else {
+          toggle.style.transform = "rotate(0deg)";
+          toggle.textContent = "☰";
+        }
+      }
       // Tạo hiệu ứng bùng nổ trái tim
       function createHeartExplosion() {
         const centerHeart = document.getElementById("centerHeart");
@@ -871,7 +949,6 @@
             heart.remove();
           }, 2100);
         }
-
         // Hiệu ứng rung cho trái tim giữa
         centerHeart.style.animation = "none";
         setTimeout(() => {
@@ -894,6 +971,16 @@
         }
       }
       window.addEventListener("scroll", updateOnScroll);
+    </script>
+    <script>
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const expireTime = parseInt(localStorage.getItem("loginExpire"));
+
+      if (!isLoggedIn || !expireTime || Date.now() > expireTime) {
+        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
     </script>
   </body>
 </html>
