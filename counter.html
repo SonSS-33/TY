@@ -3,12 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <title>Thời Gian - Love Story</title>
+    <!-- Load Authentication Script -->
     <script src="auth.js"></script>
-    <title>Trái Tim Xoay Hình Ảnh 💕</title>
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap");
-
       * {
         margin: 0;
         padding: 0;
@@ -16,190 +14,14 @@
       }
 
       body {
-        font-family: "Poppins", sans-serif;
-        background-image: url("img/anhhai.jpg");
-        background-size: cover;
-        background-position: center 20%;
-        background-repeat: no-repeat;
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-        position: relative;
+        overflow-x: hidden;
       }
 
-      /* NAVIGATION MENU */
-      .nav-menu {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        z-index: 1000;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .nav-menu.scrolled {
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 25px;
-      }
-
-      .nav-logo {
-        font-size: 1.6em;
-        font-weight: 700;
-        color: white;
-        text-decoration: none;
-        background: linear-gradient(45deg, #ff6b6b, #feca57);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        transition: all 0.3s ease;
-      }
-
-      .nav-logo:hover {
-        transform: scale(1.05);
-      }
-
-      .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 35px;
-      }
-
-      .nav-links a {
-        color: rgba(255, 255, 255, 0.9);
-        text-decoration: none;
-        font-size: 1.1em;
-        font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        padding: 8px 0;
-      }
-
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(45deg, #ff6b6b, #feca57);
-        transition: width 0.3s ease;
-      }
-
-      .nav-links a:hover {
-        color: white;
-        transform: translateY(-2px);
-      }
-
-      .nav-links a:hover::after {
-        width: 100%;
-      }
-
-      .nav-links a.active {
-        color: #feca57;
-        font-weight: 600;
-      }
-
-      .nav-links a.active::after {
-        width: 100%;
-      }
-
-      /* MOBILE MENU */
-      .mobile-menu-toggle {
-        display: none;
-        color: white;
-        font-size: 1.8em;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding: 8px;
-        border-radius: 8px;
-      }
-
-      .mobile-menu-toggle:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(1.1);
-      }
-
-      @media (max-width: 768px) {
-        .mobile-menu-toggle {
-          display: block;
-        }
-
-        .nav-links {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          flex-direction: column;
-          gap: 0;
-          max-height: 0;
-          overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          border-radius: 0 0 20px 20px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-links.active {
-          max-height: 350px;
-        }
-
-        .nav-links li {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-links li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-links a {
-          display: block;
-          padding: 18px 25px;
-          color: #333;
-          font-weight: 500;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-        }
-
-        .nav-links a:hover {
-          background: linear-gradient(
-            135deg,
-            rgba(255, 107, 107, 0.1),
-            rgba(254, 202, 87, 0.1)
-          );
-          transform: translateX(10px);
-        }
-
-        .nav-links a.active {
-          background: linear-gradient(
-            135deg,
-            rgba(255, 107, 107, 0.2),
-            rgba(254, 202, 87, 0.2)
-          );
-          color: #ff6b6b;
-        }
-
-        .nav-links a::after {
-          display: none;
-        }
-      }
-
-      .stars {
+      /* Floating Hearts Animation */
+      .floating-hearts {
         position: fixed;
         top: 0;
         left: 0;
@@ -209,264 +31,14 @@
         z-index: 1;
       }
 
-      .star {
+      .heart {
         position: absolute;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 12px;
-        animation: twinkle 2s ease-in-out infinite;
+        color: rgba(255, 182, 193, 0.6);
+        font-size: 20px;
+        animation: float 6s infinite ease-in-out;
       }
 
-      @keyframes twinkle {
-        0%,
-        100% {
-          opacity: 0.3;
-          transform: scale(1);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1.2);
-        }
-      }
-
-      .container {
-        position: relative;
-        z-index: 10;
-        text-align: center;
-        margin-top: 70px;
-      }
-
-      .title {
-        font-family: "Dancing Script", cursive;
-        font-size: 4rem;
-        color: white;
-        margin-bottom: 20px;
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        animation: glow 3s ease-in-out infinite alternate;
-      }
-
-      @keyframes glow {
-        from {
-          text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        to {
-          text-shadow: 0 0 40px rgba(255, 192, 203, 0.8),
-            0 0 60px rgba(255, 105, 180, 0.6);
-        }
-      }
-
-      .heart-container {
-        position: relative;
-        width: 600px;
-        height: 600px;
-        margin: 0 auto;
-      }
-
-      .heart-path {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 500px;
-        height: 500px;
-      }
-
-      .rotating-image {
-        position: absolute;
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        border: 4px solid rgba(255, 255, 255, 0.8);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6),
-          0 0 40px rgba(255, 192, 203, 0.4),
-          inset 0 0 20px rgba(255, 255, 255, 0.2);
-        background-size: cover;
-        background-position: center;
-        transition: all 0.3s ease;
-        cursor: pointer;
-        animation: rotateAroundHeart 15s linear infinite;
-      }
-
-      .rotating-image:hover {
-        transform: scale(1.3);
-        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
-          0 0 60px rgba(255, 192, 203, 0.6), 0 0 90px rgba(255, 105, 180, 0.4);
-        z-index: 100;
-      }
-
-      .rotating-image:nth-child(1) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ff6b6b"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%23ff6b6b">💕</text></svg>');
-        animation-delay: 0s;
-      }
-
-      .rotating-image:nth-child(2) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23feca57"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%23feca57">🌟</text></svg>');
-        animation-delay: -1.875s;
-      }
-
-      .rotating-image:nth-child(3) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ff9ff3"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%23ff9ff3">🌸</text></svg>');
-        animation-delay: -3.75s;
-      }
-
-      .rotating-image:nth-child(4) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%2354a3ff"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%2354a3ff">🦋</text></svg>');
-        animation-delay: -5.625s;
-      }
-
-      .rotating-image:nth-child(5) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%235f27cd"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%235f27cd">💜</text></svg>');
-        animation-delay: -7.5s;
-      }
-
-      .rotating-image:nth-child(6) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%2300d2d3"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%2300d2d3">🌺</text></svg>');
-        animation-delay: -9.375s;
-      }
-
-      .rotating-image:nth-child(7) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23ff7675"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%23ff7675">🌹</text></svg>');
-        animation-delay: -11.25s;
-      }
-
-      .rotating-image:nth-child(8) {
-        background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23fd79a8"/><circle cx="50" cy="50" r="30" fill="white"/><text x="50" y="60" text-anchor="middle" font-size="20" fill="%23fd79a8">💖</text></svg>');
-        animation-delay: -13.125s;
-      }
-
-      @keyframes rotateAroundHeart {
-        0% {
-          transform: translate(150px, 0px);
-        }
-        12.5% {
-          transform: translate(106px, -106px);
-        }
-        25% {
-          transform: translate(0px, -150px);
-        }
-        37.5% {
-          transform: translate(-106px, -106px);
-        }
-        50% {
-          transform: translate(-150px, 0px);
-        }
-        62.5% {
-          transform: translate(-106px, 60px);
-        }
-        75% {
-          transform: translate(0px, 100px);
-        }
-        87.5% {
-          transform: translate(106px, 60px);
-        }
-        100% {
-          transform: translate(150px, 0px);
-        }
-      }
-
-      .center-heart {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 6rem;
-        color: rgba(255, 255, 255, 0.9);
-        text-shadow: 0 0 30px rgba(255, 192, 203, 0.8);
-        animation: heartbeat 2s ease-in-out infinite;
-        z-index: 50;
-        cursor: pointer;
-      }
-
-      @keyframes heartbeat {
-        0%,
-        100% {
-          transform: translate(-50%, -50%) scale(1);
-        }
-        50% {
-          transform: translate(-50%, -50%) scale(1.1);
-        }
-      }
-
-      .controls {
-        position: absolute;
-        bottom: 50px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 20px;
-        z-index: 100;
-      }
-
-      .control-btn {
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        color: white;
-        padding: 15px 30px;
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 1rem;
-        font-weight: 600;
-        transition: all 0.3s ease;
-        font-family: "Poppins", sans-serif;
-      }
-
-      .control-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: translateY(-3px);
-        box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
-      }
-
-      .speed-display {
-        position: absolute;
-        top: 100px;
-        right: 30px;
-        background: rgba(255, 255, 255, 0.2);
-        backdrop-filter: blur(20px);
-        border-radius: 20px;
-        padding: 15px 25px;
-        color: white;
-        font-weight: 600;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-      }
-
-      .image-info {
-        position: absolute;
-        bottom: 150px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: rgba(0, 0, 0, 0.7);
-        backdrop-filter: blur(20px);
-        border-radius: 15px;
-        padding: 15px 25px;
-        color: white;
-        font-size: 1.1rem;
-        opacity: 0;
-        transition: all 0.3s ease;
-        pointer-events: none;
-      }
-
-      .image-info.show {
-        opacity: 1;
-      }
-
-      .floating-hearts {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 5;
-      }
-
-      .floating-heart {
-        position: absolute;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 2rem;
-        animation: floatUp 6s ease-out infinite;
-      }
-
-      @keyframes floatUp {
+      @keyframes float {
         0% {
           transform: translateY(100vh) rotate(0deg);
           opacity: 0;
@@ -483,504 +55,721 @@
         }
       }
 
-      .particle-trail {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        background: white;
-        border-radius: 50%;
-        pointer-events: none;
-        animation: fadeOut 1s ease-out forwards;
+      /* Navigation */
+      .nav-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 0;
       }
 
-      @keyframes fadeOut {
-        0% {
-          opacity: 1;
-          transform: scale(1);
-        }
-        100% {
-          opacity: 0;
-          transform: scale(0);
-        }
+      .nav-links {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+        max-width: 400px;
+        margin: 0 auto;
       }
 
-      @media (max-width: 768px) {
+      .nav-links a {
+        text-decoration: none;
+        color: #667eea;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 10px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:before {
+        content: "";
+        font-size: 20px;
+      }
+
+      .nav-links a[href="index.html"]:before {
+        content: "🏠";
+      }
+      .nav-links a[href="counter.html"]:before {
+        content: "⏰";
+      }
+      .nav-links a[href="timeline.html"]:before {
+        content: "📅";
+      }
+      .nav-links a[href="gallery.html"]:before {
+        content: "📸";
+      }
+      .nav-links a[href="message.html"]:before {
+        content: "💌";
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(102, 126, 234, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Main Container */
+      .container {
+        padding: 15px;
+        padding-bottom: 100px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 25px;
+        padding: 25px 15px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+        color: white;
+        margin-bottom: 8px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 0.9em;
+        font-weight: 300;
+      }
+
+      /* Main Counter */
+      .main-counter {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .main-counter h2 {
+        color: #667eea;
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .counter-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .counter-item {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px 10px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .counter-item:hover {
+        transform: translateY(-3px);
+      }
+
+      .counter-number {
+        display: block;
+        font-size: 2.2em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+
+      .counter-label {
+        font-size: 0.9em;
+        opacity: 0.9;
+        font-weight: 500;
+      }
+
+      /* Detailed Counter */
+      .detailed-counter {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .detailed-counter h3 {
+        color: #667eea;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .detail-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .detail-item {
+        background: linear-gradient(45deg, #f093fb, #f5576c);
+        color: white;
+        padding: 15px 8px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 4px 12px rgba(240, 147, 251, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .detail-item:hover {
+        transform: translateY(-2px);
+      }
+
+      .detail-number {
+        font-size: 1.3em;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 3px;
+      }
+
+      .detail-label {
+        font-size: 0.75em;
+        opacity: 0.9;
+      }
+
+      /* Milestones */
+      .milestones {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .milestones h3 {
+        color: #667eea;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .milestone-item {
+        background: linear-gradient(135deg, #a8edea, #fed6e3);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .milestone-item:hover {
+        transform: translateY(-2px);
+      }
+
+      .milestone-icon {
+        font-size: 1.5em;
+        min-width: 40px;
+        flex-shrink: 0;
+      }
+
+      .milestone-content {
+        flex: 1;
+      }
+
+      .milestone-content h4 {
+        color: #333;
+        font-size: 1em;
+        margin-bottom: 3px;
+        font-weight: 600;
+      }
+
+      .milestone-content p {
+        color: #666;
+        font-size: 0.85em;
+        line-height: 1.4;
+      }
+
+      /* Special Message */
+      .special-message {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .special-message .quote {
+        color: #333;
+        font-size: 1em;
+        line-height: 1.6;
+        font-style: italic;
+        margin-bottom: 15px;
+      }
+
+      .special-message .author {
+        color: #667eea;
+        font-size: 0.9em;
+        font-weight: 600;
+      }
+
+      /* Mobile Specific Optimizations */
+      @media (max-width: 480px) {
         .container {
-          margin-top: 70px;
+          padding: 10px;
+          padding-bottom: 100px;
         }
 
-        .heart-container {
-          width: 400px;
-          height: 400px;
+        .header {
+          padding: 20px 12px;
+          margin-bottom: 20px;
         }
 
-        .heart-path {
-          width: 350px;
-          height: 350px;
+        .header h1 {
+          font-size: 1.6em;
         }
 
-        .rotating-image {
-          width: 60px;
-          height: 60px;
+        .header .subtitle {
+          font-size: 0.85em;
         }
 
-        .title {
-          font-size: 2.5rem;
+        .main-counter {
+          padding: 20px 12px;
         }
 
-        .center-heart {
-          font-size: 4rem;
+        .main-counter h2 {
+          font-size: 1.1em;
+          margin-bottom: 15px;
         }
 
-        .controls {
-          bottom: 30px;
-          flex-direction: column;
-          align-items: center;
+        .counter-grid {
+          gap: 12px;
+        }
+
+        .counter-item {
+          padding: 15px 8px;
+        }
+
+        .counter-number {
+          font-size: 1.8em;
+        }
+
+        .counter-label {
+          font-size: 0.8em;
+        }
+
+        .detailed-counter {
+          padding: 20px 12px;
+        }
+
+        .detailed-counter h3 {
+          font-size: 1em;
+        }
+
+        .detail-grid {
           gap: 10px;
         }
 
-        .control-btn {
-          padding: 10px 20px;
-          font-size: 0.9rem;
+        .detail-item {
+          padding: 12px 6px;
         }
 
-        .speed-display {
-          top: 80px;
-          right: 10px;
-          padding: 10px 15px;
-          font-size: 0.9rem;
+        .detail-number {
+          font-size: 1.1em;
+        }
+
+        .detail-label {
+          font-size: 0.7em;
+        }
+
+        .milestones {
+          padding: 20px 12px;
+        }
+
+        .milestones h3 {
+          font-size: 1em;
+        }
+
+        .milestone-item {
+          padding: 12px;
+          gap: 10px;
+          margin-bottom: 10px;
+        }
+
+        .milestone-icon {
+          font-size: 1.3em;
+          min-width: 35px;
+        }
+
+        .milestone-content h4 {
+          font-size: 0.9em;
+        }
+
+        .milestone-content p {
+          font-size: 0.8em;
+        }
+
+        .special-message {
+          padding: 20px 12px;
+        }
+
+        .special-message .quote {
+          font-size: 0.9em;
+        }
+
+        .special-message .author {
+          font-size: 0.85em;
+        }
+      }
+
+      /* Very small screens */
+      @media (max-width: 360px) {
+        .container {
+          padding: 8px;
+          padding-bottom: 100px;
+        }
+
+        .counter-grid {
+          grid-template-columns: 1fr;
+          gap: 10px;
+        }
+
+        .counter-item {
+          padding: 18px 12px;
+        }
+
+        .counter-number {
+          font-size: 2em;
+        }
+
+        .detail-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .detail-item {
+          padding: 15px 10px;
+        }
+
+        .detail-number {
+          font-size: 1.4em;
+        }
+
+        .milestone-item {
+          flex-direction: column;
+          text-align: center;
+          padding: 15px;
+        }
+
+        .milestone-icon {
+          font-size: 1.8em;
+          margin-bottom: 5px;
+        }
+      }
+
+      /* Landscape mobile optimization */
+      @media (max-width: 812px) and (orientation: landscape) {
+        .header {
+          padding: 15px;
+          margin-bottom: 15px;
+        }
+
+        .header h1 {
+          font-size: 1.4em;
+        }
+
+        .main-counter,
+        .detailed-counter,
+        .milestones,
+        .special-message {
+          padding: 15px;
+          margin-bottom: 15px;
+        }
+
+        .counter-grid {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+        }
+
+        .detail-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
+      }
+
+      /* Loading animations */
+      .counter-number,
+      .detail-number {
+        transition: all 0.5s ease;
+      }
+
+      .pulse {
+        animation: pulse 1s ease-in-out;
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* Accessibility improvements */
+      @media (prefers-reduced-motion: reduce) {
+        .heart {
+          animation: none;
+        }
+
+        .counter-item:hover,
+        .detail-item:hover,
+        .milestone-item:hover {
+          transform: none;
         }
       }
     </style>
   </head>
   <body>
-    <!-- NAVIGATION MENU -->
-    <nav class="nav-menu" id="navMenu">
-      <div class="nav-container">
-        <a href="index.html" class="nav-logo">💕 Love Story</a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter.html">Thời gian</a></li>
-          <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery.html" class="active">Ảnh</a></li>
-          <li><a href="message.html">Lời nhắn</a></li>
-        </ul>
-        <div
-          class="mobile-menu-toggle"
-          onclick="toggleMobileMenu()"
-          id="mobileToggle"
-        >
-          ☰
-        </div>
-      </div>
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="counter.html" class="active">Thời gian</a></li>
+        <li><a href="timeline.html">Kỷ niệm</a></li>
+        <li><a href="gallery.html">Ảnh</a></li>
+        <li><a href="message.html">Lời nhắn</a></li>
+      </ul>
     </nav>
 
-    <div class="stars" id="stars"></div>
-    <div class="floating-hearts" id="floatingHearts"></div>
-
     <div class="container">
-      <h1 class="title">💕 ABC XYZ 💕</h1>
+      <header class="header">
+        <h1>⏰ Thời Gian Yêu Nhau ⏰</h1>
+        <p class="subtitle">Từng giây phút bên em đều quý giá</p>
+      </header>
 
-      <div class="heart-container">
-        <div class="heart-path">
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
-          <div class="rotating-image"></div>
+      <div class="main-counter">
+        <h2>Chúng ta đã yêu nhau được</h2>
+        <div class="counter-grid">
+          <div class="counter-item">
+            <span class="counter-number" id="years">0</span>
+            <div class="counter-label">Năm</div>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="months">0</span>
+            <div class="counter-label">Tháng</div>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="days">0</span>
+            <div class="counter-label">Ngày</div>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="hours">0</span>
+            <div class="counter-label">Giờ</div>
+          </div>
         </div>
-        <div class="center-heart" id="centerHeart">❤️</div>
       </div>
 
-      <div class="image-info" id="imageInfo">
-        Nhấn vào hình ảnh để xem chi tiết
+      <div class="detailed-counter">
+        <h3>Chi tiết thời gian</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <span class="detail-number" id="totalDays">0</span>
+            <div class="detail-label">Tổng ngày</div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-number" id="totalHours">0</span>
+            <div class="detail-label">Tổng giờ</div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-number" id="totalMinutes">0</span>
+            <div class="detail-label">Tổng phút</div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-number" id="totalSeconds">0</span>
+            <div class="detail-label">Tổng giây</div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-number" id="heartbeats">0</span>
+            <div class="detail-label">Nhịp tim</div>
+          </div>
+          <div class="detail-item">
+            <span class="detail-number" id="breaths">0</span>
+            <div class="detail-label">Hơi thở</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestones">
+        <h3>Các mốc thời gian đặc biệt</h3>
+        <div class="milestone-item">
+          <div class="milestone-icon">🎉</div>
+          <div class="milestone-content">
+            <h4>100 ngày yêu nhau</h4>
+            <p id="milestone100">
+              Đã qua được <span id="days100">0</span> ngày
+            </p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-icon">💝</div>
+          <div class="milestone-content">
+            <h4>365 ngày yêu nhau</h4>
+            <p id="milestone365">Còn <span id="daysTo365">0</span> ngày nữa</p>
+          </div>
+        </div>
+        <div class="milestone-item">
+          <div class="milestone-icon">💍</div>
+          <div class="milestone-content">
+            <h4>1000 ngày yêu nhau</h4>
+            <p id="milestone1000">
+              Còn <span id="daysTo1000">0</span> ngày nữa
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="special-message">
+        <p class="quote">
+          "Thời gian trôi qua, nhưng tình yêu chúng ta ngày càng lớn mạnh. Mỗi
+          giây phút bên em đều là một món quà quý giá mà anh trân trọng."
+        </p>
+        <div class="author">💕 Với tất cả tình yêu 💕</div>
       </div>
     </div>
 
-    <div class="controls">
-      <button class="control-btn" id="loveDeckBtn">💞 Bộ bài Yêu Thêm</button>
-      <button class="control-btn" id="normalBtn">⚡ Bình thường</button>
-      <button class="control-btn" id="fastBtn">🚀 Nhanh</button>
-      <button class="control-btn" id="pauseBtn">⏸️ Tạm dừng</button>
-      <button class="control-btn" id="reverseBtn">🔄 Đảo chiều</button>
-    </div>
-
     <script>
-      // Thông tin các hình ảnh
-      const imageData = [
-        {
-          name: "Tình Yêu",
-          imageUrl: "img/anhmot.jpg",
-          description: "Biểu tượng của tình yêu thuần khiết",
-        },
-        {
-          name: "Ngôi Sao",
-          imageUrl: "img/anhhai.jpg",
-          description: "Ánh sao dẫn lối cho tình yêu",
-        },
-        {
-          name: "Hoa Anh Đào",
-          imageUrl: "img/anhdacbiet.jpg",
-          description: "Vẻ đẹp thoáng qua nhưng đáng nhớ",
-        },
-        {
-          name: "Bướm",
-          imageUrl: "img/anhnam.jpg",
-          description: "Sự biến đổi và tự do trong tình yêu",
-        },
-        {
-          name: "Tim Tím",
-          imageUrl: "img/anhsau.jpg",
-          description: "Tình yêu sâu sắc và bí ẩn",
-        },
-        {
-          name: "Hoa Nhiệt Đới",
-          imageUrl: "img/anhbay.jpg",
-          description: "Sự rực rỡ của tình yêu nhiệt đới",
-        },
-        {
-          name: "Hoa Hồng",
-          imageUrl: "img/anhtam.jpg",
-          description: "Biểu tượng cổ điển của tình yêu",
-        },
-        {
-          name: "Tim Hồng",
-          imageUrl: "img/anhchin.jpg",
-          description: "Tình yêu ngọt ngào và dịu dàng",
-        },
-      ];
+      // Floating Hearts Animation
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💕";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 3 + "s";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        document.getElementById("heartsContainer").appendChild(heart);
 
-      let currentSpeed = 1;
-      let isPaused = false;
-      let isReversed = false;
-      let animationDuration = 15;
-
-      // Initialize navigation scroll effect
-      function initNavigation() {
-        const nav = document.getElementById("navMenu");
-        const mobileToggle = document.getElementById("mobileToggle");
-        const navLinks = document.getElementById("navLinks");
-
-        window.addEventListener("scroll", () => {
-          if (window.scrollY > 50) {
-            nav.classList.add("scrolled");
-          } else {
-            nav.classList.remove("scrolled");
-          }
-        });
-
-        mobileToggle.addEventListener("click", () => {
-          navLinks.classList.toggle("show");
-        });
-      }
-
-      // Khởi tạo
-      function init() {
-        initNavigation();
-        createStars();
-        createFloatingHearts();
-        setupEventListeners();
-        setupImageHoverEffects();
-        createParticleTrails();
-
-        const images = document.querySelectorAll(".rotating-image");
-        images.forEach((img, index) => {
-          if (imageData[index]?.imageUrl) {
-            img.style.backgroundImage = `url(${imageData[index].imageUrl})`;
-          }
-        });
-      }
-
-      // Tạo ngôi sao nền
-      function createStars() {
-        const starsContainer = document.getElementById("stars");
-        for (let i = 0; i < 100; i++) {
-          const star = document.createElement("div");
-          star.className = "star";
-          star.innerHTML = "✨";
-          star.style.left = Math.random() * 100 + "%";
-          star.style.top = Math.random() * 100 + "%";
-          star.style.animationDelay = Math.random() * 2 + "s";
-          star.style.fontSize = Math.random() * 8 + 8 + "px";
-          starsContainer.appendChild(star);
-        }
-      }
-
-      // Tạo trái tim bay
-      function createFloatingHearts() {
-        const heartsContainer = document.getElementById("floatingHearts");
-        const heartSymbols = ["💕", "💖", "💗", "💝", "💘", "💞"];
-
-        setInterval(() => {
-          const heart = document.createElement("div");
-          heart.className = "floating-heart";
-          heart.innerHTML =
-            heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
-          heart.style.left = Math.random() * 100 + "%";
-          heart.style.animationDuration = Math.random() * 3 + 4 + "s";
-          heart.style.fontSize = Math.random() * 1.5 + 1 + "rem";
-          heartsContainer.appendChild(heart);
-
-          setTimeout(() => {
-            heart.remove();
-          }, 6000);
-        }, 2000);
-      }
-
-      // Tạo vệt hạt khi di chuyển
-      function createParticleTrails() {
-        const images = document.querySelectorAll(".rotating-image");
-        images.forEach((img) => {
-          setInterval(() => {
-            if (!isPaused) {
-              const rect = img.getBoundingClientRect();
-              const particle = document.createElement("div");
-              particle.className = "particle-trail";
-              particle.style.left = rect.left + rect.width / 2 + "px";
-              particle.style.top = rect.top + rect.height / 2 + "px";
-              document.body.appendChild(particle);
-
-              setTimeout(() => {
-                particle.remove();
-              }, 1000);
-            }
-          }, 200);
-        });
-      }
-
-      // Setup hover effects cho hình ảnh
-      function setupImageHoverEffects() {
-        const images = document.querySelectorAll(".rotating-image");
-        const imageInfo = document.getElementById("imageInfo");
-
-        images.forEach((img, index) => {
-          img.addEventListener("mouseenter", () => {
-            const data = imageData[index];
-            imageInfo.innerHTML = `
-                        <strong>${data.name}</strong><br>
-                        ${data.description}
-                    `;
-            imageInfo.classList.add("show");
-          });
-
-          img.addEventListener("mouseleave", () => {
-            imageInfo.classList.remove("show");
-          });
-
-          img.addEventListener("click", () => {
-            createClickEffect(img, imageData[index]);
-          });
-        });
-      }
-
-      // Tạo hiệu ứng khi click
-      function createClickEffect(element, data) {
-        // Tạo hiệu ứng bùng nổ
-        for (let i = 0; i < 12; i++) {
-          const particle = document.createElement("div");
-          particle.innerHTML = "💖";
-          particle.style.position = "fixed";
-          particle.style.left = element.getBoundingClientRect().left + "px";
-          particle.style.top = element.getBoundingClientRect().top + "px";
-          particle.style.fontSize = "2rem";
-          particle.style.pointerEvents = "none";
-          particle.style.zIndex = "1000";
-
-          const angle = (360 / 12) * i;
-          const distance = 100;
-          const endX = Math.cos((angle * Math.PI) / 180) * distance;
-          const endY = Math.sin((angle * Math.PI) / 180) * distance;
-
-          particle.style.transition = "all 1s ease-out";
-          document.body.appendChild(particle);
-
-          setTimeout(() => {
-            particle.style.transform = `translate(${endX}px, ${endY}px) rotate(720deg)`;
-            particle.style.opacity = "0";
-          }, 100);
-
-          setTimeout(() => {
-            particle.remove();
-          }, 1100);
-        }
-
-        // Hiệu ứng rung
-        element.style.animation = "none";
         setTimeout(() => {
-          element.style.animation = `rotateAroundHeart ${
-            animationDuration / currentSpeed
-          }s linear infinite`;
-          element.style.animationDelay = `-${
-            (imageData.indexOf(data) * animationDuration) / 8 / currentSpeed
-          }s`;
-          if (isReversed) {
-            element.style.animationDirection = "reverse";
-          }
-        }, 10);
+          heart.remove();
+        }, 6000);
       }
 
-      // Setup event listeners
-      function setupEventListeners() {
-        // Điều khiển tốc độ
-        // Chuyển hướng tới bộ bài
-        document.getElementById("loveDeckBtn").addEventListener("click", () => {
-          window.location.href = "gallery.html"; // Đường dẫn thật của file Bộ bài
-        });
-        document
-          .getElementById("normalBtn")
-          .addEventListener("click", () => setSpeed(1, "Bình thường"));
-        document
-          .getElementById("fastBtn")
-          .addEventListener("click", () => setSpeed(3, "Nhanh"));
+      setInterval(createHeart, 2000);
 
-        // Tạm dừng
-        document
-          .getElementById("pauseBtn")
-          .addEventListener("click", togglePause);
-
-        // Đảo chiều
-        document
-          .getElementById("reverseBtn")
-          .addEventListener("click", toggleReverse);
-
-        // Click vào trái tim giữa
-        document.getElementById("centerHeart").addEventListener("click", () => {
-          createHeartExplosion();
-        });
-      }
-
-      // Đặt tốc độ
-      function setSpeed(speed, speedText) {
-        currentSpeed = speed;
-        document.getElementById(
-          "speedDisplay"
-        ).textContent = `Tốc độ: ${speedText}`;
-        updateAnimations();
-      }
-
-      // Tạm dừng/Tiếp tục
-      function togglePause() {
-        isPaused = !isPaused;
-        const btn = document.getElementById("pauseBtn");
-        const images = document.querySelectorAll(".rotating-image");
-
-        if (isPaused) {
-          btn.innerHTML = "▶️ Tiếp tục";
-          images.forEach((img) => {
-            img.style.animationPlayState = "paused";
-          });
-        } else {
-          btn.innerHTML = "⏸️ Tạm dừng";
-          images.forEach((img) => {
-            img.style.animationPlayState = "running";
-          });
-        }
-      }
-
-      // Đảo chiều
-      function toggleReverse() {
-        isReversed = !isReversed;
-        const btn = document.getElementById("reverseBtn");
-        btn.innerHTML = isReversed ? "🔄 Thuận" : "🔄 Đảo chiều";
-        updateAnimations();
-      }
-
-      // Cập nhật animations
-      function updateAnimations() {
-        const images = document.querySelectorAll(".rotating-image");
-        images.forEach((img, index) => {
-          img.style.animationDuration = `${animationDuration / currentSpeed}s`;
-          img.style.animationDelay = `-${
-            (index * animationDuration) / 8 / currentSpeed
-          }s`;
-          img.style.animationDirection = isReversed ? "reverse" : "normal";
-        });
-      }
-      function toggleMobileMenu() {
-        const navLinks = document.getElementById("navLinks");
-        const toggle = document.getElementById("mobileToggle");
-
-        navLinks.classList.toggle("active");
-
-        // Animate toggle icon
-        if (navLinks.classList.contains("active")) {
-          toggle.style.transform = "rotate(90deg)";
-          toggle.textContent = "✕";
-        } else {
-          toggle.style.transform = "rotate(0deg)";
-          toggle.textContent = "☰";
-        }
-      }
-      // Tạo hiệu ứng bùng nổ trái tim
-      function createHeartExplosion() {
-        const centerHeart = document.getElementById("centerHeart");
-        const hearts = ["❤️", "💕", "💖", "💗", "💝", "💘", "💞", "💟"];
-
-        for (let i = 0; i < 20; i++) {
-          const heart = document.createElement("div");
-          heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
-          heart.style.position = "fixed";
-          heart.style.left =
-            centerHeart.getBoundingClientRect().left + 40 + "px";
-          heart.style.top = centerHeart.getBoundingClientRect().top + 40 + "px";
-          heart.style.fontSize = "3rem";
-          heart.style.pointerEvents = "none";
-          heart.style.zIndex = "1000";
-
-          const angle = Math.random() * 360;
-          const distance = Math.random() * 300 + 100;
-          const endX = Math.cos((angle * Math.PI) / 180) * distance;
-          const endY = Math.sin((angle * Math.PI) / 180) * distance;
-
-          heart.style.transition = "all 2s ease-out";
-          document.body.appendChild(heart);
-
+      // Format number with animation
+      function animateNumber(element, newValue) {
+        const oldValue = parseInt(element.textContent) || 0;
+        if (oldValue !== newValue) {
+          element.classList.add("pulse");
           setTimeout(() => {
-            heart.style.transform = `translate(${endX}px, ${endY}px) rotate(${
-              Math.random() * 720
-            }deg) scale(${Math.random() * 2 + 0.5})`;
-            heart.style.opacity = "0";
-          }, 100);
-
-          setTimeout(() => {
-            heart.remove();
-          }, 2100);
+            element.classList.remove("pulse");
+          }, 1000);
         }
-        // Hiệu ứng rung cho trái tim giữa
-        centerHeart.style.animation = "none";
-        setTimeout(() => {
-          centerHeart.style.animation = "heartbeat 2s ease-in-out infinite";
-        }, 10);
+        element.textContent = newValue.toLocaleString();
       }
 
-      // Khởi tạo khi trang load
-      window.addEventListener("load", init);
+      // Love Counter
+      function updateCounter() {
+        const startDate = new Date("2024-09-04T00:00:00");
+        const now = new Date();
+        const diff = now - startDate;
 
-      // Thêm hiệu ứng khi scroll (cho mobile)
-      let ticking = false;
-      function updateOnScroll() {
-        if (!ticking) {
-          requestAnimationFrame(() => {
-            // Có thể thêm hiệu ứng parallax ở đây
-            ticking = false;
+        // Basic calculations
+        const totalDays = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const totalHours = Math.floor(diff / (1000 * 60 * 60));
+        const totalMinutes = Math.floor(diff / (1000 * 60));
+        const totalSeconds = Math.floor(diff / 1000);
+
+        // Years, months, days, hours
+        const years = Math.floor(totalDays / 365);
+        const months = Math.floor((totalDays % 365) / 30);
+        const days = totalDays % 30;
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+
+        // Fun calculations
+        const heartbeats = Math.floor(totalSeconds * 1.2);
+        const breaths = Math.floor(totalSeconds / 4);
+
+        // Update main counter with animation
+        animateNumber(document.getElementById("years"), years);
+        animateNumber(document.getElementById("months"), months);
+        animateNumber(document.getElementById("days"), days);
+        animateNumber(document.getElementById("hours"), hours);
+
+        // Update detailed counter
+        animateNumber(document.getElementById("totalDays"), totalDays);
+        animateNumber(document.getElementById("totalHours"), totalHours);
+        animateNumber(document.getElementById("totalMinutes"), totalMinutes);
+        animateNumber(document.getElementById("totalSeconds"), totalSeconds);
+        animateNumber(document.getElementById("heartbeats"), heartbeats);
+        animateNumber(document.getElementById("breaths"), breaths);
+
+        // Update milestones
+        if (totalDays >= 100) {
+          document.getElementById(
+            "milestone100"
+          ).innerHTML = `Đã qua được <span style="color: #667eea; font-weight: bold;">${totalDays}</span> ngày! 🎉`;
+        } else {
+          document.getElementById("days100").textContent = totalDays;
+        }
+
+        if (totalDays >= 365) {
+          document.getElementById(
+            "milestone365"
+          ).innerHTML = `Đã qua được <span style="color: #667eea; font-weight: bold;">${totalDays}</span> ngày! 🎉`;
+        } else {
+          document.getElementById("daysTo365").textContent = 365 - totalDays;
+        }
+
+        if (totalDays >= 1000) {
+          document.getElementById(
+            "milestone1000"
+          ).innerHTML = `Đã qua được <span style="color: #667eea; font-weight: bold;">${totalDays}</span> ngày! 🎉`;
+        } else {
+          document.getElementById("daysTo1000").textContent = 1000 - totalDays;
+        }
+      }
+
+      updateCounter();
+      setInterval(updateCounter, 1000);
+
+      // Touch feedback for mobile
+      document
+        .querySelectorAll(".counter-item, .detail-item, .milestone-item")
+        .forEach((item) => {
+          item.addEventListener("touchstart", function () {
+            this.style.transform = "scale(0.95)";
           });
-          ticking = true;
-        }
-      }
-      window.addEventListener("scroll", updateOnScroll);
-    </script>
-    <script>
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const expireTime = parseInt(localStorage.getItem("loginExpire"));
 
-      if (!isLoggedIn || !expireTime || Date.now() > expireTime) {
-        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-        localStorage.clear();
-        window.location.href = "login.html";
-      }
+          item.addEventListener("touchend", function () {
+            this.style.transform = "";
+          });
+        });
     </script>
   </body>
 </html>

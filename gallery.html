@@ -2,26 +2,25 @@
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
-    <title>Bộ bài Yêu Thêm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thư Viện Ảnh - Love Story</title>
+    <!-- Load Authentication Script -->
     <script src="auth.js"></script>
     <style>
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        padding: 20px;
-        background: linear-gradient(
-          135deg,
-          #ff9a9e 0%,
-          #fecfef 50%,
-          #fecfef 100%
-        );
-        min-height: 100vh;
+      * {
         margin: 0;
-        text-align: center;
-        position: relative;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
         overflow-x: hidden;
       }
 
-      /* Floating hearts animation */
+      /* Floating Hearts Animation */
       .floating-hearts {
         position: fixed;
         top: 0;
@@ -34,9 +33,9 @@
 
       .heart {
         position: absolute;
-        color: rgba(255, 51, 102, 0.3);
+        color: rgba(255, 182, 193, 0.6);
         font-size: 20px;
-        animation: float 8s infinite ease-in-out;
+        animation: float 6s infinite ease-in-out;
       }
 
       @keyframes float {
@@ -51,258 +50,400 @@
           opacity: 1;
         }
         100% {
-          transform: translateY(-20px) rotate(360deg);
+          transform: translateY(-100px) rotate(360deg);
           opacity: 0;
         }
       }
 
-      .container {
-        max-width: 800px;
+      /* Navigation */
+      .nav-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 0;
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+        max-width: 400px;
         margin: 0 auto;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #667eea;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 10px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:before {
+        content: "";
+        font-size: 20px;
+      }
+
+      .nav-links a[href="index.html"]:before {
+        content: "🏠";
+      }
+      .nav-links a[href="counter.html"]:before {
+        content: "⏰";
+      }
+      .nav-links a[href="timeline.html"]:before {
+        content: "📅";
+      }
+      .nav-links a[href="gallery.html"]:before {
+        content: "📸";
+      }
+      .nav-links a[href="message.html"]:before {
+        content: "💌";
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(102, 126, 234, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Main Container */
+      .container {
+        padding: 20px;
+        padding-bottom: 100px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 30px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1em;
+        font-weight: 300;
+      }
+
+      /* Gallery Filters */
+      .gallery-filters {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #667eea;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 25px;
+        font-size: 0.9em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      /* Gallery Grid */
+      .gallery-section {
+        margin-bottom: 40px;
+      }
+
+      .section-title {
+        color: white;
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 600;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .photo-item {
         background: rgba(255, 255, 255, 0.95);
         border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        position: relative;
-        z-index: 2;
-      }
-
-      h1 {
-        color: #ff3366;
-        font-size: 2.5em;
-        margin-bottom: 20px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-      }
-
-      #question {
-        font-size: 1.3em;
-        font-style: italic;
-        margin: 30px 0;
-        padding: 20px;
-        background: linear-gradient(45deg, #fff5f5, #ffe8ee);
-        border-radius: 15px;
-        border-left: 5px solid #ff3366;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #333;
-      }
-
-      .controls {
-        margin: 30px 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-      }
-
-      button {
-        padding: 12px 25px;
-        font-size: 1em;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-weight: bold;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      }
-
-      #drawBtn {
-        background: linear-gradient(45deg, #ff3366, #ff6b9d);
-        color: white;
-        font-size: 1.1em;
-        padding: 15px 30px;
-      }
-
-      #drawBtn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(255, 51, 102, 0.4);
-      }
-
-      .input-box {
-        margin: 20px 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        justify-content: center;
-        align-items: center;
-      }
-
-      input {
-        flex: 1;
-        min-width: 300px;
-        padding: 12px 20px;
-        font-size: 1em;
-        border: 2px solid #ffb3c6;
-        border-radius: 25px;
-        outline: none;
-        transition: all 0.3s ease;
-      }
-
-      input:focus {
-        border-color: #ff3366;
-        box-shadow: 0 0 10px rgba(255, 51, 102, 0.3);
-      }
-
-      #saveBtn {
-        background: linear-gradient(45deg, #4caf50, #66bb6a);
-        color: white;
-      }
-
-      #saveBtn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
-      }
-
-      .nav-buttons {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin: 20px 0;
-      }
-
-      .nav-btn {
-        background: linear-gradient(45deg, #6c5ce7, #a29bfe);
-        color: white;
-        padding: 10px 20px;
-        font-size: 0.9em;
-      }
-
-      .nav-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(108, 92, 231, 0.4);
-      }
-
-      #exportBtn,
-      #importBtn {
-        background: linear-gradient(45deg, #00b894, #00cec9);
-        color: white;
-      }
-
-      #exportBtn:hover,
-      #importBtn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 184, 148, 0.4);
-      }
-
-      h2 {
-        color: #ff3366;
-        margin-top: 40px;
-        font-size: 1.8em;
-      }
-
-      #answers {
-        margin-top: 30px;
-      }
-
-      .answer-item {
-        background: linear-gradient(45deg, #fff, #fafafa);
-        padding: 20px;
-        border-radius: 15px;
-        margin: 15px 0;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        border-left: 5px solid #ff3366;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         transition: transform 0.3s ease;
-        position: relative;
-      }
-
-      .answer-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-      }
-
-      .question-text {
-        font-weight: bold;
-        color: #ff3366;
-        margin-bottom: 10px;
-        font-size: 1.1em;
-      }
-
-      .answer-text {
-        color: #333;
-        line-height: 1.6;
-        font-size: 1em;
-      }
-
-      .delete-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: #ff4757;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        font-size: 14px;
         cursor: pointer;
-        opacity: 0.7;
-        transition: all 0.3s ease;
       }
 
-      .delete-btn:hover {
-        opacity: 1;
+      .photo-item:hover {
+        transform: translateY(-5px) scale(1.02);
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-item:hover img {
         transform: scale(1.1);
       }
 
-      .stats {
-        margin: 20px 0;
-        padding: 15px;
-        background: linear-gradient(45deg, #e17055, #fab1a0);
-        color: white;
-        border-radius: 15px;
+      .photo-info {
+        padding: 20px;
+      }
+
+      .photo-title {
+        color: #333;
         font-size: 1.1em;
-        font-weight: bold;
+        font-weight: 600;
+        margin-bottom: 8px;
       }
 
-      .file-input {
-        display: none;
+      .photo-date {
+        color: #667eea;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+        font-weight: 500;
       }
 
-      .file-label {
-        background: linear-gradient(45deg, #fd79a8, #fdcb6e);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 25px;
+      .photo-description {
+        color: #666;
+        font-size: 0.9em;
+        line-height: 1.5;
+      }
+
+      /* Special Photo Layouts */
+      .photo-collage {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .collage-item {
+        border-radius: 15px;
+        overflow: hidden;
         cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-block;
-        font-weight: bold;
+        transition: transform 0.3s ease;
       }
 
-      .file-label:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(253, 121, 168, 0.4);
+      .collage-item:hover {
+        transform: scale(1.05);
+      }
+
+      .collage-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .collage-large {
+        grid-column: span 2;
+      }
+
+      .collage-large img {
+        height: 300px;
+      }
+
+      /* Polaroid Style */
+      .polaroid-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .polaroid {
+        background: white;
+        padding: 15px 15px 60px 15px;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        transform: rotate(-2deg);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        max-width: 250px;
+      }
+
+      .polaroid:nth-child(2n) {
+        transform: rotate(2deg);
+      }
+
+      .polaroid:nth-child(3n) {
+        transform: rotate(-1deg);
+      }
+
+      .polaroid:hover {
+        transform: rotate(0deg) scale(1.05);
+        z-index: 10;
+      }
+
+      .polaroid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      .polaroid-caption {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 0.9em;
+        color: #333;
+        font-weight: 500;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2000;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal.show {
+        opacity: 1;
+      }
+
+      .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 90%;
+        max-height: 90%;
+      }
+
+      .modal-image {
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease;
+      }
+
+      .modal-close:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+        background: rgba(0, 0, 0, 0.5);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s ease;
+      }
+
+      .modal-nav:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .modal-prev {
+        left: 20px;
+      }
+
+      .modal-next {
+        right: 20px;
       }
 
       @media (max-width: 768px) {
-        .container {
-          margin: 10px;
-          padding: 20px;
+        .photo-grid {
+          grid-template-columns: 1fr;
         }
 
-        h1 {
-          font-size: 2em;
+        .photo-collage {
+          grid-template-columns: 1fr;
         }
 
-        input {
-          min-width: 250px;
+        .collage-large {
+          grid-column: span 1;
         }
 
-        .controls,
-        .nav-buttons {
+        .polaroid-grid {
           flex-direction: column;
+          align-items: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .gallery-filters {
+          gap: 5px;
         }
 
-        button {
-          width: 100%;
-          max-width: 300px;
+        .filter-btn {
+          padding: 10px 15px;
+          font-size: 0.8em;
         }
       }
     </style>
@@ -310,318 +451,355 @@
   <body>
     <div class="floating-hearts" id="heartsContainer"></div>
 
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="counter.html">Thời gian</a></li>
+        <li><a href="timeline.html">Kỷ niệm</a></li>
+        <li><a href="gallery.html" class="active">Ảnh</a></li>
+        <li><a href="message.html">Lời nhắn</a></li>
+      </ul>
+    </nav>
+
     <div class="container">
-      <h1>💞 Chơi để HIỂU nhau hơn</h1>
+      <header class="header">
+        <h1>📸 Thư Viện Ảnh Tình Yêu 📸</h1>
+        <p class="subtitle">Những khoảnh khắc đẹp nhất của chúng ta</p>
+      </header>
 
-      <div class="stats" id="stats">📊 Bạn đã trả lời 0 câu hỏi</div>
-
-      <div id="question">Hãy nhấn "Rút câu hỏi" để bắt đầu!</div>
-
-      <div class="controls">
-        <button id="drawBtn">🎲 Rút câu hỏi</button>
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">Tất cả</button>
+        <button class="filter-btn" data-filter="couple">Đôi ta</button>
+        <button class="filter-btn" data-filter="special">Đặc biệt</button>
+        <button class="filter-btn" data-filter="travel">Du lịch</button>
+        <button class="filter-btn" data-filter="daily">Hàng ngày</button>
       </div>
 
-      <div class="input-box">
-        <input
-          type="text"
-          id="answerInput"
-          placeholder="Nhập câu trả lời của bạn..."
-        />
-        <button id="saveBtn">💾 Lưu câu trả lời</button>
+      <!-- Collage Section -->
+      <div class="gallery-section">
+        <h2 class="section-title">💕 Khoảnh khắc đặc biệt 💕</h2>
+        <div class="photo-collage">
+          <div class="collage-item collage-large" data-category="special">
+            <img
+              src="img/anhdacbiet.jpg"
+              alt="Khoảnh khắc đặc biệt"
+              onclick="openModal(this)"
+            />
+          </div>
+          <div class="collage-item" data-category="couple">
+            <img
+              src="img/anhdep.jpg"
+              alt="Ảnh đẹp 1"
+              onclick="openModal(this)"
+            />
+          </div>
+          <div class="collage-item" data-category="couple">
+            <img
+              src="img/anhdep2.jpg"
+              alt="Ảnh đẹp 2"
+              onclick="openModal(this)"
+            />
+          </div>
+        </div>
       </div>
 
-      <div class="controls">
-        <button id="exportBtn">📤 Xuất file câu trả lời</button>
-        <label for="importFile" class="file-label"
-          >📥 Nhập file câu trả lời</label
-        >
-        <input
-          type="file"
-          id="importFile"
-          class="file-input"
-          accept=".json,.txt"
-        />
-        <button
-          id="clearBtn"
-          style="
-            background: linear-gradient(45deg, #ff4757, #ff6b7a);
-            color: white;
-          "
-        >
-          🗑️ Xóa tất cả
-        </button>
+      <!-- Main Gallery -->
+      <div class="gallery-section">
+        <h2 class="section-title">🌟 Bộ sưu tập chính 🌟</h2>
+        <div class="photo-grid">
+          <div class="photo-item" data-category="couple">
+            <img
+              src="img/anhmot.jpg"
+              alt="Ảnh của chúng ta"
+              onclick="openModal(this)"
+            />
+            <div class="photo-info">
+              <div class="photo-title">Cuộc hẹn đầu tiên</div>
+              <div class="photo-date">15/03/2022</div>
+              <div class="photo-description">
+                Ngày đầu tiên chúng ta đi cà phê cùng nhau. Nụ cười ngọt ngào và
+                ánh mắt lung linh của em.
+              </div>
+            </div>
+          </div>
+
+          <div class="photo-item" data-category="special">
+            <img
+              src="img/anhhai.jpg"
+              alt="Lời tỏ tình"
+              onclick="openModal(this)"
+            />
+            <div class="photo-info">
+              <div class="photo-title">Lời tỏ tình</div>
+              <div class="photo-date">20/05/2022</div>
+              <div class="photo-description">
+                Khoảnh khắc anh nói "Kiếm chém vào người có THÀNH ĐÔI không?" và
+                em gật đầu với nụ cười.
+              </div>
+            </div>
+          </div>
+
+          <div class="photo-item" data-category="daily">
+            <img
+              src="img/anhba.jpg"
+              alt="Sinh nhật"
+              onclick="openModal(this)"
+            />
+            <div class="photo-info">
+              <div class="photo-title">Sinh nhật đặc biệt</div>
+              <div class="photo-date">15/08/2022</div>
+              <div class="photo-description">
+                Sinh nhật đầu tiên mà chúng ta tổ chức cùng nhau. Chiếc bánh kem
+                hình trái tim và nụ cười hạnh phúc.
+              </div>
+            </div>
+          </div>
+
+          <div class="photo-item" data-category="special">
+            <img
+              src="img/anhbon.jpg"
+              alt="Giáng sinh"
+              onclick="openModal(this)"
+            />
+            <div class="photo-info">
+              <div class="photo-title">Giáng sinh đầu tiên</div>
+              <div class="photo-date">25/12/2023</div>
+              <div class="photo-description">
+                Mùa Giáng sinh đầu tiên bên nhau với cây thông nhỏ và những món
+                quà ý nghĩa.
+              </div>
+            </div>
+          </div>
+
+          <div class="photo-item" data-category="travel">
+            <img src="img/anhnam.jpg" alt="Du lịch" onclick="openModal(this)" />
+            <div class="photo-info">
+              <div class="photo-title">Chuyến du lịch</div>
+              <div class="photo-date">10/04/2023</div>
+              <div class="photo-description">
+                Chuyến du lịch đầu tiên của đôi ta. Những khám phá mới và kỷ
+                niệm đẹp bên nhau.
+              </div>
+            </div>
+          </div>
+
+          <div class="photo-item" data-category="daily">
+            <img
+              src="img/anhbay.jpg"
+              alt="Hàng ngày"
+              onclick="openModal(this)"
+            />
+            <div class="photo-info">
+              <div class="photo-title">Ngày thường</div>
+              <div class="photo-date">03/07/2023</div>
+              <div class="photo-description">
+                Những khoảnh khắc bình dị nhưng đầy ý nghĩa trong cuộc sống hàng
+                ngày của chúng ta.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div class="nav-buttons">
-        <button class="nav-btn" id="backCounter">🔙 Quay về Counter</button>
-        <button class="nav-btn" id="backHome">🏠 Quay về Trang Chủ</button>
+      <!-- Polaroid Section -->
+      <div class="gallery-section">
+        <h2 class="section-title">📷 Phong cách Polaroid 📷</h2>
+        <div class="polaroid-grid">
+          <div class="polaroid" data-category="couple">
+            <img
+              src="img/anhchin.jpg"
+              alt="Polaroid 1"
+              onclick="openModal(this)"
+            />
+            <div class="polaroid-caption">Yêu em ♥</div>
+          </div>
+          <div class="polaroid" data-category="daily">
+            <img
+              src="img/anhmot.jpg"
+              alt="Polaroid 2"
+              onclick="openModal(this)"
+            />
+            <div class="polaroid-caption">Cùng nhau ♥</div>
+          </div>
+          <div class="polaroid" data-category="special">
+            <img
+              src="img/anhhai.jpg"
+              alt="Polaroid 3"
+              onclick="openModal(this)"
+            />
+            <div class="polaroid-caption">Kỷ niệm ♥</div>
+          </div>
+          <div class="polaroid" data-category="travel">
+            <img
+              src="img/anhba.jpg"
+              alt="Polaroid 4"
+              onclick="openModal(this)"
+            />
+            <div class="polaroid-caption">Phiêu lưu ♥</div>
+          </div>
+        </div>
       </div>
+    </div>
 
-      <h2>💗 Câu trả lời của bạn</h2>
-      <div id="answers"></div>
+    <!-- Modal -->
+    <div class="modal" id="imageModal">
+      <div class="modal-close" onclick="closeModal()">&times;</div>
+      <div class="modal-nav modal-prev" onclick="prevImage()">&#8249;</div>
+      <div class="modal-nav modal-next" onclick="nextImage()">&#8250;</div>
+      <div class="modal-content">
+        <img class="modal-image" id="modalImage" src="" alt="" />
+      </div>
     </div>
 
     <script>
-      const questions = [
-        "Điều tuyệt vời nhất mà bạn thích trong mối quan hệ của chúng ta là gì?",
-        "Kể về một kỷ niệm vui nhất khi bên nhau.",
-        "Nếu có một ngày rảnh tuyệt đối, bạn sẽ cùng người ấy làm gì?",
-        "Điều bạn mong đợi nhất trong mối quan hệ của chúng ta là gì?",
-        "Kể về một lần người đó làm bạn cảm động nhất.",
-        "Ước mơ của bạn trong 5 năm tới cùng người đó là gì?",
-        "Điểm đáng yêu nhất của người đó trong mắt bạn là gì?",
-        "Điều gì khiến bạn cảm thấy an toàn khi ở bên người đó?",
-        "Nếu có thể cùng người đó du lịch, bạn sẽ chọn nơi nào? Tại sao?",
-        "Điều bất ngờ nhất mà người đó từng mang lại cho bạn là gì?",
-        "Kể về lần đầu tiên bạn nhận ra tình cảm của mình.",
-        "Điều bạn muốn thử cùng người đó trong tương lai là gì?",
-        "Bản nhạc nào khiến bạn nhớ về người đó nhiều nhất?",
-        "Điều tuyệt vời nhất khi có người đó trong cuộc sống của bạn là gì?",
-        "Kể về khoảnh khắc hai người cùng cười nhiều nhất.",
-        "Điều gì khiến bạn tự hào về người đó?",
-        "Kể về một chuyến đi tuyệt vời cùng người đó.",
-        "Ước mong lớn nhất của bạn trong mối quan hệ này là gì?",
-        "Điều gì bạn muốn thay đổi cùng người đó trong tương lai?",
-        "Điều gì bạn thích nhất khi trò chuyện cùng người đó?",
-        "Khoảnh khắc nào khiến bạn cảm thấy gần gũi nhất với người đó?",
-        "Điều gì bạn học được từ mối quan hệ này?",
-        "Nếu có thể quay lại quá khứ, bạn sẽ nói gì với chính mình?",
-        "Điều nhỏ nhất mà người đó làm nhưng khiến bạn hạnh phúc nhất?",
-        "Bạn muốn tạo ra kỷ niệm gì cùng người đó trong tương lai?",
-      ];
+      // Floating Hearts Animation
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💕";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 3 + "s";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        document.getElementById("heartsContainer").appendChild(heart);
 
-      const questionEl = document.getElementById("question");
-      const answerInput = document.getElementById("answerInput");
-      const answersContainer = document.getElementById("answers");
-      const drawBtn = document.getElementById("drawBtn");
-      const saveBtn = document.getElementById("saveBtn");
-      const exportBtn = document.getElementById("exportBtn");
-      const importFile = document.getElementById("importFile");
-      const clearBtn = document.getElementById("clearBtn");
-      const statsEl = document.getElementById("stats");
-
-      let currentQuestion = "";
-      let answers = [];
-      let usedQuestions = [];
-
-      // Tạo floating hearts
-      function createFloatingHearts() {
-        const heartsContainer = document.getElementById("heartsContainer");
-        setInterval(() => {
-          const heart = document.createElement("div");
-          heart.classList.add("heart");
-          heart.innerHTML = Math.random() > 0.5 ? "💕" : "💖";
-          heart.style.left = Math.random() * 100 + "vw";
-          heart.style.animationDuration = Math.random() * 3 + 5 + "s";
-          heart.style.animationDelay = Math.random() * 2 + "s";
-          heartsContainer.appendChild(heart);
-
-          setTimeout(() => {
-            heart.remove();
-          }, 8000);
-        }, 2000);
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
       }
 
-      // Cập nhật thống kê
-      function updateStats() {
-        statsEl.textContent = `📊 Bạn đã trả lời ${answers.length} câu hỏi`;
-      }
+      setInterval(createHeart, 2000);
 
-      // Hiển thị câu trả lời
-      function displayAnswers() {
-        answersContainer.innerHTML = "";
-        answers.forEach((item, index) => {
-          const div = document.createElement("div");
-          div.classList.add("answer-item");
-          div.innerHTML = `
-            <button class="delete-btn" onclick="deleteAnswer(${index})">×</button>
-            <div class="question-text">❓ ${item.question}</div>
-            <div class="answer-text">💭 ${item.answer}</div>
-          `;
-          answersContainer.appendChild(div);
+      // Gallery Filter System
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const galleryItems = document.querySelectorAll("[data-category]");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          // Add active class to clicked button
+          btn.classList.add("active");
+
+          const filter = btn.getAttribute("data-filter");
+
+          galleryItems.forEach((item) => {
+            if (
+              filter === "all" ||
+              item.getAttribute("data-category") === filter
+            ) {
+              item.style.display = "block";
+              item.style.opacity = "0";
+              setTimeout(() => {
+                item.style.opacity = "1";
+              }, 100);
+            } else {
+              item.style.opacity = "0";
+              setTimeout(() => {
+                item.style.display = "none";
+              }, 300);
+            }
+          });
         });
-        updateStats();
+      });
+
+      // Modal functionality
+      let currentImageIndex = 0;
+      let allImages = [];
+
+      function initializeGallery() {
+        allImages = Array.from(
+          document.querySelectorAll('img[onclick*="openModal"]')
+        );
       }
 
-      // Xóa câu trả lời
-      window.deleteAnswer = function (index) {
-        if (confirm("Bạn có chắc muốn xóa câu trả lời này?")) {
-          answers.splice(index, 1);
-          displayAnswers();
+      function openModal(img) {
+        const modal = document.getElementById("imageModal");
+        const modalImage = document.getElementById("modalImage");
+
+        currentImageIndex = allImages.indexOf(img);
+        modalImage.src = img.src;
+        modalImage.alt = img.alt;
+
+        modal.style.display = "block";
+        setTimeout(() => {
+          modal.classList.add("show");
+        }, 10);
+      }
+
+      function closeModal() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.remove("show");
+        setTimeout(() => {
+          modal.style.display = "none";
+        }, 300);
+      }
+
+      function nextImage() {
+        currentImageIndex = (currentImageIndex + 1) % allImages.length;
+        const modalImage = document.getElementById("modalImage");
+        modalImage.src = allImages[currentImageIndex].src;
+        modalImage.alt = allImages[currentImageIndex].alt;
+      }
+
+      function prevImage() {
+        currentImageIndex =
+          (currentImageIndex - 1 + allImages.length) % allImages.length;
+        const modalImage = document.getElementById("modalImage");
+        modalImage.src = allImages[currentImageIndex].src;
+        modalImage.alt = allImages[currentImageIndex].alt;
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        const modal = document.getElementById("imageModal");
+        if (modal.style.display === "block") {
+          if (e.key === "Escape") {
+            closeModal();
+          } else if (e.key === "ArrowRight") {
+            nextImage();
+          } else if (e.key === "ArrowLeft") {
+            prevImage();
+          }
         }
+      });
+
+      // Close modal when clicking outside
+      document.getElementById("imageModal").addEventListener("click", (e) => {
+        if (e.target.id === "imageModal") {
+          closeModal();
+        }
+      });
+
+      // Initialize gallery
+      document.addEventListener("DOMContentLoaded", () => {
+        initializeGallery();
+      });
+
+      // Lazy loading animation
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
       };
 
-      // Lưu câu trả lời
-      saveBtn.addEventListener("click", () => {
-        if (!currentQuestion) {
-          alert("Hãy rút câu hỏi trước khi lưu câu trả lời!");
-          return;
-        }
-        const answer = answerInput.value.trim();
-        if (!answer) {
-          alert("Hãy nhập câu trả lời của bạn!");
-          return;
-        }
-
-        // Kiểm tra xem câu hỏi đã được trả lời chưa
-        const existingIndex = answers.findIndex(
-          (item) => item.question === currentQuestion
-        );
-        if (existingIndex !== -1) {
-          if (
-            confirm(
-              "Câu hỏi này đã được trả lời. Bạn có muốn cập nhật câu trả lời?"
-            )
-          ) {
-            answers[existingIndex].answer = answer;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
           }
-        } else {
-          answers.push({
-            question: currentQuestion,
-            answer: answer,
-            timestamp: new Date().toLocaleString("vi-VN"),
-          });
-        }
+        });
+      }, observerOptions);
 
-        displayAnswers();
-        answerInput.value = "";
-      });
-
-      // Rút câu hỏi
-      drawBtn.addEventListener("click", () => {
-        let availableQuestions = questions.filter(
-          (q) => !usedQuestions.includes(q)
-        );
-
-        if (availableQuestions.length === 0) {
-          if (
-            confirm(
-              "Bạn đã rút hết tất cả câu hỏi! Bạn có muốn bắt đầu lại từ đầu?"
-            )
-          ) {
-            usedQuestions = [];
-            availableQuestions = questions;
-          } else {
-            return;
-          }
-        }
-
-        const randomIndex = Math.floor(
-          Math.random() * availableQuestions.length
-        );
-        currentQuestion = availableQuestions[randomIndex];
-        usedQuestions.push(currentQuestion);
-
-        questionEl.textContent = currentQuestion;
-        answerInput.value = "";
-        answerInput.focus();
-      });
-
-      // Xuất file
-      exportBtn.addEventListener("click", () => {
-        if (answers.length === 0) {
-          alert("Chưa có câu trả lời nào để xuất!");
-          return;
-        }
-
-        const dataStr = JSON.stringify(
-          {
-            exportDate: new Date().toLocaleString("vi-VN"),
-            totalAnswers: answers.length,
-            answers: answers,
-          },
-          null,
-          2
-        );
-
-        const dataBlob = new Blob([dataStr], { type: "application/json" });
-        const url = URL.createObjectURL(dataBlob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = `love_answers_${new Date()
-          .toISOString()
-          .slice(0, 10)}.json`;
-        link.click();
-        URL.revokeObjectURL(url);
-      });
-
-      // Nhập file
-      importFile.addEventListener("change", (e) => {
-        const file = e.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          try {
-            const data = JSON.parse(e.target.result);
-            if (data.answers && Array.isArray(data.answers)) {
-              if (
-                confirm(
-                  `Tìm thấy ${data.answers.length} câu trả lời. Bạn có muốn thêm vào danh sách hiện tại?`
-                )
-              ) {
-                answers = [...answers, ...data.answers];
-                displayAnswers();
-                alert("Đã nhập thành công!");
-              }
-            } else {
-              alert("File không đúng định dạng!");
-            }
-          } catch (error) {
-            alert("Không thể đọc file. Vui lòng kiểm tra lại!");
-          }
-        };
-        reader.readAsText(file);
-        e.target.value = "";
-      });
-
-      // Xóa tất cả
-      clearBtn.addEventListener("click", () => {
-        if (
-          confirm(
-            "Bạn có chắc muốn xóa tất cả câu trả lời? Hành động này không thể hoàn tác!"
-          )
-        ) {
-          if (confirm("Thực sự chắc chắn? Tất cả dữ liệu sẽ bị mất!")) {
-            answers = [];
-            usedQuestions = [];
-            currentQuestion = "";
-            questionEl.textContent = "Hãy nhấn 'Rút câu hỏi' để bắt đầu!";
-            displayAnswers();
-            alert("Đã xóa tất cả!");
-          }
-        }
-      });
-
-      // Navigation buttons
-      document.getElementById("backCounter").addEventListener("click", () => {
-        window.location.href = "counter.html";
-      });
-
-      document.getElementById("backHome").addEventListener("click", () => {
-        window.location.href = "index.html";
-      });
-
-      // Enter key support
-      answerInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") {
-          saveBtn.click();
-        }
-      });
-
-      // Khởi tạo
-      createFloatingHearts();
-      displayAnswers();
-    </script>
-    <script>
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const expireTime = parseInt(localStorage.getItem("loginExpire"));
-
-      if (!isLoggedIn || !expireTime || Date.now() > expireTime) {
-        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-        localStorage.clear();
-        window.location.href = "login.html";
-      }
+      // Observe all gallery items
+      document
+        .querySelectorAll(".photo-item, .polaroid, .collage-item")
+        .forEach((item) => {
+          item.style.opacity = "0";
+          item.style.transform = "translateY(30px)";
+          item.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(item);
+        });
     </script>
   </body>
 </html>

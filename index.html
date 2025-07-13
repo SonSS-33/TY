@@ -4,271 +4,817 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Love Story - Câu chuyện của Sơn và Tiên</title>
-    <link rel="stylesheet" href="style.css" />
+    <!-- Load Authentication Script -->
     <script src="auth.js"></script>
     <style>
-      /* Modal và nền tối */
-      #imageDropdown {
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      /* Floating Hearts Animation */
+      .floating-hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 182, 193, 0.6);
+        font-size: 20px;
+        animation: float 6s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Navigation */
+      .nav-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 0;
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        list-style: none;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #667eea;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 10px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .nav-links a:before {
+        content: "";
+        font-size: 20px;
+      }
+
+      .nav-links a[href="index.html"]:before {
+        content: "🏠";
+      }
+      .nav-links a[href="counter.html"]:before {
+        content: "⏰";
+      }
+      .nav-links a[href="timeline.html"]:before {
+        content: "📅";
+      }
+      .nav-links a[href="gallery.html"]:before {
+        content: "📸";
+      }
+      .nav-links a[href="message.html"]:before {
+        content: "💌";
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(102, 126, 234, 0.2);
+        transform: translateY(-2px);
+      }
+
+      /* Main Container */
+      .container {
+        padding: 20px;
+        padding-bottom: 100px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 30px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1em;
+        font-weight: 300;
+      }
+
+      /* Love Counter */
+      .love-counter {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .counter-title {
+        text-align: center;
+        color: #667eea;
+        font-size: 1.4em;
+        margin-bottom: 25px;
+        font-weight: 600;
+      }
+
+      .counter-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+
+      .counter-item {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 20px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .counter-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .counter-number {
+        display: block;
+        font-size: 2.5em;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .counter-label {
+        font-size: 0.9em;
+        opacity: 0.9;
+      }
+
+      /* Timeline */
+      .love-timeline {
+        margin-bottom: 30px;
+      }
+
+      .timeline-item {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .timeline-item:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .timeline-date {
+        color: #667eea;
+        font-size: 0.9em;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .timeline-title {
+        color: #333;
+        font-size: 1.3em;
+        margin-bottom: 10px;
+      }
+
+      .timeline-description {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .timeline-image {
+        text-align: center;
+      }
+
+      .timeline-image img {
+        width: 100%;
+        max-width: 300px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Gallery - Mobile Optimized */
+      .love-gallery {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .gallery-title {
+        text-align: center;
+        color: #667eea;
+        font-size: 1.4em;
+        margin-bottom: 25px;
+        font-weight: 600;
+      }
+
+      .photo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .photo-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: all 0.3s ease;
+        cursor: pointer;
+      }
+
+      .photo-item:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-item:hover img {
+        transform: scale(1.1);
+      }
+
+      .photo-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 15px;
+      }
+
+      .photo-item:hover .photo-overlay {
+        opacity: 1;
+      }
+
+      .photo-caption {
+        color: white;
+        font-size: 0.9em;
+        font-weight: 600;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Message Section */
+      .message-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .love-message {
+        color: #333;
+        font-size: 1.1em;
+        line-height: 1.7;
+        margin-bottom: 20px;
+        font-style: italic;
+      }
+
+      .signature {
+        color: #667eea;
+        font-size: 1.2em;
+        font-weight: 600;
+      }
+
+      /* Modal */
+      .modal-backdrop {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2000;
+      }
+
+      .modal {
         display: none;
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background: white;
-        z-index: 1001;
+        border-radius: 20px;
         padding: 20px;
-        border-radius: 16px;
         max-width: 90%;
-        width: 600px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        max-height: 80%;
+        overflow-y: auto;
+        z-index: 2001;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       }
 
-      #modalBackdrop {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
+      .modal-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .modal-content img {
         width: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 1000;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 15px;
       }
 
-      .modal-row {
-        display: flex;
-        gap: 20px;
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+          padding-bottom: 100px;
+        }
+
+        .header {
+          padding: 25px 15px;
+          margin-bottom: 25px;
+        }
+
+        .header h1 {
+          font-size: 1.8em;
+        }
+
+        .header .subtitle {
+          font-size: 0.9em;
+        }
+
+        .love-counter,
+        .love-gallery,
+        .message-section {
+          padding: 25px 15px;
+          margin-bottom: 25px;
+        }
+
+        .counter-title,
+        .gallery-title {
+          font-size: 1.2em;
+          margin-bottom: 20px;
+        }
+
+        .timeline-item {
+          padding: 20px 15px;
+          margin-bottom: 15px;
+        }
+
+        .timeline-title {
+          font-size: 1.2em;
+        }
+
+        .timeline-description {
+          font-size: 0.95em;
+        }
+
+        .timeline-image img {
+          height: 180px;
+        }
+
+        /* Gallery Mobile Optimization - Taller for Portrait */
+        .photo-grid {
+          gap: 10px;
+        }
+
+        .photo-item img {
+          height: 200px;
+        }
+
+        .love-message {
+          font-size: 1em;
+        }
+
+        .signature {
+          font-size: 1.1em;
+        }
       }
 
-      .modal-row img {
-        width: 100%;
-        border-radius: 12px;
+      @media (max-width: 480px) {
+        .container {
+          padding: 12px;
+          padding-bottom: 100px;
+        }
+
+        .header {
+          padding: 20px 12px;
+          margin-bottom: 20px;
+        }
+
+        .header h1 {
+          font-size: 1.6em;
+        }
+
+        .love-counter,
+        .love-gallery,
+        .message-section {
+          padding: 20px 12px;
+          margin-bottom: 20px;
+        }
+
+        .counter-grid {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .counter-item {
+          padding: 18px 15px;
+        }
+
+        .counter-number {
+          font-size: 2.2em;
+        }
+
+        .timeline-item {
+          padding: 18px 12px;
+        }
+
+        /* Gallery Full Width on Small Mobile - Portrait Orientation */
+        .photo-grid {
+          gap: 8px;
+        }
+
+        .photo-item {
+          border-radius: 12px;
+        }
+
+        .photo-item img {
+          height: 180px;
+        }
+
+        .photo-caption {
+          font-size: 0.8em;
+          padding: 10px;
+        }
+
+        .modal-content {
+          grid-template-columns: 1fr;
+        }
       }
 
-      @media (max-width: 600px) {
-        .modal-row {
-          flex-direction: column;
+      @media (max-width: 360px) {
+        .photo-item img {
+          height: 160px;
+        }
+
+        .photo-grid {
+          gap: 6px;
+        }
+      }
+
+      /* Portrait orientation optimization */
+      @media (orientation: portrait) {
+        .photo-item img {
+          height: 240px;
+        }
+      }
+
+      @media (orientation: portrait) and (max-width: 768px) {
+        .photo-item img {
+          height: 220px;
+        }
+      }
+
+      @media (orientation: portrait) and (max-width: 480px) {
+        .photo-item img {
+          height: 200px;
+        }
+      }
+
+      @media (orientation: portrait) and (max-width: 360px) {
+        .photo-item img {
+          height: 180px;
+        }
+      }
+
+      /* Touch interactions for mobile */
+      @media (hover: none) and (pointer: coarse) {
+        .photo-item:active {
+          transform: scale(0.98);
+        }
+
+        .photo-overlay {
+          opacity: 0.8;
+        }
+
+        .counter-item:active,
+        .timeline-item:active {
+          transform: scale(0.98);
         }
       }
     </style>
   </head>
   <body>
     <div class="floating-hearts" id="heartsContainer"></div>
+
     <!-- Navigation Menu -->
-    <nav class="nav-menu" id="navMenu">
-      <div class="nav-container">
-        <a href="index.html" class="nav-logo"> 💕 Love Story </a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter.html">Thời gian</a></li>
-          <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery.html">Ảnh</a></li>
-          <li><a href="message.html">Lời nhắn</a></li>
-        </ul>
-        <div class="mobile-toggle" id="mobileToggle">
-          <span>nhấn</span>
-          <span>vào</span>
-          <span>đây</span>
-        </div>
-      </div>
+    <nav class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Trang chủ</a></li>
+        <li><a href="counter.html">Thời gian</a></li>
+        <li><a href="timeline.html">Kỷ niệm</a></li>
+        <li><a href="gallery.html">Ảnh</a></li>
+        <li><a href="message.html">Lời nhắn</a></li>
+      </ul>
     </nav>
+
     <div class="container">
-      <header>
+      <header class="header">
         <h1>💕 Love Story 💕</h1>
         <p class="subtitle">Câu chuyện tình yêu của Sơn và Tiên</p>
       </header>
 
-      <div class="section">
-        <div class="love-counter">
-          <h2 class="counter-title">Chúng ta đã yêu nhau được</h2>
-          <div class="counter-grid">
-            <div class="counter-item">
-              <span class="counter-number" id="years"></span>
-              <div class="counter-label">Năm</div>
-            </div>
-            <div class="counter-item">
-              <span class="counter-number" id="days"></span>
-              <div class="counter-label">Ngày</div>
-            </div>
-            <div class="counter-item">
-              <span class="counter-number" id="hours"></span>
-              <div class="counter-label">Giờ</div>
-            </div>
-            <div
-              class="counter-item"
-              id="toggleDropdown"
-              style="cursor: pointer"
-            >
-              <span class="counter-number" id="minutes">45</span>
-              <div class="counter-label">Phút</div>
-            </div>
+      <div class="love-counter">
+        <h2 class="counter-title">Chúng ta đã yêu nhau được</h2>
+        <div class="counter-grid">
+          <div class="counter-item">
+            <span class="counter-number" id="years">0</span>
+            <div class="counter-label">Năm</div>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="days">0</span>
+            <div class="counter-label">Ngày</div>
+          </div>
+          <div class="counter-item">
+            <span class="counter-number" id="hours">0</span>
+            <div class="counter-label">Giờ</div>
+          </div>
+          <div class="counter-item" id="toggleDropdown" style="cursor: pointer">
+            <span class="counter-number" id="minutes">0</span>
+            <div class="counter-label">Phút</div>
           </div>
         </div>
       </div>
 
-      <!-- Modal nền tối -->
-      <div id="modalBackdrop"></div>
-
-      <!-- Modal nội dung ảnh -->
-      <div id="imageDropdown">
-        <div class="modal-row">
-          <div class="col-6">
-            <img src="img/anhdep.jpg" alt="Ảnh 1" />
-          </div>
-          <div class="col-6">
-            <img src="img/anhdep2.jpg" alt="Ảnh 2" />
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <div class="love-timeline">
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date">04/09/2024</div>
-              <h3 class="timeline-title">Sét đánh nhưng không die</h3>
-              <p class="timeline-description">
-                Ngày định mệnh khi đôi mắt chúng ta gặp nhau. Thời gian như
-                ngừng lại, và trái tim bắt đầu đập nhanh hơn. Đó là khoảnh khắc
-                tuyệt vời nhất trong cuộc đời.
-              </p>
-            </div>
-            <div class="timeline-image">
-              <img src="img/anhdacbiet.jpg" />
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date">15/03/2022</div>
-              <h3 class="timeline-title">Cuộc hẹn đầu tiên</h3>
-              <p class="timeline-description">
-                Buổi hẹn hò đầu tiên tại quán cà phê nhỏ. Chúng ta nói chuyện
-                hàng giờ như thể đã quen nhau từ lâu. Nụ cười của em làm anh
-                quên đi cả thế giới xung quanh.
-              </p>
-            </div>
-            <div class="timeline-image">
-              <img src="img/anhmot.jpg" width="100px" />
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date">20/05/2022</div>
-              <h3 class="timeline-title">Lời tỏ tình</h3>
-              <p class="timeline-description">
-                Dưới ánh trăng tràn đầy, anh đã nói ra những lời yêu thương chân
-                thành nhất. "Kiếm chém vào người có THÀNH ĐÔI không" - câu hỏi
-                đơn giản nhưng thay đổi cuộc đời chúng ta.
-              </p>
-            </div>
-            <div class="timeline-image">
-              <img src="img/anhhai.jpg" width="100px" />
-            </div>
-          </div>
-
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <div class="timeline-date">25/12/2023</div>
-              <h3 class="timeline-title">Giáng sinh đáng nhớ</h3>
-              <p class="timeline-description">
-                Mùa Giáng sinh đầu tiên bên nhau, chúng ta trao nhau những món
-                quà ý nghĩa và hứa hẹn sẽ luôn ở bên nhau qua mọi mùa Giáng sinh
-                sắp tới.
-              </p>
-            </div>
-            <div class="timeline-image">
-              <img src="img/anhba.jpg" width="100px" />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="love-gallery">
-          <h2 class="gallery-title">Ảnh của HAI đứa nè</h2>
-          <div class="photo-grid">
-            <img
-              src="img/anhbon.jpg"
-              alt="Khoảnh khắc yêu thương"
-              style="
-                width: 100%;
-                border-radius: 20px;
-                transform: translateY(-40px);
-              "
-            />
-            <img
-              src="img/anhnam.jpg"
-              alt="Khoảnh khắc yêu thương"
-              style="
-                width: 100%;
-                border-radius: 20px;
-                transform: translateY(-40px);
-              "
-            />
-            <img
-              src="img/anhbay.jpg"
-              alt="Khoảnh khắc yêu thương"
-              style="
-                width: 100%;
-                border-radius: 20px;
-                transform: translateY(-40px);
-              "
-            />
-            <img
-              src="img/anhchin.jpg"
-              alt="Khoảnh khắc yêu thương"
-              style="
-                width: 100%;
-                border-radius: 20px;
-                transform: translateY(-40px);
-              "
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="message-section">
-          <p class="love-message">
-            "Tình yêu không phải là nhìn vào mắt nhau, mà là cùng nhau nhìn về
-            một hướng. Em là người đồng hành tuyệt vời nhất trong cuộc hành
-            trình này. Anh yêu em không chỉ vì những gì em đang có, mà còn vì
-            những gì anh trở thành khi ở bên em."
+      <div class="love-timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">04/09/2024</div>
+          <h3 class="timeline-title">Sét đánh nhưng không die</h3>
+          <p class="timeline-description">
+            Ngày định mệnh khi đôi mắt chúng ta gặp nhau. Thời gian như ngừng
+            lại, và trái tim bắt đầu đập nhanh hơn. Đó là khoảnh khắc tuyệt vời
+            nhất trong cuộc đời.
           </p>
-          <div class="signature">💕 Yêu Tiên Nhất Trên Đời 💕</div>
+          <div class="timeline-image">
+            <img src="img/anhdacbiet.jpg" alt="Khoảnh khắc đặc biệt" />
+          </div>
         </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">15/03/2022</div>
+          <h3 class="timeline-title">Cuộc hẹn đầu tiên</h3>
+          <p class="timeline-description">
+            Buổi hẹn hò đầu tiên tại quán cà phê nhỏ. Chúng ta nói chuyện hàng
+            giờ như thể đã quen nhau từ lâu. Nụ cười của em làm anh quên đi cả
+            thế giới xung quanh.
+          </p>
+          <div class="timeline-image">
+            <img src="img/anhmot.jpg" alt="Cuộc hẹn đầu tiên" />
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">20/05/2022</div>
+          <h3 class="timeline-title">Lời tỏ tình</h3>
+          <p class="timeline-description">
+            Dưới ánh trăng tràn đầy, anh đã nói ra những lời yêu thương chân
+            thành nhất. "Kiếm chém vào người có THÀNH ĐÔI không" - câu hỏi đơn
+            giản nhưng thay đổi cuộc đời chúng ta.
+          </p>
+          <div class="timeline-image">
+            <img src="img/anhhai.jpg" alt="Lời tỏ tình" />
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">25/12/2023</div>
+          <h3 class="timeline-title">Giáng sinh đáng nhớ</h3>
+          <p class="timeline-description">
+            Mùa Giáng sinh đầu tiên bên nhau, chúng ta trao nhau những món quà ý
+            nghĩa và hứa hẹn sẽ luôn ở bên nhau qua mọi mùa Giáng sinh sắp tới.
+          </p>
+          <div class="timeline-image">
+            <img src="img/anhba.jpg" alt="Giáng sinh đáng nhớ" />
+          </div>
+        </div>
+      </div>
+
+      <div class="love-gallery">
+        <h2 class="gallery-title">Ảnh của HAI đứa nè</h2>
+        <div class="photo-grid">
+          <div class="photo-item" onclick="openImageModal(this)">
+            <img src="img/anhbon.jpg" alt="Khoảnh khắc yêu thương" />
+            <div class="photo-overlay">
+              <div class="photo-caption">Khoảnh khắc đẹp nhất 💕</div>
+            </div>
+          </div>
+          <div class="photo-item" onclick="openImageModal(this)">
+            <img src="img/anhnam.jpg" alt="Khoảnh khắc yêu thương" />
+            <div class="photo-overlay">
+              <div class="photo-caption">Yêu thương mãi mãi 💖</div>
+            </div>
+          </div>
+          <div class="photo-item" onclick="openImageModal(this)">
+            <img src="img/anhbay.jpg" alt="Khoảnh khắc yêu thương" />
+            <div class="photo-overlay">
+              <div class="photo-caption">Hạnh phúc bên nhau 🌟</div>
+            </div>
+          </div>
+          <div class="photo-item" onclick="openImageModal(this)">
+            <img src="img/anhchin.jpg" alt="Khoảnh khắc yêu thương" />
+            <div class="photo-overlay">
+              <div class="photo-caption">Tình yêu vĩnh cửu 💫</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="message-section">
+        <p class="love-message">
+          "Tình yêu không phải là nhìn vào mắt nhau, mà là cùng nhau nhìn về một
+          hướng. Em là người đồng hành tuyệt vời nhất trong cuộc hành trình này.
+          Anh yêu em không chỉ vì những gì em đang có, mà còn vì những gì anh
+          trở thành khi ở bên em."
+        </p>
+        <div class="signature">💕 Yêu Tiên Nhất Trên Đời 💕</div>
       </div>
     </div>
-    <script src="script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggleBtn = document.getElementById("toggleDropdown");
-        const modal = document.getElementById("imageDropdown");
-        const backdrop = document.getElementById("modalBackdrop");
 
-        toggleBtn.addEventListener("click", function (e) {
+    <!-- Modal -->
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal" id="imageModal">
+      <div class="modal-content">
+        <img src="img/anhdep.jpg" alt="Ảnh 1" />
+        <img src="img/anhdep2.jpg" alt="Ảnh 2" />
+      </div>
+    </div>
+
+    <script>
+      // Floating Hearts Animation
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💕";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 3 + "s";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        document.getElementById("heartsContainer").appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 6000);
+      }
+
+      setInterval(createHeart, 1000);
+
+      // Love Counter
+      function updateCounter() {
+        const startDate = new Date("2024-09-04T00:00:00");
+        const now = new Date();
+        const diff = now - startDate;
+
+        const years = Math.floor(diff / (1000 * 60 * 60 * 24 * 365));
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById("years").textContent = years;
+        document.getElementById("days").textContent = days;
+        document.getElementById("hours").textContent = hours;
+        document.getElementById("minutes").textContent = minutes;
+      }
+
+      updateCounter();
+      setInterval(updateCounter, 60000);
+
+      // Modal functionality for counter
+      document
+        .getElementById("toggleDropdown")
+        .addEventListener("click", function (e) {
           e.stopPropagation();
-          modal.style.display = "block";
-          backdrop.style.display = "block";
+          document.getElementById("modalBackdrop").style.display = "block";
+          document.getElementById("imageModal").style.display = "block";
         });
 
-        // Click ngoài modal để ẩn
-        document.addEventListener("click", function (e) {
-          if (!modal.contains(e.target) && !toggleBtn.contains(e.target)) {
-            modal.style.display = "none";
-            backdrop.style.display = "none";
-          }
-        });
-      });
-    </script>
-    <script>
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const expireTime = parseInt(localStorage.getItem("loginExpire"));
+      // Gallery image modal
+      function openImageModal(photoItem) {
+        const img = photoItem.querySelector("img");
+        const modal = document.getElementById("imageModal");
+        const modalContent = modal.querySelector(".modal-content");
 
-      if (!isLoggedIn || !expireTime || Date.now() > expireTime) {
-        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-        localStorage.clear();
-        window.location.href = "login.html";
+        // Replace modal content with clicked image
+        modalContent.innerHTML = `
+                <img src="${img.src}" alt="${img.alt}" style="width: 100%; height: auto; max-height: 80vh; object-fit: contain; border-radius: 15px;">
+            `;
+
+        document.getElementById("modalBackdrop").style.display = "block";
+        modal.style.display = "block";
+      }
+
+      // Close modal
+      document
+        .getElementById("modalBackdrop")
+        .addEventListener("click", function () {
+          document.getElementById("modalBackdrop").style.display = "none";
+          document.getElementById("imageModal").style.display = "none";
+
+          // Restore original modal content
+          const modalContent = document.querySelector(".modal-content");
+          modalContent.innerHTML = `
+                <img src="img/anhdep.jpg" alt="Ảnh 1">
+                <img src="img/anhdep2.jpg" alt="Ảnh 2">
+            `;
+        });
+
+      // Touch interactions for mobile
+      if ("ontouchstart" in window) {
+        document.querySelectorAll(".photo-item").forEach((item) => {
+          item.addEventListener("touchstart", function () {
+            this.style.transform = "scale(0.98)";
+          });
+
+          item.addEventListener("touchend", function () {
+            setTimeout(() => {
+              this.style.transform = "";
+            }, 150);
+          });
+        });
       }
     </script>
   </body>

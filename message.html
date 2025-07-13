@@ -3,499 +3,1233 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thư Viện Ký Ức Yêu Thương 💖</title>
+    <title>Lời Nhắn Tình Yêu - Love Story</title>
+    <!-- Load Authentication Script -->
     <script src="auth.js"></script>
     <style>
       * {
-        box-sizing: border-box;
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
       body {
-        font-family: "Segoe UI", sans-serif;
-        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
-        color: #333;
+        font-family: "Arial", sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
       }
 
-         /* NAVIGATION MENU */
-         .nav-menu {
+      /* Floating Hearts Animation */
+      .floating-hearts {
         position: fixed;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 182, 193, 0.6);
+        font-size: 20px;
+        animation: float 6s infinite ease-in-out;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      /* Navigation */
+      .nav-menu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
         right: 0;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-        z-index: 1000;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .nav-menu.scrolled {
         background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      }
-
-      .nav-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 25px;
-      }
-
-      .nav-logo {
-        font-size: 1.6em;
-        font-weight: 700;
-        color: white;
-        text-decoration: none;
-        background: linear-gradient(45deg, #ff6b6b, #feca57);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        transition: all 0.3s ease;
-      }
-
-      .nav-logo:hover {
-        transform: scale(1.05);
+        backdrop-filter: blur(10px);
+        border-radius: 20px 20px 0 0;
+        box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        padding: 15px 0;
       }
 
       .nav-links {
         display: flex;
+        justify-content: space-around;
+        align-items: center;
         list-style: none;
-        gap: 35px;
+        max-width: 400px;
+        margin: 0 auto;
       }
 
       .nav-links a {
-        color: rgba(255, 255, 255, 0.9);
         text-decoration: none;
-        font-size: 1.1em;
-        font-weight: 500;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        position: relative;
-        padding: 8px 0;
+        color: #667eea;
+        font-size: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 10px;
+        border-radius: 15px;
+        transition: all 0.3s ease;
       }
 
-      .nav-links a::after {
+      .nav-links a:before {
         content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(45deg, #ff6b6b, #feca57);
-        transition: width 0.3s ease;
+        font-size: 20px;
       }
 
-      .nav-links a:hover {
-        color: white;
+      .nav-links a[href="index.html"]:before {
+        content: "🏠";
+      }
+      .nav-links a[href="counter.html"]:before {
+        content: "⏰";
+      }
+      .nav-links a[href="timeline.html"]:before {
+        content: "📅";
+      }
+      .nav-links a[href="gallery.html"]:before {
+        content: "📸";
+      }
+      .nav-links a[href="message.html"]:before {
+        content: "💌";
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: rgba(102, 126, 234, 0.2);
         transform: translateY(-2px);
       }
 
-      .nav-links a:hover::after {
-        width: 100%;
+      /* Main Container */
+      .container {
+        padding: 20px;
+        padding-bottom: 100px;
+        max-width: 100%;
+        margin: 0 auto;
       }
 
-      .nav-links a.active {
-        color: #feca57;
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 30px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+        color: white;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      .header .subtitle {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1em;
+        font-weight: 300;
+      }
+
+      /* Love Letters */
+      .love-letter {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideInUp 0.6s ease forwards;
+      }
+
+      .love-letter:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .love-letter:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .love-letter:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .love-letter:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+      .love-letter:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes slideInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .love-letter::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+      }
+
+      .letter-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .letter-icon {
+        font-size: 2.5em;
+        min-width: 60px;
+      }
+
+      .letter-info h3 {
+        color: #333;
+        font-size: 1.3em;
+        margin-bottom: 5px;
         font-weight: 600;
       }
 
-      .nav-links a.active::after {
-        width: 100%;
+      .letter-date {
+        color: #667eea;
+        font-size: 0.9em;
+        font-weight: 500;
       }
 
-      /* MOBILE MENU */
-      .mobile-menu-toggle {
-        display: none;
+      .letter-content {
+        color: #555;
+        line-height: 1.7;
+        font-size: 1.05em;
+        text-align: justify;
+        margin-bottom: 20px;
+      }
+
+      .letter-signature {
+        text-align: right;
+        color: #667eea;
+        font-style: italic;
+        font-weight: 600;
+        font-size: 1.1em;
+      }
+
+      /* Special Letters */
+      .special-letter {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 182, 193, 0.9),
+          rgba(255, 218, 185, 0.9)
+        );
+        border: 2px solid rgba(255, 182, 193, 0.5);
+      }
+
+      .special-letter::before {
+        background: linear-gradient(135deg, #ff6b9d, #c44569);
+      }
+
+      /* Message Form */
+      .message-form {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 30px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-title {
+        color: #333;
+        font-size: 1.4em;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        color: #555;
+        margin-bottom: 8px;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        font-size: 1em;
+        transition: border-color 0.3s ease;
+        font-family: inherit;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
         color: white;
-        font-size: 1.8em;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-size: 1.1em;
+        font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        padding: 8px;
-        border-radius: 8px;
-      }
-
-      .mobile-menu-toggle:hover {
-        background: rgba(255, 255, 255, 0.1);
-        transform: scale(1.1);
-      }
-
-      @media (max-width: 768px) {
-        .mobile-menu-toggle {
-          display: block;
-        }
-
-        .nav-links {
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background: rgba(255, 255, 255, 0.95);
-          backdrop-filter: blur(20px);
-          flex-direction: column;
-          gap: 0;
-          max-height: 0;
-          overflow: hidden;
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          border-radius: 0 0 20px 20px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-links.active {
-          max-height: 350px;
-        }
-
-        .nav-links li {
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-links li:last-child {
-          border-bottom: none;
-        }
-
-        .nav-links a {
-          display: block;
-          padding: 18px 25px;
-          color: #333;
-          font-weight: 500;
-          background: rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(10px);
-        }
-
-        .nav-links a:hover {
-          background: linear-gradient(
-            135deg,
-            rgba(255, 107, 107, 0.1),
-            rgba(254, 202, 87, 0.1)
-          );
-          transform: translateX(10px);
-        }
-
-        .nav-links a.active {
-          background: linear-gradient(
-            135deg,
-            rgba(255, 107, 107, 0.2),
-            rgba(254, 202, 87, 0.2)
-          );
-          color: #ff6b6b;
-        }
-
-        .nav-links a::after {
-          display: none;
-        }
-      }
-
-      h1 {
-        text-align: center;
-        font-size: 2.5em;
-        margin: 120px 20px 40px;
-        color: #ff4081;
-      }
-
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 20px;
-        max-width: 1000px;
-        margin: 0 auto 60px;
-        padding: 0 20px;
-      }
-
-      .gallery-item {
-        position: relative;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        cursor: pointer;
-        background: #fff;
-        transition: transform 0.3s ease;
-      }
-
-      .gallery-item:hover {
-        transform: translateY(-5px);
-      }
-
-      .gallery-item img {
         width: 100%;
-        display: block;
-        height: 200px;
-        object-fit: cover;
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        position: relative;
       }
 
-      .note {
-        padding: 10px 15px;
-        font-style: italic;
-        font-size: 0.95em;
-        background: #fff0f5;
-        color: #444;
+      .submit-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
       }
 
-      .popup-message {
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .loading {
+        display: none;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(255, 255, 255, 0.95);
-        padding: 20px;
-        border-radius: 20px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 999;
-        display: none;
-        font-size: 1.1em;
-        text-align: center;
-        color: #ff4081;
-        animation: fadeIn 0.5s ease;
       }
 
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translate(-50%, -60%);
-        }
+      .loading.active {
+        display: block;
+      }
+
+      .loading::after {
+        content: "";
+        width: 20px;
+        height: 20px;
+        border: 2px solid transparent;
+        border-top: 2px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
         to {
-          opacity: 1;
-          transform: translate(-50%, -50%);
+          transform: rotate(360deg);
         }
       }
 
-      canvas#confetti-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-        width: 100%;
-        height: 100%;
-        z-index: 1000;
+      /* Success/Error Messages */
+      .message-status {
+        padding: 15px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+        font-weight: 600;
+        display: none;
+      }
+
+      .message-status.success {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+      }
+
+      .message-status.error {
+        background: linear-gradient(135deg, #f44336, #da190b);
+        color: white;
+      }
+
+      /* Quote Section */
+      .quote-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 25px;
+        padding: 40px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .quote-text {
+        color: #333;
+        font-size: 1.3em;
+        line-height: 1.6;
+        font-style: italic;
+        margin-bottom: 20px;
+        position: relative;
+      }
+
+      .quote-text::before,
+      .quote-text::after {
+        content: '"';
+        font-size: 2em;
+        color: #667eea;
+        font-weight: bold;
+      }
+
+      .quote-author {
+        color: #667eea;
+        font-size: 1.1em;
+        font-weight: 600;
+      }
+
+      /* Memories Grid */
+      .memories-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+
+      .memory-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .memory-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .memory-icon {
+        font-size: 2.5em;
+        margin-bottom: 15px;
+      }
+
+      .memory-title {
+        color: #333;
+        font-size: 1.1em;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+
+      .memory-text {
+        color: #666;
+        font-size: 0.9em;
+        line-height: 1.5;
+      }
+
+      .char-counter {
+        text-align: right;
+        font-size: 0.8em;
+        color: #999;
+        margin-top: 5px;
+      }
+
+      /* Download Button */
+      .download-btn {
+        background: linear-gradient(135deg, #28a745, #20c997);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 0.9em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .download-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+      }
+
+      .download-btn:before {
+        content: "📥";
+        font-size: 1.2em;
+      }
+
+      @media (max-width: 768px) {
+        .letter-header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .memories-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .letter-content {
+          font-size: 1em;
+        }
+
+        .quote-text {
+          font-size: 1.1em;
+        }
       }
     </style>
   </head>
   <body>
-    <!-- NAVIGATION MENU -->
-    <nav class="nav-menu" id="navMenu">
-      <div class="nav-container">
-        <a href="index.html" class="nav-logo">💕 Love Story</a>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html">Trang chủ</a></li>
-          <li><a href="counter.html">Thời gian</a></li>
-          <li><a href="timeline.html">Kỷ niệm</a></li>
-          <li><a href="gallery.html" class="active">Ảnh</a></li>
-          <li><a href="message.html">Lời nhắn</a></li>
-        </ul>
-        <div
-          class="mobile-menu-toggle"
-          onclick="toggleMobileMenu()"
-          id="mobileToggle"
-        >
-          ☰
+    <div class="floating-hearts" id="heartsContainer"></div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+      <ul class="nav-links">
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="counter.html">Thời gian</a></li>
+        <li><a href="timeline.html">Kỷ niệm</a></li>
+        <li><a href="gallery.html">Ảnh</a></li>
+        <li><a href="message.html" class="active">Lời nhắn</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <header class="header">
+        <h1>💌 Thư Tình Yêu 💌</h1>
+        <p class="subtitle">Ghi lại những lời yêu thương đẹp nhất</p>
+      </header>
+
+      <!-- Main Love Letter -->
+      <div class="love-letter special-letter">
+        <div class="letter-header">
+          <div class="letter-icon">💕</div>
+          <div class="letter-info">
+            <h3>Gửi em - người anh yêu nhất</h3>
+            <div class="letter-date">Mãi mãi và bất tận</div>
+          </div>
+        </div>
+        <div class="letter-content">
+          Em yêu, từ ngày đầu tiên anh gặp em, cuộc đời anh đã hoàn toàn thay
+          đổi. Em như một tia nắng ấm áp chiếu sáng những ngày tối tăm của anh.
+          Nụ cười của em có ma lực khiến anh quên đi mọi buồn phiền, ánh mắt em
+          như chứa đựng cả vũ trụ sao trời. Anh không phải là người giỏi lời nói
+          hay viết lách, nhưng với em, anh muốn thể hiện tất cả tình yêu trong
+          trái tim mình. Em là niềm hạnh phúc lớn nhất của anh, là động lực để
+          anh cố gắng trở thành phiên bản tốt nhất của chính mình. Cảm ơn em đã
+          đến bên anh, đã yêu anh và đã cho anh cơ hội được yêu một người tuyệt
+          vời như em. Anh hứa sẽ luôn trân trọng tình yêu này và bảo vệ em bằng
+          cả trái tim mình.
+        </div>
+        <div class="letter-signature">Yêu em mãi mãi - Sơn ❤️</div>
+      </div>
+
+      <!-- Quote Section -->
+      <div class="quote-section">
+        <div class="quote-text">
+          Tình yêu không phải là nhìn vào mắt nhau, mà là cùng nhau nhìn về một
+          hướng. Em là người đồng hành tuyệt vời nhất trong cuộc hành trình này.
+        </div>
+        <div class="quote-author">- Lời tâm sự của anh</div>
+      </div>
+
+      <!-- Memories Grid -->
+      <div class="memories-grid">
+        <div class="memory-card">
+          <div class="memory-icon">🌟</div>
+          <div class="memory-title">Lần đầu gặp em</div>
+          <div class="memory-text">
+            Khoảnh khắc định mệnh khi anh biết em chính là người anh tìm kiếm
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-icon">☕</div>
+          <div class="memory-title">Ly cà phê đầu tiên</div>
+          <div class="memory-text">
+            Những câu chuyện không bao giờ kết thúc và tiếng cười giòn tan
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-icon">🎵</div>
+          <div class="memory-title">Bài hát của đôi ta</div>
+          <div class="memory-text">
+            Mỗi lần nghe là mỗi lần nhớ về những kỷ niệm đẹp bên em
+          </div>
+        </div>
+        <div class="memory-card">
+          <div class="memory-icon">🌙</div>
+          <div class="memory-title">Đêm trăng lãng mạn</div>
+          <div class="memory-text">
+            Dưới ánh trăng, anh đã thề sẽ yêu em đến hết cuộc đời
+          </div>
         </div>
       </div>
-    </nav>
-    <h1>📸 Thư Viện Ký Ức Yêu Thương</h1>
 
-    <canvas id="confetti-canvas"></canvas>
+      <!-- Message Form -->
+      <div class="message-form">
+        <h3 class="form-title">💌 Viết lời nhắn tình yêu 💌</h3>
 
-    <!-- GALLERY -->
-    <div class="gallery">
-      <!-- Ảnh 1 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🌸 Bắn dô mồm bây giờ!')"
-      >
-        <img src="img/anhglr1.jpg" alt="ảnh 1" />
-        <div class="note">AAAAAAAAAAAAAAAAAAAAAAAAAAAA</div>
-        <div class="popup-message"></div>
+        <div class="message-status" id="messageStatus"></div>
+
+        <form id="messageForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="senderName">Từ:</label>
+              <input
+                type="text"
+                id="senderName"
+                name="from"
+                placeholder="Tên của bạn"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="recipientName">Đến:</label>
+              <input
+                type="text"
+                id="recipientName"
+                name="to"
+                placeholder="Tên người nhận"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="messageSubject">Tiêu đề:</label>
+            <select id="messageSubject" name="subject" required>
+              <option value="">Chọn tiêu đề...</option>
+              <option value="💕 Anh yêu em">💕 Anh yêu em</option>
+              <option value="🌹 Nhớ em">🌹 Nhớ em</option>
+              <option value="💖 Tin nhắn tình yêu">💖 Tin nhắn tình yêu</option>
+              <option value="🌟 Em là ánh sao của anh">
+                🌟 Em là ánh sao của anh
+              </option>
+              <option value="☀️ Chào buổi sáng yêu thương">
+                ☀️ Chào buổi sáng yêu thương
+              </option>
+              <option value="🌙 Chúc ngủ ngon">🌙 Chúc ngủ ngon</option>
+              <option value="custom">Tự viết tiêu đề...</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="customSubjectGroup" style="display: none">
+            <label for="customSubject">Tiêu đề tùy chỉnh:</label>
+            <input
+              type="text"
+              id="customSubject"
+              name="customSubject"
+              placeholder="Viết tiêu đề của bạn..."
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="messageContent">Nội dung:</label>
+            <textarea
+              id="messageContent"
+              name="message"
+              placeholder="Viết những lời yêu thương của bạn ở đây..."
+              rows="6"
+              required
+            ></textarea>
+            <div class="char-counter" id="messageCounter">0 ký tự</div>
+          </div>
+
+          <div class="form-group">
+            <label for="messageSignature">Chữ ký:</label>
+            <input
+              type="text"
+              id="messageSignature"
+              name="signature"
+              placeholder="Ví dụ: Yêu em mãi mãi ❤️"
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span class="btn-text">💕 Lưu lời nhắn tình yêu</span>
+            <div class="loading"></div>
+          </button>
+        </form>
+
+        <button class="download-btn" onclick="downloadAllMessages()">
+          Tải xuống tất cả tin nhắn
+        </button>
       </div>
 
-      <!-- Ảnh 2 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '💓 Ảnh của Sơn nè!')"
-      >
-        <img src="img/anhglr2.jpg" alt="ảnh 2" />
-        <div class="note">Suy Suy Đồ</div>
-        <div class="popup-message"></div>
+      <!-- Additional Love Letters -->
+      <div class="love-letter">
+        <div class="letter-header">
+          <div class="letter-icon">🌹</div>
+          <div class="letter-info">
+            <h3>Mỗi ngày bên em</h3>
+            <div class="letter-date">Hàng ngày</div>
+          </div>
+        </div>
+        <div class="letter-content">
+          Mỗi sáng thức dậy, điều đầu tiên anh nghĩ đến là em. Em có khỏe không?
+          Em đã ăn sáng chưa? Em có cần anh ở bên không? Những câu hỏi đơn giản
+          nhưng chứa đựng tất cả tình yêu anh dành cho em. Anh yêu cách em cười
+          khi vui, yêu cách em nghiêng đầu khi suy nghĩ, yêu cách em nắm tay anh
+          thật chặt. Những chi tiết nhỏ bé này làm nên một tình yêu to lớn trong
+          tim anh.
+        </div>
+        <div class="letter-signature">Người yêu em từng giây phút 💝</div>
       </div>
 
-      <!-- Ảnh 3 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '💑 Nhìn Cũng Cũng ĐĨ!')"
-      >
-        <img src="img/anhglr3.jpg" alt="ảnh 3" />
-        <div class="note">Bảnh VC</div>
-        <div class="popup-message"></div>
+      <div class="love-letter">
+        <div class="letter-header">
+          <div class="letter-icon">🌈</div>
+          <div class="letter-info">
+            <h3>Ước mơ về tương lai</h3>
+            <div class="letter-date">Ngày mai và mãi về sau</div>
+          </div>
+        </div>
+        <div class="letter-content">
+          Anh mơ về một ngôi nhà nhỏ với em, nơi chúng ta có thể cùng nhau nấu
+          ăn, cùng nhau xem phim, cùng nhau chăm sóc khu vườn nhỏ. Anh mơ về
+          những đứa con sẽ có đôi mắt giống em và nụ cười giống anh. Anh mơ về
+          những chuyến du lịch xa với em, khám phá những vùng đất mới, tạo ra
+          những kỷ niệm đẹp. Và quan trọng nhất, anh mơ về việc già đi bên em,
+          nhìn lại cuộc đời và thấy hạnh phúc vì đã có em.
+        </div>
+        <div class="letter-signature">Người cùng em xây giấc mơ 🏠</div>
       </div>
 
-      <!-- Ảnh 4 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🌈 bùm bùm bùm!')"
-      >
-        <img src="img/anhgrl4.jpg" alt="ảnh 4" />
-        <div class="note">Mới Ngủ Dậy</div>
-        <div class="popup-message"></div>
+      <div class="quote-section">
+        <div class="quote-text">
+          Yêu một người không phải vì họ hoàn hảo, mà vì họ làm cho cuộc sống
+          của bạn trở nên hoàn hảo
+        </div>
+        <div class="quote-author">- Sơn & Tiên Forever 💕</div>
       </div>
+    </div>
 
-      <!-- Ảnh 5 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🎶 Bỉn Bỉn!')"
-      >
-        <img src="img/anhglr5.jpg" alt="ảnh 5" />
-        <div class="note">Ok Đi Bỉn</div>
-        <div class="popup-message"></div>
-      </div>
-
-      <!-- Ảnh 6 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '📷 Tóc úp tô!')"
-      >
-        <img
-          src="img/anhglr6.jpg"
-          alt="ảnh 6"
-        />
-        <div class="note">Chuẩn bị lên màu</div>
-        <div class="popup-message"></div>
-      </div>
-
-      <!-- Ảnh 7 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '☕ Đời Buồn JQK')"
-      >
-        <img src="img/anhglr7.jpg" alt="ảnh 7" />
-        <div class="note">Đời nó bạc XỈU</div>
-        <div class="popup-message"></div>
-      </div>
-
-      <!-- Ảnh 8 -->
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🌅 Chiều hoàng hôn hôm ấy – ánh mắt em là tất cả!')"
-      >
-        <img
-          src="img/anhglr8.jpg"
-          alt="ảnh 8"
-        />
-        <div class="note">Chiều hoàng hôn ấy</div>
-        <div class="popup-message"></div>
-      </div>
-
-     
-      <!-- <div
-        class="gallery-item"
-        onclick="showWish(this, '🎂 Mừng sinh nhật em – ngày anh thấy mình may mắn nhất!')"
-      >
-        <img
-          src="img/anhglr9.jpg"
-          alt="ảnh 9"
-        />
-        <div class="note">Sinh nhật đáng nhớ</div>
-        <div class="popup-message"></div>
-      </div>
-
-      
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🎈 Những lần dỗi hờn – để anh hiểu em hơn!')"
-      >
-        <img
-          src="img/anhglr10.jpg"
-          alt="ảnh 10"
-        />
-        <div class="note">Những lần dỗi</div>
-        <div class="popup-message"></div>
-      </div>
-
-    
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '💍 Lời hứa trọn đời – một ngày nào đó...')"
-      >
-        <img
-          src="https://source.unsplash.com/400x300/?ring,love"
-          alt="ảnh 11"
-        />
-        <div class="note">Lời hứa tương lai</div>
-        <div class="popup-message"></div>
-      </div>
-
-  
-      <div
-        class="gallery-item"
-        onclick="showWish(this, '🌠 Nếu có ước – anh ước yêu em mãi mãi!')"
-      >
-        <img
-          src="https://source.unsplash.com/400x300/?stars,love"
-          alt="ảnh 12"
-        />
-        <div class="note">Ước mơ đôi mình</div>
-        <div class="popup-message"></div>
-      </div>
-    </div> -->
-
-    <!-- Confetti Library -->
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
-      const confettiInstance = confetti.create(
-        document.getElementById("confetti-canvas"),
-        {
-          resize: true,
-          useWorker: true,
-        }
-      );
-
-      function fireConfetti() {
-        const duration = 2000;
-        const end = Date.now() + duration;
-
-        const interval = setInterval(() => {
-          if (Date.now() > end) return clearInterval(interval);
-          confettiInstance({
-            particleCount: 70,
-            spread: 90,
-            origin: { y: 0.6 },
-          });
-        }, 200);
-      }
-  function toggleMobileMenu() {
-  const navLinks = document.getElementById('navLinks');
-  const toggle = document.getElementById('mobileToggle');
-  
-  navLinks.classList.toggle('active');
-  
-  // Animate toggle icon
-  if (navLinks.classList.contains('active')) {
-    toggle.style.transform = 'rotate(90deg)';
-    toggle.textContent = '✕'; 
-  } else {
-    toggle.style.transform = 'rotate(0deg)';
-    toggle.textContent = '☰';  
-  }
-}
-      function showWish(elem, message) {
-        const msgBox = elem.querySelector(".popup-message");
-        msgBox.textContent = message;
-        msgBox.style.display = "block";
-        fireConfetti();
+      // Floating Hearts Animation
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "💕";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDelay = Math.random() * 3 + "s";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        document.getElementById("heartsContainer").appendChild(heart);
 
         setTimeout(() => {
-          msgBox.style.display = "none";
-        }, 2500);
+          heart.remove();
+        }, 6000);
       }
-    </script>
-    <script>
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const expireTime = parseInt(localStorage.getItem("loginExpire"));
 
-      if (!isLoggedIn || !expireTime || Date.now() > expireTime) {
-        alert("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
-        localStorage.clear();
-        window.location.href = "login.html";
+      setInterval(createHeart, 1500);
+
+      // Character counter
+      function setupCharCounter() {
+        const textarea = document.getElementById("messageContent");
+        const counter = document.getElementById("messageCounter");
+
+        textarea.addEventListener("input", function () {
+          const length = this.value.length;
+          counter.textContent = `${length} ký tự`;
+
+          if (length > 500) {
+            counter.style.color = "#ff6b6b";
+          } else {
+            counter.style.color = "#999";
+          }
+        });
       }
+
+      setupCharCounter();
+
+      // Handle custom subject
+      document
+        .getElementById("messageSubject")
+        .addEventListener("change", function () {
+          const customGroup = document.getElementById("customSubjectGroup");
+          if (this.value === "custom") {
+            customGroup.style.display = "block";
+            document.getElementById("customSubject").required = true;
+          } else {
+            customGroup.style.display = "none";
+            document.getElementById("customSubject").required = false;
+          }
+        });
+
+      // Show status message
+      function showStatus(message, type) {
+        const statusDiv = document.getElementById("messageStatus");
+        statusDiv.textContent = message;
+        statusDiv.className = `message-status ${type}`;
+        statusDiv.style.display = "block";
+
+        setTimeout(() => {
+          statusDiv.style.display = "none";
+        }, 5000);
+      }
+
+      // Save message to localStorage and download
+      function saveMessage(messageData) {
+        // Get existing messages
+        let messages = JSON.parse(localStorage.getItem("loveMessages") || "[]");
+
+        // Add new message
+        messages.push(messageData);
+
+        // Save to localStorage
+        localStorage.setItem("loveMessages", JSON.stringify(messages));
+
+        // Create file content
+        const fileContent = formatMessageForFile(messageData);
+
+        // Download individual message
+        downloadTextFile(fileContent, `tin-nhan-${Date.now()}thutinh.txt`);
+
+        return messages;
+      }
+
+      // Format message for file
+      function formatMessageForFile(data) {
+        const separator = "─".repeat(50);
+        return `${separator}
+💌 THƯ TÌNH YÊU 💌
+${separator}
+
+Từ: ${data.from}
+Đến: ${data.to}
+Tiêu đề: ${data.subject}
+Ngày: ${data.date}
+
+${separator}
+NỘI DUNG:
+${separator}
+
+${data.message}
+
+${separator}
+${data.signature}
+${separator}
+
+Được tạo từ Love Story Website
+${new Date().toLocaleString("vi-VN")}
+`;
+      }
+
+      // Download text file
+      function downloadTextFile(content, filename) {
+        const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }
+
+      // Download all messages
+      function downloadAllMessages() {
+        const messages = JSON.parse(
+          localStorage.getItem("loveMessages") || "[]"
+        );
+
+        if (messages.length === 0) {
+          showStatus("❌ Chưa có tin nhắn nào để tải xuống!", "error");
+          return;
+        }
+
+        let allContent = `${"═".repeat(60)}
+💕 TẤT CẢ TIN NHẮN TÌNH YÊU 💕
+${"═".repeat(60)}
+
+Tổng số tin nhắn: ${messages.length}
+Ngày tạo file: ${new Date().toLocaleString("vi-VN")}
+
+`;
+
+        messages.forEach((msg, index) => {
+          allContent += `
+${"─".repeat(50)}
+TIN NHẮN ${index + 1}
+${"─".repeat(50)}
+
+Từ: ${msg.from}
+Đến: ${msg.to}
+Tiêu đề: ${msg.subject}
+Ngày: ${msg.date}
+
+${msg.message}
+
+${msg.signature}
+
+`;
+        });
+
+        allContent += `${"═".repeat(60)}
+Được tạo từ Love Story Website
+${new Date().toLocaleString("vi-VN")}
+${"═".repeat(60)}`;
+
+        downloadTextFile(allContent, "tat-ca-tin-nhan-tinh-yeu.txt");
+        showStatus("📥 Đã tải xuống tất cả tin nhắn thành công!", "success");
+      }
+
+      // Create sparkle effect
+      function createSparkleEffect(element) {
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => {
+            const sparkle = document.createElement("div");
+            sparkle.innerHTML = "✨";
+            sparkle.style.position = "fixed";
+            sparkle.style.left =
+              element.getBoundingClientRect().left +
+              Math.random() * element.offsetWidth +
+              "px";
+            sparkle.style.top =
+              element.getBoundingClientRect().top +
+              Math.random() * element.offsetHeight +
+              "px";
+            sparkle.style.pointerEvents = "none";
+            sparkle.style.fontSize = "20px";
+            sparkle.style.zIndex = "9999";
+            sparkle.style.animation = "sparkleFloat 2s ease-out forwards";
+
+            document.body.appendChild(sparkle);
+
+            setTimeout(() => {
+              if (sparkle.parentNode) {
+                sparkle.parentNode.removeChild(sparkle);
+              }
+            }, 2000);
+          }, i * 100);
+        }
+      }
+
+      // Add sparkle animation CSS
+      const sparkleStyle = document.createElement("style");
+      sparkleStyle.textContent = `
+            @keyframes sparkleFloat {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) scale(1);
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-100px) scale(0.5);
+                }
+            }
+        `;
+      document.head.appendChild(sparkleStyle);
+
+      // Create new love letter on page
+      function createNewLoveLetter(data) {
+        const letterElement = document.createElement("div");
+        letterElement.className = "love-letter";
+        letterElement.style.opacity = "0";
+        letterElement.style.transform = "translateY(30px)";
+        letterElement.innerHTML = `
+                <div class="letter-header">
+                    <div class="letter-icon">💌</div>
+                    <div class="letter-info">
+                        <h3>${data.subject}</h3>
+                        <div class="letter-date">Vừa viết - ${data.date}</div>
+                    </div>
+                </div>
+                <div class="letter-content">
+                    ${data.message.replace(/\n/g, "<br>")}
+                </div>
+                <div class="letter-signature">${data.signature}</div>
+            `;
+
+        // Insert before the form
+        const form = document.querySelector(".message-form");
+        form.parentNode.insertBefore(letterElement, form);
+
+        // Animate in
+        setTimeout(() => {
+          letterElement.style.transition =
+            "opacity 0.6s ease, transform 0.6s ease";
+          letterElement.style.opacity = "1";
+          letterElement.style.transform = "translateY(0)";
+        }, 100);
+
+        // Scroll to new letter
+        setTimeout(() => {
+          letterElement.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 300);
+      }
+
+      // Form submission handler
+      document
+        .getElementById("messageForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const submitBtn = this.querySelector(".submit-btn");
+          const btnText = submitBtn.querySelector(".btn-text");
+          const loading = submitBtn.querySelector(".loading");
+
+          // Show loading state
+          submitBtn.disabled = true;
+          btnText.style.opacity = "0";
+          loading.classList.add("active");
+
+          const formData = new FormData(this);
+
+          // Get subject (handle custom subject)
+          let subject = formData.get("subject");
+          if (subject === "custom") {
+            subject = formData.get("customSubject");
+          }
+
+          const messageData = {
+            from: formData.get("from"),
+            to: formData.get("to"),
+            subject: subject,
+            message: formData.get("message"),
+            signature:
+              formData.get("signature") ||
+              `Với tình yêu - ${formData.get("from")} ❤️`,
+            date: new Date().toLocaleString("vi-VN"),
+            timestamp: Date.now(),
+          };
+
+          // Simulate processing time
+          setTimeout(() => {
+            try {
+              // Save message
+              const allMessages = saveMessage(messageData);
+
+              // Hide loading state
+              submitBtn.disabled = false;
+              btnText.style.opacity = "1";
+              loading.classList.remove("active");
+
+              // Show success message
+              showStatus(
+                "💕 Tin nhắn đã được lưu và tải xuống thành công! 💕",
+                "success"
+              );
+
+              // Add sparkle effect
+              createSparkleEffect(submitBtn);
+
+              // Create new love letter on page
+              createNewLoveLetter(messageData);
+
+              // Reset form
+              this.reset();
+              document.getElementById("messageCounter").textContent = "0 ký tự";
+              document.getElementById("customSubjectGroup").style.display =
+                "none";
+            } catch (error) {
+              console.error("Error saving message:", error);
+
+              // Hide loading state
+              submitBtn.disabled = false;
+              btnText.style.opacity = "1";
+              loading.classList.remove("active");
+
+              showStatus(
+                "❌ Có lỗi xảy ra khi lưu tin nhắn. Vui lòng thử lại.",
+                "error"
+              );
+            }
+          }, 1500); // 1.5 second delay for effect
+        });
+
+      // Typing effect for quotes
+      function typeEffect(element, text, speed = 50) {
+        let i = 0;
+        element.textContent = "";
+        const timer = setInterval(() => {
+          if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+          } else {
+            clearInterval(timer);
+          }
+        }, speed);
+      }
+
+      // Apply typing effect to quotes when they come into view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !entry.target.dataset.typed) {
+            const quoteText = entry.target.querySelector(".quote-text");
+            if (quoteText) {
+              const originalText = quoteText.textContent;
+              typeEffect(quoteText, originalText, 30);
+              entry.target.dataset.typed = "true";
+            }
+          }
+        });
+      });
+
+      document.querySelectorAll(".quote-section").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Add sparkles to special letters periodically
+      setInterval(() => {
+        const specialLetters = document.querySelectorAll(".special-letter");
+        specialLetters.forEach((letter) => {
+          if (Math.random() < 0.3) {
+            // 30% chance
+            addSparkles(letter);
+          }
+        });
+      }, 3000);
+
+      function addSparkles(element) {
+        const sparkle = document.createElement("div");
+        sparkle.innerHTML = "✨";
+        sparkle.style.position = "absolute";
+        sparkle.style.left = Math.random() * 100 + "%";
+        sparkle.style.top = Math.random() * 100 + "%";
+        sparkle.style.pointerEvents = "none";
+        sparkle.style.fontSize = "20px";
+        sparkle.style.opacity = "0";
+        sparkle.style.transition = "opacity 0.5s ease";
+
+        element.style.position = "relative";
+        element.appendChild(sparkle);
+
+        setTimeout(() => {
+          sparkle.style.opacity = "1";
+        }, 100);
+
+        setTimeout(() => {
+          sparkle.style.opacity = "0";
+          setTimeout(() => {
+            if (sparkle.parentNode) {
+              sparkle.parentNode.removeChild(sparkle);
+            }
+          }, 500);
+        }, 2000);
+      }
+
+      // Memory card hover effects
+      document.querySelectorAll(".memory-card").forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transform = "translateY(-10px) scale(1.05)";
+        });
+
+        card.addEventListener("mouseleave", function () {
+          this.style.transform = "translateY(0) scale(1)";
+        });
+      });
+
+      // Auto-save drafts
+      function saveDraft() {
+        const formData = new FormData(document.getElementById("messageForm"));
+        const draft = {};
+
+        for (let [key, value] of formData.entries()) {
+          draft[key] = value;
+        }
+
+        localStorage.setItem("messageDraft", JSON.stringify(draft));
+      }
+
+      function loadDraft() {
+        const draft = localStorage.getItem("messageDraft");
+        if (draft) {
+          const data = JSON.parse(draft);
+          const form = document.getElementById("messageForm");
+
+          Object.keys(data).forEach((key) => {
+            const input = form.querySelector(`[name="${key}"]`);
+            if (input && data[key]) {
+              input.value = data[key];
+
+              // Handle custom subject
+              if (key === "subject" && data[key] === "custom") {
+                document.getElementById("customSubjectGroup").style.display =
+                  "block";
+                document.getElementById("customSubject").required = true;
+              }
+
+              // Update character counter
+              if (key === "message") {
+                document.getElementById(
+                  "messageCounter"
+                ).textContent = `${data[key].length} ký tự`;
+              }
+            }
+          });
+        }
+      }
+
+      // Load draft on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        loadDraft();
+      });
+
+      // Save draft periodically
+      setInterval(saveDraft, 30000); // Save every 30 seconds
+
+      // Clear draft when form is submitted successfully
+      document
+        .getElementById("messageForm")
+        .addEventListener("submit", function () {
+          setTimeout(() => {
+            localStorage.removeItem("messageDraft");
+          }, 2000);
+        });
+
+      // Display message count
+      function updateMessageCount() {
+        const messages = JSON.parse(
+          localStorage.getItem("loveMessages") || "[]"
+        );
+        const downloadBtn = document.querySelector(".download-btn");
+
+        if (messages.length > 0) {
+          downloadBtn.innerHTML = `📥 Tải xuống tất cả tin nhắn (${messages.length})`;
+        } else {
+          downloadBtn.innerHTML = `📥 Tải xuống tất cả tin nhắn`;
+        }
+      }
+
+      // Update message count on page load
+      document.addEventListener("DOMContentLoaded", updateMessageCount);
     </script>
   </body>
 </html>
