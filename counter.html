@@ -4,8 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thời Gian - Love Story</title>
-    <!-- Load Authentication Script -->
-    <script src="auth.js"></script>
     <style>
       * {
         margin: 0;
@@ -251,6 +249,126 @@
         opacity: 0.9;
       }
 
+      /* Birthdays Section */
+      .birthdays {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .birthdays h3 {
+        color: #667eea;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .birthday-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .birthday-item {
+        background: linear-gradient(135deg, #ff9a9e, #fecfef);
+        color: #333;
+        padding: 18px 12px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(255, 154, 158, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .birthday-item:hover {
+        transform: translateY(-3px);
+      }
+
+      .birthday-icon {
+        font-size: 2em;
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .birthday-name {
+        font-size: 1em;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+      }
+
+      .birthday-date {
+        font-size: 1.1em;
+        color: #667eea;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .birthday-countdown {
+        font-size: 0.85em;
+        font-weight: 500;
+        color: #666;
+        font-style: italic;
+      }
+
+      /* Special Days Section */
+      .special-days {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 25px 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .special-days h3 {
+        color: #667eea;
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 600;
+      }
+
+      .special-day-item {
+        background: linear-gradient(135deg, #84fab0, #8fd3f4);
+        padding: 15px;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 12px rgba(132, 250, 176, 0.3);
+        transition: transform 0.3s ease;
+      }
+
+      .special-day-item:hover {
+        transform: translateY(-2px);
+      }
+
+      .special-day-icon {
+        font-size: 1.5em;
+        min-width: 40px;
+        flex-shrink: 0;
+      }
+
+      .special-day-content {
+        flex: 1;
+      }
+
+      .special-day-content h4 {
+        color: #333;
+        font-size: 1em;
+        margin-bottom: 3px;
+        font-weight: 600;
+      }
+
+      .special-day-content p {
+        color: #666;
+        font-size: 0.85em;
+        line-height: 1.4;
+      }
+
       /* Milestones */
       .milestones {
         background: rgba(255, 255, 255, 0.95);
@@ -376,67 +494,38 @@
           font-size: 0.8em;
         }
 
-        .detailed-counter {
-          padding: 20px 12px;
-        }
-
-        .detailed-counter h3 {
-          font-size: 1em;
-        }
-
-        .detail-grid {
-          gap: 10px;
-        }
-
-        .detail-item {
-          padding: 12px 6px;
-        }
-
-        .detail-number {
-          font-size: 1.1em;
-        }
-
-        .detail-label {
-          font-size: 0.7em;
-        }
-
+        .detailed-counter,
+        .birthdays,
+        .special-days,
         .milestones {
           padding: 20px 12px;
         }
 
-        .milestones h3 {
-          font-size: 1em;
+        .detail-grid,
+        .birthday-grid {
+          gap: 10px;
         }
 
+        .detail-item,
+        .birthday-item {
+          padding: 12px 6px;
+        }
+
+        .special-day-item,
         .milestone-item {
           padding: 12px;
           gap: 10px;
           margin-bottom: 10px;
         }
 
+        .special-day-icon,
         .milestone-icon {
           font-size: 1.3em;
           min-width: 35px;
         }
 
-        .milestone-content h4 {
-          font-size: 0.9em;
-        }
-
-        .milestone-content p {
-          font-size: 0.8em;
-        }
-
         .special-message {
           padding: 20px 12px;
-        }
-
-        .special-message .quote {
-          font-size: 0.9em;
-        }
-
-        .special-message .author {
-          font-size: 0.85em;
         }
       }
 
@@ -447,17 +536,10 @@
           padding-bottom: 100px;
         }
 
-        .counter-grid {
+        .counter-grid,
+        .birthday-grid {
           grid-template-columns: 1fr;
           gap: 10px;
-        }
-
-        .counter-item {
-          padding: 18px 12px;
-        }
-
-        .counter-number {
-          font-size: 2em;
         }
 
         .detail-grid {
@@ -465,59 +547,25 @@
           gap: 8px;
         }
 
-        .detail-item {
-          padding: 15px 10px;
-        }
-
-        .detail-number {
-          font-size: 1.4em;
-        }
-
+        .special-day-item,
         .milestone-item {
           flex-direction: column;
           text-align: center;
           padding: 15px;
         }
 
+        .special-day-icon,
         .milestone-icon {
           font-size: 1.8em;
           margin-bottom: 5px;
         }
       }
 
-      /* Landscape mobile optimization */
-      @media (max-width: 812px) and (orientation: landscape) {
-        .header {
-          padding: 15px;
-          margin-bottom: 15px;
-        }
-
-        .header h1 {
-          font-size: 1.4em;
-        }
-
-        .main-counter,
-        .detailed-counter,
-        .milestones,
-        .special-message {
-          padding: 15px;
-          margin-bottom: 15px;
-        }
-
-        .counter-grid {
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-        }
-
-        .detail-grid {
-          grid-template-columns: repeat(3, 1fr);
-          gap: 8px;
-        }
-      }
-
       /* Loading animations */
       .counter-number,
-      .detail-number {
+      .detail-number,
+      .birthday-countdown,
+      .time-number {
         transition: all 0.5s ease;
       }
 
@@ -545,8 +593,18 @@
 
         .counter-item:hover,
         .detail-item:hover,
+        .birthday-item:hover,
+        .special-day-item:hover,
         .milestone-item:hover {
           transform: none;
+        }
+
+        .birthday-item.birthday-today {
+          animation: none;
+        }
+
+        .birthday-countdown.today {
+          animation: none;
         }
       }
     </style>
@@ -623,8 +681,27 @@
         </div>
       </div>
 
+      <!-- Birthdays Section -->
+      <div class="birthdays">
+        <h3>🎂 Sinh nhật của chúng ta</h3>
+        <div class="birthday-grid">
+          <div class="birthday-item" id="birthdayBoyCard">
+            <span class="birthday-icon">🎈</span>
+            <div class="birthday-name">Sinh nhật Anh</div>
+            <div class="birthday-date">30 tháng 10</div>
+            <div class="birthday-countdown">Ngày sinh của anh</div>
+          </div>
+          <div class="birthday-item" id="birthdayGirlCard">
+            <span class="birthday-icon">🌸</span>
+            <div class="birthday-name">Sinh nhật Em</div>
+            <div class="birthday-date">25 tháng 1</div>
+            <div class="birthday-countdown">Ngày sinh của em</div>
+          </div>
+        </div>
+      </div>
+
       <div class="milestones">
-        <h3>Các mốc thời gian đặc biệt</h3>
+        <h3>🎯 Các mốc thời gian đặc biệt</h3>
         <div class="milestone-item">
           <div class="milestone-icon">🎉</div>
           <div class="milestone-content">
@@ -691,6 +768,121 @@
         element.textContent = newValue.toLocaleString();
       }
 
+      // Calculate detailed time until next occurrence of a date
+      function timeUntilDate(month, day) {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        let targetDate = new Date(currentYear, month - 1, day, 0, 0, 0, 0); // Set to start of day
+
+        // Check if today is the birthday
+        const today = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        );
+        const birthdayToday = new Date(currentYear, month - 1, day);
+
+        if (today.getTime() === birthdayToday.getTime()) {
+          return { days: 0, hours: 0, minutes: 0, isToday: true };
+        }
+
+        // If the date has already passed this year, calculate for next year
+        if (targetDate <= now) {
+          targetDate = new Date(currentYear + 1, month - 1, day, 0, 0, 0, 0);
+        }
+
+        const timeDiff = targetDate - now;
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+
+        return { days, hours, minutes, isToday: false };
+      }
+
+      // Calculate days until next occurrence of a date (simple version)
+      function daysUntilDate(month, day) {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        let targetDate = new Date(currentYear, month - 1, day, 0, 0, 0, 0);
+
+        // Check if today is the target date
+        const today = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          now.getDate()
+        );
+        const targetToday = new Date(currentYear, month - 1, day);
+
+        if (today.getTime() === targetToday.getTime()) {
+          return 0; // Today is the day!
+        }
+
+        // If the date has already passed this year, calculate for next year
+        if (targetDate <= now) {
+          targetDate = new Date(currentYear + 1, month - 1, day, 0, 0, 0, 0);
+        }
+
+        const timeDiff = targetDate - now;
+        return Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      }
+
+      // Update special days countdown
+      function updateSpecialDays() {
+        // Special days
+        const daysToValentine = daysUntilDate(2, 14);
+        const daysToMarch8 = daysUntilDate(3, 8);
+        const daysToWomenDay = daysUntilDate(10, 20);
+        const daysToChristmas = daysUntilDate(12, 25);
+        const daysToNewYear = daysUntilDate(1, 1);
+        const daysToAnniversary = daysUntilDate(9, 4);
+
+        document.getElementById("daysToValentine").textContent =
+          daysToValentine === 0 ? "Hôm nay! 💕" : daysToValentine;
+        document.getElementById("daysToMarch8").textContent =
+          daysToMarch8 === 0 ? "Hôm nay! 🌸" : daysToMarch8;
+        document.getElementById("daysToWomenDay").textContent =
+          daysToWomenDay === 0 ? "Hôm nay! 🌹" : daysToWomenDay;
+        document.getElementById("daysToChristmas").textContent =
+          daysToChristmas === 0 ? "Hôm nay! 🎄" : daysToChristmas;
+        document.getElementById("daysToNewYear").textContent =
+          daysToNewYear === 0 ? "Hôm nay! 🎆" : daysToNewYear;
+        document.getElementById("daysToAnniversary").textContent =
+          daysToAnniversary === 0 ? "Hôm nay! 🎁" : daysToAnniversary;
+
+        // Update text for special days with special styling for today
+        if (daysToValentine === 0) {
+          document.getElementById("valentine").innerHTML =
+            "14 tháng 2 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 💕</span>";
+        }
+
+        if (daysToMarch8 === 0) {
+          document.getElementById("march8").innerHTML =
+            "8 tháng 3 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 🌸</span>";
+        }
+
+        if (daysToWomenDay === 0) {
+          document.getElementById("womenDay").innerHTML =
+            "20 tháng 10 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 🌹</span>";
+        }
+
+        if (daysToChristmas === 0) {
+          document.getElementById("christmas").innerHTML =
+            "25 tháng 12 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 🎄</span>";
+        }
+
+        if (daysToNewYear === 0) {
+          document.getElementById("newYear").innerHTML =
+            "1 tháng 1 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 🎆</span>";
+        }
+
+        if (daysToAnniversary === 0) {
+          document.getElementById("anniversary").innerHTML =
+            "4 tháng 9 - <span style='color: #ff69b4; font-weight: bold;'>Hôm nay! 🎁</span>";
+        }
+      }
+
       // Love Counter
       function updateCounter() {
         const startDate = new Date("2024-09-04T00:00:00");
@@ -753,6 +945,12 @@
         } else {
           document.getElementById("daysTo1000").textContent = 1000 - totalDays;
         }
+
+        // Update birthday countdowns
+        updateBirthdayCountdowns();
+
+        // Update special days
+        updateSpecialDays();
       }
 
       updateCounter();
@@ -760,7 +958,9 @@
 
       // Touch feedback for mobile
       document
-        .querySelectorAll(".counter-item, .detail-item, .milestone-item")
+        .querySelectorAll(
+          ".counter-item, .detail-item, .birthday-item, .special-day-item, .milestone-item"
+        )
         .forEach((item) => {
           item.addEventListener("touchstart", function () {
             this.style.transform = "scale(0.95)";
@@ -770,6 +970,67 @@
             this.style.transform = "";
           });
         });
+
+      // Special birthday celebration effects
+      function createBirthdayFireworks() {
+        const colors = ["🎆", "🎇", "✨", "🎊", "🎉"];
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => {
+            const firework = document.createElement("div");
+            firework.style.position = "fixed";
+            firework.style.left = Math.random() * 100 + "%";
+            firework.style.top = Math.random() * 100 + "%";
+            firework.style.fontSize = "2em";
+            firework.style.zIndex = "9999";
+            firework.style.pointerEvents = "none";
+            firework.innerHTML =
+              colors[Math.floor(Math.random() * colors.length)];
+            firework.style.animation = "celebration-pop 2s ease-out forwards";
+
+            document.body.appendChild(firework);
+
+            setTimeout(() => {
+              firework.remove();
+            }, 2000);
+          }, i * 200);
+        }
+      }
+
+      // Add celebration animation CSS
+      const celebrationStyle = document.createElement("style");
+      celebrationStyle.textContent = `
+        @keyframes celebration-pop {
+          0% {
+            transform: scale(0) rotate(0deg);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.2) rotate(180deg);
+            opacity: 1;
+          }
+          100% {
+            transform: scale(0.8) rotate(360deg);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(celebrationStyle);
+
+      // Check if it's someone's birthday and trigger celebration
+      function checkBirthdayAndCelebrate() {
+        const boyBirthday = timeUntilDate(10, 30);
+        const girlBirthday = timeUntilDate(1, 25);
+
+        if (boyBirthday.isToday || girlBirthday.isToday) {
+          // Trigger celebration effects every 30 seconds on birthday
+          setInterval(createBirthdayFireworks, 30000);
+          // Immediate celebration
+          setTimeout(createBirthdayFireworks, 1000);
+        }
+      }
+
+      // Initialize birthday celebration check
+      setTimeout(checkBirthdayAndCelebrate, 2000);
     </script>
   </body>
 </html>
