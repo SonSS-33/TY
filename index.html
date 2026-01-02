@@ -127,6 +127,28 @@
       }
 
       /* Header */
+      .banner-newyear {
+        position: relative;
+        overflow: hidden;
+      }
+
+      #snow {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+      }
+
+      .banner-img {
+        position: relative;
+        z-index: 1;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 3;
+      }
+
       .header {
         text-align: center;
         margin-bottom: 30px;
@@ -1009,13 +1031,18 @@
 
     <div class="container">
       <!-- Header -->
-      <header class="header">
+      <header class="header banner-newyear">
+        <!-- Snow canvas -->
+        <canvas id="snow"></canvas>
+
+        <!-- Banner image -->
         <img
           src="img/banner-love.png"
           alt="Couple - Cặp đôi"
           class="banner-img"
         />
 
+        <!-- Text -->
         <div class="header-content">
           <h1>💕 Panda Story 💕</h1>
           <p class="subtitle">ST MIX HY JIVIT</p>
@@ -1710,6 +1737,63 @@
             }
         `;
       document.head.appendChild(particleStyle);
+    </script>
+    <script>
+      const canvas = document.getElementById("snow");
+      const header = document.querySelector(".header");
+      const ctx = canvas.getContext("2d");
+
+      const flowerImg = new Image();
+      flowerImg.src = "img/anhbay.jpg";
+
+      function resizeCanvas() {
+        canvas.width = header.clientWidth;
+        canvas.height = header.clientHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      let flowers = [];
+
+      function createFlowers() {
+        flowers = Array.from({ length: 40 }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 18 + 18,
+          speedY: Math.random() * 1.2 + 0.6,
+          speedX: Math.random() * 0.6 - 0.3,
+          rotation: Math.random() * 360,
+          rotationSpeed: Math.random() * 0.5 - 0.25,
+        }));
+      }
+
+      function drawFlowers() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        flowers.forEach((f) => {
+          ctx.save();
+          ctx.translate(f.x, f.y);
+          ctx.rotate((f.rotation * Math.PI) / 180);
+          ctx.drawImage(flowerImg, -f.size / 2, -f.size / 2, f.size, f.size);
+          ctx.restore();
+
+          f.y += f.speedY;
+          f.x += f.speedX;
+          f.rotation += f.rotationSpeed;
+
+          if (f.y > canvas.height + 20) {
+            f.y = -20;
+            f.x = Math.random() * canvas.width;
+          }
+        });
+
+        requestAnimationFrame(drawFlowers);
+      }
+
+      flowerImg.onload = () => {
+        createFlowers();
+        drawFlowers();
+      };
     </script>
   </body>
 </html>
