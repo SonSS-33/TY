@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
   <head>
     <meta charset="UTF-8" />
@@ -7,6 +7,22 @@
     <!-- Load Authentication Script -->
     <!-- <script src="auth.js"></script> -->
     <style>
+      .timeline-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+
+      .timeline-item {
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .timeline-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      }
+
       * {
         margin: 0;
         padding: 0;
@@ -469,22 +485,24 @@
           </div>
         </div>
 
-        <div class="timeline-item">
-          <div class="timeline-icon">🌸</div>
-          <div class="timeline-content">
-            <div class="timeline-date">14/02/2024</div>
-            <h3 class="timeline-title">Valentine đầu tiên</h3>
-            <p class="timeline-description">
-              Ngày Valentine đầu tiên của chúng ta. Anh đã dành cả tuần để lên
-              kế hoạch cho một ngày hoàn hảo. Bữa tối lãng mạn, những bông hoa
-              hồng đỏ thắm, và lời hứa sẽ yêu em mãi mãi. Em đã nói rằng đây là
-              Valentine đẹp nhất mà em từng có.
-            </p>
-            <div class="timeline-image">
-              <img src="img/anhnam.jpg" alt="Valentine đầu tiên" />
+        <a href="valentine.html" class="timeline-link">
+          <div class="timeline-item">
+            <div class="timeline-icon">🌸</div>
+            <div class="timeline-content">
+              <div class="timeline-date">14/02/2025</div>
+              <h3 class="timeline-title">Valentine của 2 ta</h3>
+              <p class="timeline-description">
+                Anh đã nghĩ rất nhiều để ngày hôm nay trở nên thật đặc biệt.
+                Nhưng rồi anh biết em đang trên xe về quê. Không ở cạnh nhau,
+                không có bữa tối hay nắm tay lãng mạn nữa... Dù khoảng cách xa,
+                anh vẫn luôn nhớ về em và yêu em mãi mãi.
+              </p>
+              <div class="timeline-image">
+                <img src="img/anh14.jpg" alt="Valentine đầu tiên" />
+              </div>
             </div>
           </div>
-        </div>
+        </a>
 
         <div class="timeline-item future">
           <div class="timeline-icon">💍</div>
